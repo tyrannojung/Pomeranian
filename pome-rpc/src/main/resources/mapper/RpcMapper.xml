@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pomeranian.rpc.mapper.RpcMapper">
+	
+	<select id="tokenContractDetail"  resultType="TokenDTO">
+		SELECT
+			*
+		FROM
+			token
+		WHERE
+			token_type = #{token_type}
+		AND
+			token_contract = #{token_contract}
+	</select>
+	
+	<select id="bridgeTokenSearchList" resultType="TokenDTO">
+		SELECT
+			*
+		FROM
+			token
+		WHERE
+			token_type = #{token_type}
+		AND
+			(
+				token_name LIKE CONCAT('%', #{token_name}, '%')
+			OR
+				token_symbol LIKE CONCAT('%', #{token_name}, '%')
+			)
+		AND
+			token_name IS not NULL
+		AND
+			token_img IS not NULL
+		ORDER BY
+			token_volume desc
+		Limit 10;
+	</select>
+	
+	<insert id="tokenContractUpdate">
+		<![CDATA[
+		INSERT
+			INTO
+		token(
+			token_type
+			, token_contract
+			, token_symbol
+			, token_decimals
+			, token_volume
+		) 
+		VALUES(
+			#{token_type}
+			, #{token_contract}
+			, #{token_symbol}
+			, #{token_decimals}
+			, 1
+			)
+		]]>	
+	</insert>
+	
+	<update id="tokenContractVolumeUpdate">
+		UPDATE
+			token
+		SET
+			token_volume = token_volume + 1
+		WHERE
+			token_contract = #{token_contract}
+	</update>
+	
+	
+	
+</mapper>

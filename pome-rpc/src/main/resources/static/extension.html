@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="https://kthulu.io/common/js/kthulu.js"></script>
+	<script>
+		function check() {
+			console.log(cli_checkKthulu());
+		}
+		
+		function login() {
+			cli_connectKthulu("LOGIN").then(data => {
+			       if(data['kthulu']['result'] == "OK") {
+			       	console.log(data);
+			       	//console.log(data['kthulu']['wallets']);
+			           // 다음동작
+			           
+			     } else {
+			         console.log("로그인 실패");
+			         
+			     }
+			       
+			   }).catch(error => {
+			   	alert("Fail to connect Kthulu(error message : " + error + ")");
+			   	return false;
+			   	
+			   });
+		}
+		
+		function logout() {
+			cli_connectKthulu("LOGOUT").then(data => {
+			       if(data['kthulu']['result'] == "OK") {
+			       	console.log(data);
+			       	//console.log('로그아웃 성공');
+			        	// 다음동작
+			           
+			     } else {
+			         console.log("로그아웃 실패");
+			         
+			     }
+			       
+			   }).catch(error => {
+			   	alert("Fail to connect Kthulu(error message : " + error + ")");
+			   	return false;
+			   	
+			   }); 
+		}
+	</script>
+</head>
+<body>
+	<button onclick="check()">연동체크</button>
+	<button onclick="login()">로그인</button>
+	<button onclick="logout()">로그아웃</button>
+</body>
+</html>

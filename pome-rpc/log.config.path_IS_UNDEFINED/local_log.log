@@ -361,3 +361,57 @@ Caused by: java.lang.ClassNotFoundException: Cannot find class: TokenDTO
 	at org.apache.ibatis.io.Resources.classForName(Resources.java:261)
 	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:116)
 	... 85 common frames omitted
+INFO  22-08-19 11:50:26[restartedMain] [RpcApiApplication:55] - Starting RpcApiApplication using Java 1.8.0_261 on DESKTOP-NK1MHU2 with PID 18852 (D:\PROEJCT_E\Pomeranian\pome-rpc\target\classes started by web3 in D:\PROEJCT_E\Pomeranian\pome-rpc)
+INFO  22-08-19 11:50:26[restartedMain] [RpcApiApplication:640] - The following 1 profile is active: "local"
+INFO  22-08-19 11:50:26[restartedMain] [ChangeableUrls:255] - The Class-Path manifest attribute in C:\Users\web3\.m2\repository\commons-logging\commons-logging\1.0.3\commons-logging-1.0.3.jar referenced one or more files that do not exist: file:/C:/Users/web3/.m2/repository/commons-logging/commons-logging/1.0.3/log4j.jar,file:/C:/Users/web3/.m2/repository/commons-logging/commons-logging/1.0.3/log4j-core.jar
+INFO  22-08-19 11:50:26[restartedMain] [DevToolsPropertyDefaultsPostProcessor:255] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+INFO  22-08-19 11:50:26[restartedMain] [DevToolsPropertyDefaultsPostProcessor:255] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+DEBUG 22-08-19 11:50:27[restartedMain] [LogFactory:105] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+INFO  22-08-19 11:50:27[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8085 (http)
+INFO  22-08-19 11:50:27[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8085"]
+INFO  22-08-19 11:50:27[restartedMain] [StandardService:173] - Starting service [Tomcat]
+INFO  22-08-19 11:50:27[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.63]
+INFO  22-08-19 11:50:28[restartedMain] [TldScanner:173] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+INFO  22-08-19 11:50:28[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
+INFO  22-08-19 11:50:28[restartedMain] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 1231 ms
+INFO  22-08-19 11:50:28[restartedMain] [HikariDataSource:80] - TemplateHikariPool - Starting...
+DEBUG 22-08-19 11:50:28[restartedMain] [sqltiming:368] -  com.zaxxer.hikari.pool.PoolBase.executeSql(PoolBase.java:583)
+1. SELECT 1
+ {executed in 5 msec}
+INFO  22-08-19 11:50:28[restartedMain] [HikariDataSource:82] - TemplateHikariPool - Start completed.
+INFO  22-08-19 11:50:28[restartedMain] [WelcomePageHandlerMapping:57] - Adding welcome page template: index
+INFO  22-08-19 11:50:28[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
+INFO  22-08-19 11:50:28[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8085"]
+INFO  22-08-19 11:50:28[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8085 (http) with context path ''
+INFO  22-08-19 11:50:28[restartedMain] [RpcApiApplication:61] - Started RpcApiApplication in 2.389 seconds (JVM running for 3.631)
+INFO  22-08-19 11:50:32[http-nio-8085-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+INFO  22-08-19 11:50:32[http-nio-8085-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+INFO  22-08-19 11:50:32[http-nio-8085-exec-1] [DispatcherServlet:547] - Completed initialization in 1 ms
+INFO  22-08-19 11:54:55[Thread-7] [HikariDataSource:350] - TemplateHikariPool - Shutdown initiated...
+INFO  22-08-19 11:54:55[Thread-7] [HikariDataSource:352] - TemplateHikariPool - Shutdown completed.
+INFO  22-08-19 11:54:56[restartedMain] [RpcApiApplication:55] - Starting RpcApiApplication using Java 1.8.0_261 on DESKTOP-NK1MHU2 with PID 18852 (D:\PROEJCT_E\Pomeranian\pome-rpc\target\classes started by web3 in D:\PROEJCT_E\Pomeranian\pome-rpc)
+INFO  22-08-19 11:54:56[restartedMain] [RpcApiApplication:640] - The following 1 profile is active: "local"
+INFO  22-08-19 11:54:56[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8085 (http)
+INFO  22-08-19 11:54:56[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8085"]
+INFO  22-08-19 11:54:56[restartedMain] [StandardService:173] - Starting service [Tomcat]
+INFO  22-08-19 11:54:56[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.63]
+INFO  22-08-19 11:54:56[restartedMain] [TldScanner:173] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+INFO  22-08-19 11:54:56[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
+INFO  22-08-19 11:54:56[restartedMain] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 557 ms
+INFO  22-08-19 11:54:56[restartedMain] [HikariDataSource:80] - TemplateHikariPool - Starting...
+DEBUG 22-08-19 11:54:56[restartedMain] [sqltiming:368] -  com.zaxxer.hikari.pool.PoolBase.executeSql(PoolBase.java:583)
+11. SELECT 1
+ {executed in 0 msec}
+INFO  22-08-19 11:54:56[restartedMain] [HikariDataSource:82] - TemplateHikariPool - Start completed.
+INFO  22-08-19 11:54:56[restartedMain] [WelcomePageHandlerMapping:57] - Adding welcome page template: index
+INFO  22-08-19 11:54:56[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
+INFO  22-08-19 11:54:56[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8085"]
+INFO  22-08-19 11:54:56[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8085 (http) with context path ''
+INFO  22-08-19 11:54:56[restartedMain] [RpcApiApplication:61] - Started RpcApiApplication in 0.868 seconds (JVM running for 271.671)
+INFO  22-08-19 11:54:56[restartedMain] [ConditionEvaluationDeltaLoggingListener:63] - Condition evaluation unchanged
+INFO  22-08-19 11:55:15[RMI TCP Connection(8)-127.0.0.1] [SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin:159] - Application shutdown requested.
+INFO  22-08-19 11:55:15[RMI TCP Connection(9)-127.0.0.1] [SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin:159] - Application shutdown requested.
+INFO  22-08-19 11:55:16[RMI TCP Connection(10)-127.0.0.1] [SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin:159] - Application shutdown requested.
+INFO  22-08-19 11:55:16[RMI TCP Connection(11)-127.0.0.1] [SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin:159] - Application shutdown requested.
+INFO  22-08-19 11:55:16[RMI TCP Connection(8)-127.0.0.1] [HikariDataSource:350] - TemplateHikariPool - Shutdown initiated...
+INFO  22-08-19 11:55:16[RMI TCP Connection(8)-127.0.0.1] [HikariDataSource:352] - TemplateHikariPool - Shutdown completed.

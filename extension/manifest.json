@@ -9,14 +9,18 @@
     "icons": {
       "16": "/src/assets/icon16.png",
       "48": "/src/assets/icon48.png",
-     "128": "/src/assets/icon128.png"
-   }
+      "128": "/src/assets/icon128.png"
+    }
   },
   "background": {
     "service_worker": "/src/scripts/background.js"
   },
   "externally_connectable": {
-    "matches": ["http://localhost/*"]
+    "matches": [
+      "http://localhost/*"
+    ]
   },
-  "permissions": ["storage"]
+  "permissions": [
+    "storage"
+  ]
 }

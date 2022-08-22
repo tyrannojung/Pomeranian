@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>abc Kthulu</title>
+  <title>abc Pomeranian</title>
   <!-- 파비콘 -->
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="css/reset.css" />
@@ -14,14 +14,17 @@
   <script src="common/js/bignumber.js"></script>
   <script src="common/js/common.js"></script>
   <script src="common/js/ethers-v3.min.js"></script>
-  <script src="js/test.js"></script>
+  <!-- <script src="js/test.js"></script> -->
   <script src="js/main.js"></script>
+  <script src="js/service.js"></script>
+  <script src="js/sign.js"></script>
+  <script src="js/token.js"></script>
 </head>
 
 <body>
   <div class="wrap">
     <!-- 가입&잠금 -->
-    <div class="ktl ktl_signup now">
+    <div class="ktl ktl_signup">
       <div class="header">
         <div class="logo"></div>
       </div>
@@ -44,64 +47,68 @@
         <div class="logo"></div>
       </div>
       <div class="main">
+        <input type="hidden" id="kt_restore_key" />
         <div class="main_txt">
           <div>계정 복원</div>
           <div>
-            12개 또는 24개 단어의 복구용 퍼블릭키로 <br />
+            12개 단어의 복구용 퍼블릭키로 <br />
             지갑을 가져옵니다.
           </div>
         </div>
         <div class="restore_seed">
           <div>
             <span>1.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>2.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>3.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>4.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>5.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>6.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>7.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>8.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>9.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>10.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>11.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
           <div>
             <span>12.</span>
-            <input type="text" />
+            <input class="inputTextArea" type="text" />
           </div>
         </div>
-        <button class="bot_bt mov_bt" value="ktl_password">
+        <div class="err_txt" id="err_txt_seed" style="display: none">
+          <span></span> 12개의 시드를 정확히 입력해 주세요.
+        </div>
+        <button class="bot_bt" id="kt_restore_chk">
           지갑 가져오기
         </button>
       </div>
@@ -117,18 +124,24 @@
             비밀 백업 구문을 이용하면 계정을 쉽게 백업하고 복구할 수 있습니다.<br />
             경고: 비밀 복구 구문은 절대로 공개하지 마세요. 이 구문이 있는 사람은 귀하의 Ether를 영원히 소유할 수 있습니다.
           </div>
+          <div class="restore_seed" style="justify-content: center;
+          border: 1px solid var(--color-border-default);
+          border-radius: 6px;
+          background-color: var(--color-background-default);
+          ">
+            <div id="pome_seed_txt"
+              style="height: 130px; font-size: 1.125rem; line-height: 140%; font-style: normal; font-weight: normal; width: 310px; text-align: center;">
+            </div>
+          </div>
         </div>
-        <div class="restore_seed">
-        </div>
-        <button class="bot_bt mov_bt" value="ktl_password">
-          지갑 가져오기
+        <button class="bot_bt mov_bt" value="ktl_main">
+          생성 완료
         </button>
       </div>
     </div>
     <div class="ktl ktl_password">
       <div class="header">
-        <!-- <div class="logo"></div> -->
-        <div class="back_icon mov_bt" value="ktl_main"></div>
+        <div class="logo"></div>
       </div>
       <div class="main">
         <div class="main_txt">
@@ -148,383 +161,78 @@
             </div>
           </div>
           <div class="pass_input" style="margin-bottom: 10px">
-            <input type="password" placeholder="비밀번호" />
+            <input type="password" placeholder="비밀번호" id="pass" maxlength="20" />
             <div class="eye_icon"></div>
           </div>
           <div class="pass_input">
-            <input type="password" placeholder="비밀번호 확인" />
+            <input type="password" placeholder="비밀번호 확인" id="repass" maxlength="20" />
             <div class="eye_icon"></div>
           </div>
           <div class="info_txt">
-            * 비밀번호는 영문/숫자/기호 8~20자로 되어야합니다.
+            * 비밀번호는 영문/숫자/기호 20자이내로 되어야합니다.
           </div>
-          <div class="err_txt"><span></span> 비밀번호를 입력해주세요.</div>
-          <div class="err_txt">
+          <div class="err_txt" id="err_txt_pass" style="display: none">
             <span></span> 비밀번호가 일치하지 않습니다.
           </div>
         </div>
 
-        <button class="bot_bt mov_bt" value="ktl_main">계속</button>
+        <button class="bot_bt" id="kt_signup">계속</button>
       </div>
     </div>
-    <div class="ktl ktl_main">
+    <div class="ktl ktl_main now">
       <div class="header">
-        <div class="logo mov_bt" value="ktl_signup"></div>
+        <div class="logo"></div>
       </div>
       <div class="main">
         <div class="main_txt">
-          <div>Kthulu가 잠들었습니다.</div>
-          <div>Kthulu를 깨우려면 비밀번호를 입력해주세요.</div>
+          <div>Pome가 잠들었습니다.</div>
+          <div>Pomeranian를 깨우려면 비밀번호를 입력해주세요.</div>
         </div>
 
         <div class="ktl_main_pass">
           <div class="pass_input">
-            <input type="password" placeholder="비밀번호 확인" />
+            <input type="password" id="inputpass" placeholder="비밀번호 확인" maxlength="20" />
             <div class="eye_icon"></div>
           </div>
           <div>비밀번호 입력</div>
         </div>
-        <div class="err_txt"><span></span> 비밀번호를 입력해주세요.</div>
-        <div class="err_txt"><span></span> 비밀번호가 일치하지 않습니다.</div>
-
-        <button class="bot_bt mov_bt" value="ktl_account">로그인</button>
-      </div>
-    </div>
-    <!-- 계정 리스트 -->
-    <div class="ktl ktl_account">
-      <div class="header">
-        <div class="logo"></div>
-        <div class="header_title">Kthulu</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
+        <div class="err_txt" id="err_txt_pass_login" style="display: none">
+          <span></span> 비밀번호가 일치하지 않습니다.
         </div>
-      </div>
-      <!-- <div class="main_top">
-                <div class="mainnet_opt">
-                    <span></span>
-                    메인넷
-                </div>
-            </div> -->
-      <div class="main_top_in">
-        <!-- <div class="back_icon"></div> -->
-        <div class="title">계정 목록</div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <!-- 토큰 리스트 -->
-      <ul class="account">
-        <li class="account_atc">
-          <div>
-            <div class="account_icon">
-              <img src="img/eth.svg" alt="" />
-            </div>
-            <div class="account_info">
-              <div>Ethereum</div>
-              <div class="num">
-                <div>1.250000000000000000000</div>
-                <span>ETH</span>
-              </div>
-            </div>
-            <div class="account_more"></div>
-          </div>
-          <ul class="act_pan">
-            <li>
-              <div>
-                <div class="mov_bt" value="ktl_account_detail">
-                  <div class="wallet_icon">
-                    <img src="img/metamask_icon.png" alt="" />
-                  </div>
-                  <div class="num">
-                    <div>1.100000000000000000</div>
-                    <span>ETH</span>
-                  </div>
-                </div>
-              </div>
-              <label>
-                <input type="checkbox" class="eth_wallet" />
-                <div class="star_icon star_first_info"></div>
-              </label>
-            </li>
-            <li>
-              <div>
-                <div class="mov_bt" value="ktl_account_detail">
-                  <div class="wallet_icon wallet_icon_connect">
-                    <img src="img/connect_icon.png" alt="" />
-                  </div>
-                  <div class="num">
-                    <div>0.15</div>
-                    <span>ETH</span>
-                  </div>
-                </div>
-              </div>
-              <label>
-                <input type="checkbox" class="eth_wallet" />
-                <div class="star_icon star_first_info"></div>
-              </label>
-            </li>
-            <li class="eth_add act_plus_icon mov_bt" value="ktl_account_add">
-              <div></div>
-            </li>
-          </ul>
-        </li>
-        <li class="account_atc">
-          <div>
-            <div class="account_icon">
-              <img src="img/klaytn.png" alt="" />
-            </div>
-            <div class="account_info">
-              <div>Klaytn</div>
-              <div class="num">
-                <div>0</div>
-                <span>KLAY</span>
-              </div>
-            </div>
-            <div class="account_more"></div>
-          </div>
-          <ul class="act_pan">
-            <li>
-              <div>
-                <div class="mov_bt" value="ktl_account_detail">
-                  <div class="wallet_icon">
-                    <img src="img/kaikas.png" alt="" />
-                  </div>
-                  <div class="num">
-                    <div>0</div>
-                    <span>KLAY</span>
-                  </div>
-                </div>
-              </div>
-              <label>
-                <input type="checkbox" class="klay_wallet" />
-                <div class="star_icon star_first_info"></div>
-              </label>
-            </li>
-            <li>
-              <div>
-                <div class="mov_bt" value="ktl_account_detail">
-                  <div class="wallet_icon">
-                    <img src="img/klip_icon.png" alt="" />
-                  </div>
-                  <div class="num">
-                    <div>0</div>
-                    <span>KLAY</span>
-                  </div>
-                </div>
-              </div>
-              <label>
-                <input type="checkbox" class="klay_wallet" />
-                <div class="star_icon star_first_info"></div>
-              </label>
-            </li>
-            <li class="klay_add act_plus_icon mov_bt" value="ktl_account_add">
-              <div></div>
-            </li>
-          </ul>
-        </li>
-        <li class="account_atc">
-          <div>
-            <div class="account_icon">
-              <img src="img/polygon.png" alt="" />
-            </div>
-            <div class="account_info">
-              <div>Polygon</div>
-              <div class="num">
-                <div>0</div>
-                <span>MATIC</span>
-              </div>
-            </div>
-            <div class="account_more"></div>
-          </div>
-          <ul class="act_pan">
-            <li>
-              <div>
-                <div class="mov_bt" value="ktl_account_detail">
-                  <div class="wallet_icon">
-                    <img src="img/phantom.png" alt="" />
-                  </div>
-                  <div class="num">
-                    <div>0</div>
-                    <span>MATIC</span>
-                  </div>
-                </div>
-              </div>
-              <label>
-                <input type="checkbox" class="matic_wallet" />
-                <div class="star_icon star_first_info"></div>
-              </label>
-            </li>
-            <li class="matic_add act_plus_icon mov_bt" value="ktl_account_add">
-              <div></div>
-            </li>
-          </ul>
-        </li>
-        <li class="account_atc">
-          <div>
-            <div class="account_icon">
-              <img src="img/solana.png" alt="" />
-            </div>
-            <div class="account_info">
-              <div>Solana</div>
-              <div class="num">
-                <div>0</div>
-                <span>SOL</span>
-              </div>
-            </div>
-            <div class="account_more"></div>
-          </div>
-          <ul class="act_pan">
-            <li>
-              <div>
-                <div class="mov_bt" value="ktl_account_detail">
-                  <div class="wallet_icon">
-                    <img src="img/phantom.png" alt="" />
-                  </div>
-                  <div class="num">
-                    <div>0</div>
-                    <span>SOL</span>
-                  </div>
-                </div>
-              </div>
-              <label>
-                <input type="checkbox" class="sol_wallet" />
-                <div class="star_icon star_first_info"></div>
-              </label>
-            </li>
-            <li class="sol_add act_plus_icon mov_bt" value="ktl_account_add">
-              <div></div>
-            </li>
-          </ul>
-        </li>
-      </ul>
 
-      <!-- 별 선택 안내 -->
-      <div class="layer starinfo_layer">
-        <div class="inner">
-          <div class="starinfo">
-            <div class="star_icon"></div>
-            <div>
-              별 아이콘을 선택하시면 <br />
-              대표 계정으로 설정됩니다.
-            </div>
-          </div>
-          <button class="layer_close color_bt starinfo_remove">
-            확인했습니다.
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- 계정 추가 -->
-    <div class="ktl ktl_account_add">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account"></div>
-        <div class="title">계정 추가</div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <div class="main">
-        <div class="account_add_box">
-          <div class="account_icon">
-            <img src="img/eth.svg" alt="" />
-          </div>
-          <div class="account_name">
-            <div>Ethereum</div>
-          </div>
-
-          <div class="account_ip">
-            <div class="info_txt">
-              연동된 다른 지갑 계정이 없을 경우 조회할 수 없습니다.
-            </div>
-            <div class="wallet_sel">
-              <div class="wallet_sel_title">사용 중인 지갑 선택</div>
-              <div class="down_icon"></div>
-            </div>
-            <div class="err_txt"><span></span> 지갑을 선택해주세요.</div>
-
-            <div class="layer wallet_sel_layer">
-              <div class="inner">
-                <div class="close_icon layer_close"></div>
-                <div class="wallet_list">
-                  <label>
-                    <input type="radio" name="wallet_select" />
-                    <div class="wallet_title">
-                      <div class="wallet_icon">
-                        <img src="img/metamask_icon.png" alt="" />
-                      </div>
-                      <div>Metamask</div>
-                    </div>
-                  </label>
-                  <label>
-                    <input type="radio" name="wallet_select" />
-                    <div class="wallet_title">
-                      <div class="wallet_icon wallet_icon_connect">
-                        <img src="img/connect_icon.png" alt="" />
-                      </div>
-                      <div>connect</div>
-                    </div>
-                  </label>
-                </div>
-                <button class="wallet_sel_bt layer_close color_bt">
-                  선택
-                </button>
-              </div>
-            </div>
-            <input type="text" placeholder="계정 이름" />
-            <input type="text" placeholder="주소" />
-            <div class="err_txt"><span></span> 잘못된 주소입니다.</div>
-
-            <div class="two_bt">
-              <button class="gray_bt mov_bt" value="ktl_account">취소</button>
-              <button class="accountadd_bt color_bt mov_bt" value="ktl_account">
-                추가
-              </button>
-            </div>
-          </div>
-        </div>
+        <button class="bot_bt" id="kt_signin">로그인</button>
       </div>
     </div>
     <!-- 계정 디테일 -->
     <div class="ktl ktl_account_detail">
       <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="logo mov_bt" value="ktl_account_detail"></div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
         </div>
       </div>
       <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account"></div>
-        <div class="title">Ethereum 계정</div>
-        <!-- <div class="close_icon"></div> -->
+        <div class="title" id="kt_detail_mtitle">Ethereum 계정</div>
       </div>
       <div class="main">
         <div class="account_box">
-          <div class="remove_icon">
-            <div class="icon"></div>
-          </div>
           <div class="account_icon">
             <img src="img/eth.svg" alt="" />
           </div>
           <div class="account_name">
             <div>
-              <span class="name_txt">Ethereum</span>
-              <div class="wallet_icon">
-                <img src="img/metamask_icon.png" alt="" />
-              </div>
+              <span class="name_txt" id="kt_detail_stitle"></span>
               <div class="edit_icon"></div>
             </div>
-            <div>0.25 <span>ETH</span></div>
+            <div>
+              <span id="kt_detail_mbalance"></span>
+              <span id="kt_detail_msymbol"> ETH</span>
+            </div>
             <div class="address">
-              <span id="address_val">0x42F22bbA474F10088a00C341df52CF55A4373121</span>
+              <span id="kt_detail_maddress"></span>
               <div class="copy_icon"></div>
-
               <div class="copy_txt">
                 <div class="txt">클립보드에 복사</div>
                 <div class="copy_txt_top"></div>
@@ -532,44 +240,7 @@
             </div>
           </div>
         </div>
-        <ul class="token_list">
-          <li class="mov_bt" value="ktl_token_detail">
-            <div>
-              <div class="account_icon">
-                <img src="img/eth.svg" alt="" />
-              </div>
-              <div class="num">
-                <div>1.200000000000000000005</div>
-                <span>ETH</span>
-              </div>
-            </div>
-            <div class="right_icon"></div>
-          </li>
-          <li class="mov_bt" value="ktl_token_detail">
-            <div>
-              <div class="account_icon">
-                <img src="img/token.png" alt="" />
-              </div>
-              <div class="num">
-                <div>0</div>
-                <span>TEST</span>
-              </div>
-            </div>
-            <div class="right_icon"></div>
-          </li>
-          <li class="mov_bt" value="ktl_token_detail">
-            <div>
-              <div class="account_icon">
-                <img src="img/token.png" alt="" />
-              </div>
-              <div class="num">
-                <div>0</div>
-                <span>TEST</span>
-              </div>
-            </div>
-            <div class="right_icon"></div>
-          </li>
-        </ul>
+        <ul class="token_list" id="kt_detail_tlist"></ul>
         <div class="token_add_box mov_bt" value="ktl_token_add">
           <div>토큰이 보이지 않나요?</div>
           <div>토큰 가져오기</div>
@@ -583,7 +254,7 @@
             계정을 삭제하시겠습니까?
             <div>
               <button class="layer_close gray_bt">취소</button>
-              <button class="remove_bt red_bt layer_close mov_bt" value="ktl_account">
+              <button class="remove_bt layer_close red_bt" id="kt_del_check">
                 삭제
               </button>
             </div>
@@ -594,18 +265,13 @@
       <div class="layer nameedit_layer">
         <div class="inner">
           <div class="close_icon layer_close"></div>
-          <input type="text" value="Ethereum" />
-          <div class="info_txt">
-            * 한글 1~10자, 영문 및 숫자 2~20자 입니다
+          <input type="text" id="kt_edit_name" maxlength="20" />
+          <div class="info_txt">* 한글, 영문 및 숫자 20자이내 입니다</div>
+          <div class="err_txt" id="err_edit_check" style="display: none">
+            <span></span>
+            중복된 이름입니다.
           </div>
-          <div class="err_txt">
-            <span></span> 빈 칸을 포함 할 수 없습니다.
-          </div>
-          <div class="err_txt">
-            <span></span> 특수문자를 포함 할 수 없습니다.
-          </div>
-          <div class="err_txt"><span></span> 중복된 이름입니다.</div>
-          <button class="layer_close color_bt">수정하기</button>
+          <button class="color_bt" id="kt_edit_check">수정하기</button>
         </div>
       </div>
     </div>
@@ -613,7 +279,7 @@
     <div class="ktl ktl_token_add">
       <div class="header">
         <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
@@ -625,95 +291,13 @@
         <!-- <div class="close_icon"></div> -->
       </div>
       <div class="main">
+        <input type="hidden" id="kt_tcontract_marray" value="" />
         <div class="add_menu">
           <span class="bot_line"></span>
-          <div class="add_menu_ck">검색</div>
-          <div>사용자 정의 토큰</div>
+          <div class="add_menu_ck">사용자 정의 토큰</div>
         </div>
         <div class="add_menu_cont">
-          <div class="token_search add_cont_active">
-            <div>
-              <div class="token_search_bar">
-                <div class="search_icon"></div>
-                <input type="text" placeholder="토큰 검색" />
-              </div>
-              <div class="search_list">
-                <div>검색 결과</div>
-                <div class="search_list_box">
-                  <label>
-                    <input type="radio" name="token_search" />
-                    <div class="search_list_ck">
-                      <div class="icon">
-                        <img src="img/phantom.png" alt="" />
-                      </div>
-                      <div class="txt">HINT<span>(HINT)</span></div>
-                    </div>
-                  </label>
-                  <label>
-                    <input type="radio" name="token_search" />
-                    <div>
-                      <div class="icon">
-                        <img src="img/polygon.png" alt="" />
-                      </div>
-                      <div class="txt">DeHive<span>(DHV)</span></div>
-                    </div>
-                  </label>
-                  <label>
-                    <input type="radio" name="token_search" />
-                    <div class="search_list_ck">
-                      <div class="icon">
-                        <img src="img/phantom.png" alt="" />
-                      </div>
-                      <div class="txt">
-                        <div>HINT</div>
-                        <span>(HINT)</span>
-                      </div>
-                    </div>
-                  </label>
-                  <label>
-                    <input type="radio" name="token_search" />
-                    <div>
-                      <div class="icon">
-                        <img src="img/polygon.png" alt="" />
-                      </div>
-                      <div class="txt">
-                        <div>DeHive</div>
-                        <span>(DHV)</span>
-                      </div>
-                    </div>
-                  </label>
-                  <label>
-                    <input type="radio" name="token_search" />
-                    <div class="search_list_ck">
-                      <div class="icon">
-                        <img src="img/phantom.png" alt="" />
-                      </div>
-                      <div class="txt">
-                        <div>HINT</div>
-                        <span>(HINT)</span>
-                      </div>
-                    </div>
-                  </label>
-                  <label>
-                    <input type="radio" name="token_search" />
-                    <div>
-                      <div class="icon">
-                        <img src="img/polygon.png" alt="" />
-                      </div>
-                      <div class="txt">
-                        <div>DeHive</div>
-                        <span>(DHV)</span>
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <button class="bot_bt mov_bt" value="ktl_token_add_conf">
-              다음
-            </button>
-          </div>
-          <div class="token_add">
+          <div class="token_add add_cont_active">
             <div>
               <div class="red_info">
                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -728,21 +312,28 @@
                 </div>
               </div>
               <div class="wd_input_bt">
-                <input type="text" placeholder="토큰 계약 주소" />
-                <button class="gray_bt">조회</button>
+                <input type="hidden" id="kt_token_detail_img" />
+                <input type="text" placeholder="토큰 계약 주소" id="kt_token_detail_search" />
+                <button id="kt_token_address_vali" class="gray_bt">
+                  조회
+                </button>
               </div>
-              <div class="err_txt">
-                <span></span> 주소가 일치하지 않습니다.
+              <div class="err_txt" id="err_txt_token_address" style="display: none">
+                <span></span> 컨트렉트 주소를 확인해 해주세요.
               </div>
-              <input type="text" placeholder="토큰 기호" />
-              <!-- <div class="err_txt"> <span></span> 주소가 일치하지 않습니다.</div> -->
-              <input type="text" placeholder="토큰 십진수" />
-              <!-- <div class="err_txt"> <span></span> 주소가 일치하지 않습니다.</div> -->
+              <div class="err_txt" id="err_txt_token_address_vali" style="display: none">
+                <span></span> 해당 토큰은 이미 추가되었습니다.
+              </div>
+              <input type="text" placeholder="토큰 기호" id="kt_token_detail_symbol" maxlength="20" />
+              <div class="err_txt" id="err_txt_token_symbol" style="display: none">
+                <span></span>기호는 11자 이하여야 합니다.
+              </div>
+              <input type="number" placeholder="토큰 십진수" id="kt_token_detail_decimal" min="0" max="36" />
+              <div class="err_txt" id="err_txt_token_decimal" style="display: none">
+                <span></span> 0 이상 36 이하여야 합니다.
+              </div>
             </div>
-
-            <button class="bot_bt mov_bt" value="ktl_account_detail">
-              맞춤형 토큰 추가
-            </button>
+            <button class="bot_bt" id="kt_addToken">맞춤형 토큰 추가</button>
           </div>
         </div>
       </div>
@@ -750,7 +341,7 @@
     <div class="ktl ktl_token_add_conf">
       <div class="header">
         <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
@@ -783,7 +374,7 @@
     <div class="ktl ktl_token_detail">
       <div class="header">
         <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
@@ -791,26 +382,24 @@
       </div>
       <div class="main_top_in">
         <div class="back_icon mov_bt" value="ktl_account_detail"></div>
-        <div class="title">Ethereum / <span>TEST</span></div>
+        <div class="title">ETH / <span>TEST</span></div>
         <!-- <div class="close_icon"></div> -->
       </div>
       <div class="main">
+        <input type="hidden" id="kt_select_token_index" />
         <div class="token_box">
           <div class="account_icon">
-            <img src="img/token.png" alt="" />
+            <img id="kt_select_token_detail_img" src="" alt="" />
           </div>
-          <div class="name">0 <span>TEST</span></div>
+          <div class="name">
+            <span id="kt_select_token_detail_balance"></span>
+            <span id="kt_select_token_detail_symbol"></span>
+          </div>
           <div class="account_del">
             <div class="remove_icon">
               <div class="icon"></div>
             </div>
           </div>
-          <!-- <div class="detail_opt">
-                        <div class="remove_icon">
-                            <div class="txt">토큰 삭제</div>
-                            <div class="icon"></div>
-                        </div>
-                    </div> -->
         </div>
         <ul class="trs_list">
           <li class="trs_list_none">
@@ -825,7 +414,7 @@
             토큰을 삭제하시겠습니까?
             <div>
               <button class="layer_close gray_bt">취소</button>
-              <button class="remove_bt red_bt layer_close mov_bt" value="ktl_account_detail">
+              <button class="remove_bt layer_close red_bt" id="kt_del_token_check">
                 삭제
               </button>
             </div>
@@ -836,34 +425,32 @@
     <!-- MY -->
     <div class="ktl ktl_my">
       <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="logo mov_bt" value="ktl_account_detail"></div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
         </div>
       </div>
       <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account"></div>
+        <div class="back_icon mov_bt" value="ktl_account_detail"></div>
         <div class="title">계정 정보</div>
         <!-- <div class="close_icon"></div> -->
       </div>
       <div class="main">
         <ul class="set_list">
           <li class="mov_bt" value="ktl_my_pass">
-            Kthulu 비밀번호 변경
+            Pomeranian 비밀번호 변경
             <div class="right_icon"></div>
           </li>
         </ul>
-        <button class="bot_bt red_bt mov_bt" value="ktl_main">
-          로그아웃
-        </button>
+        <button class="bot_bt red_bt" id="kt_signout">로그아웃</button>
       </div>
     </div>
     <div class="ktl ktl_my_pass">
       <div class="header">
         <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
@@ -871,7 +458,7 @@
       </div>
       <div class="main_top_in">
         <div class="back_icon mov_bt" value="ktl_my"></div>
-        <div class="title">Kthulu 비밀번호 변경</div>
+        <div class="title">Pomeranian 비밀번호 변경</div>
         <!-- <div class="close_icon"></div> -->
       </div>
       <div class="main">
@@ -888,44 +475,43 @@
         </div>
         <div class="password_form">
           <div class="pass_input">
-            <input type="password" placeholder="현재 비밀번호" />
+            <input type="password" class="kt_crepass" id="kt_hpass" placeholder="현재 비밀번호" maxlength="20" />
             <div class="eye_icon"></div>
           </div>
-          <div class="err_txt"><span></span> 비밀번호를 입력해주세요.</div>
+          <div class="err_txt" id="err_hpass_check" style="display: none">
+            <span></span> 비밀번호를 확인해주세요.
+          </div>
           <div class="pass_input">
-            <input type="password" placeholder="새 비밀번호" />
+            <input type="password" class="kt_crepass" id="kt_chpass" placeholder="새 비밀번호" maxlength="20" />
             <div class="eye_icon"></div>
           </div>
           <div class="pass_input">
-            <input type="password" placeholder="새 비밀번호 확인" />
+            <input type="password" class="kt_crepass" id="kt_chrepass" placeholder="새 비밀번호 확인" maxlength="20" />
             <div class="eye_icon"></div>
           </div>
           <div class="info_txt">
-            * 비밀번호는 영문/숫자/기호 8~20자로 되어야합니다.
+            * 비밀번호는 영문/숫자/기호 20자이내로 되어야합니다.
           </div>
-          <div class="err_txt">
-            <span></span> 비밀번호가 일치하지 않습니다.
-          </div>
-          <div class="err_txt">
-            <span></span> 빈 칸을 포함 할 수 없습니다.
+          <div class="err_txt" id="err_repass_check" style="display: none">
+            <span></span> 비밀번호를 확인해주세요.
           </div>
         </div>
 
-        <button class="bot_bt mov_bt" value="ktl_main">완료</button>
+        <button class="bot_bt" id="kt_repass">완료</button>
       </div>
     </div>
     <!-- SETTING -->
     <div class="ktl ktl_set">
       <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="logo mov_bt" value="ktl_account_detail"></div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
         </div>
       </div>
       <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account"></div>
+        <div class="back_icon mov_bt" value="ktl_account_detail"></div>
         <div class="title">환경설정</div>
         <!-- <div class="close_icon"></div> -->
       </div>
@@ -933,12 +519,6 @@
         <ul class="set_list">
           <li>
             다크모드 지원
-            <!-- <label>
-                            <input type="checkbox" class="onoff_icon_ip">
-                            <div class="onoff_icon">
-                                <div class="circle"></div>
-                            </div>
-                        </label> -->
             <label class="dark_light">
               <input type="checkbox" class="onoff_icon_ip" />
               <span class="dark_light_slider"></span>
@@ -954,17 +534,47 @@
             개인정보처리방침
             <div class="right_icon"></div>
           </li>
+          <li class="mov_bt" value="ktl_seed_detail">
+            시드 구문 보기
+            <div class="right_icon"></div>
+          </li>
           <li class="mov_bt" value="ktl_set_version">
-            Kthulu 정보
+            Pomeranian 정보
             <div class="right_icon"></div>
           </li>
         </ul>
       </div>
     </div>
+    <div class="ktl ktl_seed_detail">
+      <div class="header">
+        <div class="logo"></div>
+      </div>
+      <div class="main">
+        <div class="main_txt">
+          <div>비밀 복구 구문</div>
+          <div>
+            비밀 백업 구문을 이용하면 계정을 쉽게 백업하고 복구할 수 있습니다.<br />
+            경고: 비밀 복구 구문은 절대로 공개하지 마세요. 이 구문이 있는 사람은 귀하의 Ether를 영원히 소유할 수 있습니다.
+          </div>
+          <div class="restore_seed" style="justify-content: center;
+          border: 1px solid var(--color-border-default);
+          border-radius: 6px;
+          background-color: var(--color-background-default);
+          ">
+            <div id="pome_backup_seed_txt"
+              style="height: 130px; font-size: 1.125rem; line-height: 140%; font-style: normal; font-weight: normal; width: 310px; text-align: center;">
+            </div>
+          </div>
+        </div>
+        <button class="bot_bt mov_bt" value="ktl_account_detail">
+          완료
+        </button>
+      </div>
+    </div>
     <div class="ktl ktl_set_version">
       <div class="header">
         <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
@@ -972,13 +582,13 @@
       </div>
       <div class="main_top_in">
         <div class="back_icon mov_bt" value="ktl_set"></div>
-        <div class="title">Kthulu 정보</div>
+        <div class="title">Pomeranian 정보</div>
       </div>
       <div class="main">
         <div class="version">
           <div class="logo"></div>
           <div class="txt">
-            Kthulu 버전 <span class="color_blue">0.0.1</span>
+            Pomeranian 버전 <span class="color_blue">0.0.1</span>
           </div>
 
           <div class="abc_copy">© abc, Inc. All rights reserved.</div>
@@ -988,7 +598,7 @@
     <div class="ktl ktl_set_service">
       <div class="header">
         <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
@@ -1024,16 +634,16 @@
               의미합니다.
             </li>
             <li>
-              "스마트 컨트랙트"라 함은 Kthulu 블록체인 플랫폼위에서
+              "스마트 컨트랙트"라 함은 Pomeranian 블록체인 플랫폼위에서
               프로그램으로 동작 가능한 언어로 작성된 코드 뭉치를 의미합니다.
             </li>
             <li>
-              "BApp(Blockchain Application)"이라 함은 Kthulu 블록체인 플랫폼
+              "BApp(Blockchain Application)"이라 함은 Pomeranian 블록체인 플랫폼
               위에서 스마트 컨트랙트와 일련의 프로그램을 통해 실행되는
               개별적이고 독립적인 서비스를 의미합니다.
             </li>
             <li>
-              "트랜잭션"이라 함은 Kthulu 블록체인 플랫폼위에서 이루어지는 큰의
+              "트랜잭션"이라 함은 Pomeranian 블록체인 플랫폼위에서 이루어지는 큰의
               전송, 스마트 컨트랙트의 배포 및 실행, 계정 상태의 변경과 같은
               개별 거래를 의미합니다.
             </li>
@@ -1043,11 +653,11 @@
               포함한 블록체인상의 모든 데이터를 의미합니다.
             </li>
             <li>
-              "함은 Kthulu 블록체인 플랫폼 위에서 사용될 수 있는 디지털 자산을
+              "함은 Pomeranian 블록체인 플랫폼 위에서 사용될 수 있는 디지털 자산을
               의미합니다.
             </li>
             <li>
-              "토큰(Token)"이라 함은 Kthulu 블록체인 플랫폼 위에서 스마트
+              "토큰(Token)"이라 함은 Pomeranian 블록체인 플랫폼 위에서 스마트
               컨트랙트를 통해 발행된 형태의 디지털 자산을 의미합니다.
             </li>
             <li>
@@ -1061,7 +671,7 @@
               디지털 자산을 의미합니다.
             </li>
             <li>
-              "KCT(Kthulu Compatible Token)"라 함은 Kthulu 블록체인 플랫폼
+              "KCT(Pomeranian Compatible Token)"라 함은 Pomeranian 블록체인 플랫폼
               위에서 사용 가능한 호환토큰을 의미합니다.
             </li>
             <li>
@@ -1075,7 +685,7 @@
             </li>
             <li>
               "계정 주소"라 함은 서비스에서 회원간 디지털 자산의 변화를
-              기록하기 위해 각 계정마다 부여된 Kthulu블록체인 플랫폼에
+              기록하기 위해 각 계정마다 부여된 Pomeranian블록체인 플랫폼에
               존재하는 고유한 식별 주소를 의미합니다.
             </li>
             <li>
@@ -1088,7 +698,7 @@
               과정에서 사용되는 고유한 영문 단어의 조합을 의미합니다.
             </li>
             <li>
-              "Kthulu Wallet Key"라 함은 계정 주소가 보유한 토큰의 전송 허가
+              "Pomeranian Wallet Key"라 함은 계정 주소가 보유한 토큰의 전송 허가
               및 서명 등을 위해 사용되는 고유한 문자와 숫자의 조합을
               의미합니다.
             </li>
@@ -1153,18 +763,18 @@
           <br />
           <br />
           <div class="title">
-            제 7 조 ("회원"의 "Kthulu Wallet Key", "시드 구문", "비밀번호"의
+            제 7 조 ("회원"의 "Pomeranian Wallet Key", "시드 구문", "비밀번호"의
             관리에 대한 의무)
           </div>
           <br />
           <ul class="num_list">
             <li>
-              회원의 Kthulu Wallet Key, 시드 구문, 비밀번호에 관한 보관 및
+              회원의 Pomeranian Wallet Key, 시드 구문, 비밀번호에 관한 보관 및
               관리책임은 회원에게 있으며, 이를 제3자가 이용하도록 하여서는
               아니됩니다.
             </li>
             <li>
-              회원은 Kthulu Wallet Key, 시드 구문, 비밀번호가 도용되거나
+              회원은 Pomeranian Wallet Key, 시드 구문, 비밀번호가 도용되거나
               제3자가 사용하고 있음을 인지한 경우에는 이를 즉시 회사에
               통지하고 회사의 안내에 따라야 합니다.
             </li>
@@ -1241,7 +851,7 @@
                 <li>디지털 자산의 전송</li>
                 <li>서비스를 통해 보여지는 토큰의 등록 및 해제</li>
                 <li>BApp의 각종 트랜잭션 요청에 대한 승인 및 서명</li>
-                <li>Kthulu Wallet Key 의 가져오기 또는 내보내기</li>
+                <li>Pomeranian Wallet Key 의 가져오기 또는 내보내기</li>
                 <li>카드의 전송 및 관리(모바일 앱인 경우)</li>
                 <li>
                   기타 회사가 추가로 개발하거나 다른 회사와의 제휴계약 등을
@@ -1275,14 +885,14 @@
           <br />
           <ul class="num_list">
             <li>
-              본 서비스는 Kthulu 블록체인 플랫폼 위에서 사용 가능한 디지털
-              자산의 전송과 보관 등에 대한 것으로서 Kthulu 외의 블록체인
+              본 서비스는 Pomeranian 블록체인 플랫폼 위에서 사용 가능한 디지털
+              자산의 전송과 보관 등에 대한 것으로서 Pomeranian 외의 블록체인
               플랫폼을 기반으로 하는 디지털 자산과 관련하여서는 서비스 이용이
               제한될 수 있습니다. 회원은 회사가 서비스를 제공하는 디지털
               자산에 한하여 전송, 보관 등의 서비스를 이용할 수 있습니다.
             </li>
             <li>
-              회원의 부주의로 인하여 회사가 제공하는 지갑으로 전송된 Kthulu
+              회원의 부주의로 인하여 회사가 제공하는 지갑으로 전송된 Pomeranian
               외의 블록체인 플랫폼을 기반으로 하는 디지털 자산에 대해서 회사는
               책임지지 않으며, 회원은 이를 이유로 회사에게 어떠한 청구도 할 수
               없습니다.
@@ -1407,8 +1017,8 @@
               모든 혜택이 소멸되며, 회사는 이에 대해 별도로 보상하지 않습니다.
             </li>
             <li>
-              회사는 Kthulu Wallet Key을 별도 보관, 관리 또는 저장하지
-              않습니다. 따라서 회원은 서비스 제거 전 Kthulu Wallet Key를 백업
+              회사는 Pomeranian Wallet Key을 별도 보관, 관리 또는 저장하지
+              않습니다. 따라서 회원은 서비스 제거 전 Pomeranian Wallet Key를 백업
               및 관리에 유의해 주시기 바랍니다.
             </li>
             <li>
@@ -1444,13 +1054,13 @@
               규정이 없거나 회사의 고의/과실이 없는 한 책임을 지지 않습니다.
             </li>
             <li>
-              회사는 Kthulu 블록체인 플랫폼의 장애로 인한 손해에 대해서는
+              회사는 Pomeranian 블록체인 플랫폼의 장애로 인한 손해에 대해서는
               회사의 고의/과실이 있지 않는 한 책임을 지지 않습니다.
             </li>
             <li>
               회사는 서비스를 통한 디지털 자산의 보관 및 전송 기능을 제공할 뿐
               회원의 디지털 자산 자체에 대한 관리 의무를 부담하지 않습니다.
-              Kthulu Wallet Key, 시드 구문 등의 보관, 도난 및 분실 방지를
+              Pomeranian Wallet Key, 시드 구문 등의 보관, 도난 및 분실 방지를
               포함하여 계정 및 디지털 자산의 관리에 대한 모든 책임은 회원에게
               있으며, 회사의 귀책 사유가 없는 경우에는 어떠한 책임도 지지
               않습니다.
@@ -1567,7 +1177,7 @@
     <div class="ktl ktl_set_privacy">
       <div class="header">
         <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Kthulu</div>
+        <div class="header_title">Pomeranian</div>
         <div class="header_icon">
           <div class="my_icon mov_bt" value="ktl_my"></div>
           <div class="set_icon mov_bt" value="ktl_set"></div>
@@ -1585,7 +1195,7 @@
           <br />
           본 개인정보처리방침에는 abc Inc(이하 “회사")의 서비스 사용자의
           데이터 정보 처리에 대한 내용을 담고 있습니다. 본 개인정보처리방침은
-          Kthulu 서비스(이하 ‘서비스’)에 적용됩니다. <br />
+          Pomeranian 서비스(이하 ‘서비스’)에 적용됩니다. <br />
           <br />
           회사는 본 개인정보처리방침을 통하여 이용자의 데이터 정보가 어떠한
           용도와 방식으로 처리가 되는지에 대하여 설명합니다. 회사는
@@ -1803,7 +1413,7 @@
               <ul class="circle_list">
                 <li>
                   서비스 잠금화면 “비밀번호를 잊으셨나요?” → “시드 구문를
-                  잊으셨나요?” → “Kthulu 데이터 초기화"를 통해 삭제할 수
+                  잊으셨나요?” → “Pomeranian 데이터 초기화"를 통해 삭제할 수
                   있습니다.
                 </li>
               </ul>
@@ -1812,10 +1422,10 @@
               모바일 앱
               <ul class="circle_list">
                 <li>
-                  Android: 설정 → 애플리케이션 → “Kthulu” → 저장공간 데이터
+                  Android: 설정 → 애플리케이션 → “Pomeranian” → 저장공간 데이터
                   삭제 또 앱 삭제
                 </li>
-                <li>iOS: 설정 → 일반 → 저장 공간 → “Kthulu” → 앱 삭제</li>
+                <li>iOS: 설정 → 일반 → 저장 공간 → “Pomeranian” → 앱 삭제</li>
               </ul>
             </li>
           </ul>

@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,8 +37,6 @@ import com.pomeranian.config.WebConfig;
 import com.pomeranian.rpc.dto.RpcDTO;
 import com.pomeranian.rpc.dto.TokenDTO;
 import com.pomeranian.rpc.dto.TokenType;
-import com.pomeranian.rpc.service.AsyncService;
-import com.pomeranian.rpc.service.RpcService;
 	
 @Controller
 public class RpcController {
@@ -50,13 +46,6 @@ public class RpcController {
 	/** WebConfig **/
 	@Autowired
 	private WebConfig webConfig;
-	
-	/** CategoryService **/
-	@Autowired
-	private RpcService bridgeService;
-	
-	@Autowired
-	private AsyncService asyncService;
 	
 	//######################## 테스트용 ########################
 	@GetMapping("/kthuluWallet")
@@ -110,16 +99,16 @@ public class RpcController {
 	}
 	//######################## 테스트용 END ########################
 	
-	@GetMapping(value="/kthulu-rpc/token-search")
-	@ResponseBody
-	public String bridgeTokenSearchList(
-			Locale locale
-			, TokenDTO tokenDTO) {
-		Gson tokenSelect = new Gson();
-		//System.out.println(tokenDTO.toString());
-		List<TokenDTO> bridgeTokenSearchList = bridgeService.bridgeTokenSearchList(tokenDTO);
-		return tokenSelect.toJson(bridgeTokenSearchList);
-	}
+//	@GetMapping(value="/kthulu-rpc/token-search")
+//	@ResponseBody
+//	public String bridgeTokenSearchList(
+//			Locale locale
+//			, TokenDTO tokenDTO) {
+//		Gson tokenSelect = new Gson();
+//		//System.out.println(tokenDTO.toString());
+//		List<TokenDTO> bridgeTokenSearchList = bridgeService.bridgeTokenSearchList(tokenDTO);
+//		return tokenSelect.toJson(bridgeTokenSearchList);
+//	}
 	
 	@PostMapping(value="/kthulu-rpc/token-balance/{token_type}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getTokenBalance(
@@ -229,52 +218,39 @@ public class RpcController {
 	            if (!joResponse.isNull("result") && !joResponse.get("result").equals("0x")) {
 	            	//여기서 token name
 	            	Gson gson = new Gson();
-	            	TokenDTO tokenContractDetail = bridgeService.tokenContractDetail(tokenDTO);
+            		JSONObject joResponse1 = postJsonRpc(url, new RpcDTO("0x" + hashWithBouncyCastle("decimals()"),contract_address));
+            		if(joResponse1.isNull("result")) {
+            			strResult = "{ \"result\":\"OK\"}";
+            			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(strResult); 
+            			
+            		}
+            		JSONObject joResponse2 = postJsonRpc(url, new RpcDTO("0x" + hashWithBouncyCastle("symbol()"),contract_address));
+            		if(joResponse2.isNull("result")) {
+            			strResult = "{ \"result\":\"OK\"}";
+            			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(strResult); 
+            			
+            		}
+            		String subString = (String)joResponse2.get("result");  
+            		String hexString = subString.substring(2, subString.length());
+            		subString = (String)joResponse1.getString("result");
+            		String hexInt = subString.substring(2, subString.length());
+            		tokenDTO.setToken_decimals(Integer.parseInt(hexInt,16));
+            		// hex -> string
+            		StringBuilder output = new StringBuilder();
+            		for(int i = 0; i < hexString.length(); i+=2){
+            		    String str = hexString.substring(i, i+2);
+            		    output.append((char)Integer.parseInt(str, 16));
+            		    
+            		}
+            		tokenDTO.setToken_symbol(output.toString().trim());
+            		tokenDTO.setToken_img(getTokenImgUrl(tokenDTO.getToken_symbol()));
+            		
+            		System.out.println("HIHIHI" + gson.toJson(tokenDTO));
+            		strResult = "{ \"result\":\"OK\", \"token_detail\":"+ gson.toJson(tokenDTO) +"}";
+
+
+	            		
 	            	
-	            	if(tokenContractDetail != null) {
-	            		asyncService.asyncUpdate("volume_update", tokenContractDetail);
-	            		
-	            		if(tokenContractDetail.getToken_img() == null) 
-	            			tokenContractDetail.setToken_img(getTokenImgUrl(tokenContractDetail.getToken_symbol()));
-	            		
-	            		strResult = "{ \"result\":\"OK\", \"token_detail\":"+ gson.toJson(tokenContractDetail) +"}";
-	            	
-	            	// 디비에 등록안된 토큰 조회	
-	            	} else {
-	            		// decimal, symbol이없을시 리턴.
-	            		// 조금손봐야할거같음. 데시말은 없는데 심볼이 있을땐?
-	            		JSONObject joResponse1 = postJsonRpc(url, new RpcDTO("0x" + hashWithBouncyCastle("decimals()"),contract_address));
-	            		if(joResponse1.isNull("result")) {
-	            			strResult = "{ \"result\":\"OK\"}";
-	            			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(strResult); 
-	            			
-	            		}
-	            		JSONObject joResponse2 = postJsonRpc(url, new RpcDTO("0x" + hashWithBouncyCastle("symbol()"),contract_address));
-	            		if(joResponse2.isNull("result")) {
-	            			strResult = "{ \"result\":\"OK\"}";
-	            			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(strResult); 
-	            			
-	            		}
-	            		String subString = (String)joResponse2.get("result");  
-	            		String hexString = subString.substring(2, subString.length());
-	            		subString = (String)joResponse1.getString("result");
-	            		String hexInt = subString.substring(2, subString.length());
-	            		tokenDTO.setToken_decimals(Integer.parseInt(hexInt,16));
-	            		// hex -> string
-	            		StringBuilder output = new StringBuilder();
-	            		for(int i = 0; i < hexString.length(); i+=2){
-	            		    String str = hexString.substring(i, i+2);
-	            		    output.append((char)Integer.parseInt(str, 16));
-	            		    
-	            		}
-	            		tokenDTO.setToken_symbol(output.toString().trim());
-	            		tokenDTO.setToken_img(getTokenImgUrl(tokenDTO.getToken_symbol()));
-	            		
-	            		strResult = "{ \"result\":\"OK\", \"token_detail\":"+ gson.toJson(tokenDTO) +"}";
-	            		// 비동기로 업데이트한다.
-	            		asyncService.asyncUpdate("token_update", tokenDTO);
-	            		
-	            	}
 	            	
 	            }
 	        //솔라나
@@ -480,7 +456,7 @@ public class RpcController {
 		char img_value = tokenUpper.charAt(0);
 		if(!Character.isDigit(img_value))
 			img_value = Character.toLowerCase(img_value);
-		String img_url = "http://192.168.0.32:8085/upload/token/" + img_value +".png";
+		String img_url = "http://localhost:8085/upload/token/" + img_value +".png";
 		System.out.println(img_url);
 		
 		return img_url;

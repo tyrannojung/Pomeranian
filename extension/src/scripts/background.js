@@ -14,7 +14,8 @@ chrome.runtime.onInstalled.addListener(async () => {
 // 크롬 시작 감지 및 초기화 (extension 시작 아님)
 chrome.runtime.onStartup.addListener(function () {
   // 시작시 sync(세션)데이터 초기화
+  console.log('시작시작');
   chrome.storage.sync.clear();
 
-});
 
+});

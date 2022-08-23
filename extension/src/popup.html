@@ -14,6 +14,7 @@
   <script src="common/js/bignumber.js"></script>
   <script src="common/js/common.js"></script>
   <script src="common/js/ethers-v3.min.js"></script>
+  <script src="common/js/crypto-js-4.0.0.js"></script>
   <!-- <script src="js/test.js"></script> -->
   <script src="js/main.js"></script>
   <script src="js/service.js"></script>
@@ -443,6 +444,10 @@
             Pomeranian 비밀번호 변경
             <div class="right_icon"></div>
           </li>
+          <li class="mov_bt" value="ktl_safe_list">
+            보안 및 개인정보 보호
+            <div class="right_icon"></div>
+          </li>
         </ul>
         <button class="bot_bt red_bt" id="kt_signout">로그아웃</button>
       </div>
@@ -534,15 +539,77 @@
             개인정보처리방침
             <div class="right_icon"></div>
           </li>
-          <li class="mov_bt" value="ktl_seed_detail">
-            시드 구문 보기
-            <div class="right_icon"></div>
-          </li>
           <li class="mov_bt" value="ktl_set_version">
             Pomeranian 정보
             <div class="right_icon"></div>
           </li>
         </ul>
+      </div>
+    </div>
+    <!-- Backup List -->
+    <div class="ktl ktl_safe_list">
+      <div class="header">
+        <div class="logo mov_bt" value="ktl_my"></div>
+        <div class="header_title">Pomeranian</div>
+        <div class="header_icon">
+          <div class="my_icon mov_bt" value="ktl_my"></div>
+          <div class="set_icon mov_bt" value="ktl_set"></div>
+        </div>
+      </div>
+      <div class="main_top_in">
+        <div class="back_icon mov_bt" value="ktl_my"></div>
+        <div class="title">보안 및 개인정보 보호</div>
+        <!-- <div class="close_icon"></div> -->
+      </div>
+      <div class="main">
+        <ul class="set_list">
+          <li class="mov_bt" value="ktl_seed_detail">
+            시드 구문 보기
+            <div class="right_icon"></div>
+          </li>
+          <li class="mov_bt" value="ktl_backup_public">
+            지갑 데이터 백업 (Public)
+            <div class="right_icon"></div>
+          </li>
+          <li class="mov_bt" value="ktl_backup_private">
+            지갑 데이터 백업 (Private)
+            <div class="right_icon"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="ktl ktl_backup_public">
+      <div class="header">
+        <div class="logo"></div>
+      </div>
+      <div class="main">
+        <div class="main_txt">
+          <div>Ethereum Network Backup</div>
+          <div>
+            본인의 데이터와 대칭키로 암호화 하여 이더리움 네트워크에 저장합니다.<br />
+            주의: 체인에 데이터를 저장하므로 약간의 수수료가 발생합니다.
+          </div>
+        </div>
+        <button class="bot_bt" id="kt_backup_public">
+          완료
+        </button>
+      </div>
+    </div>
+    <div class="ktl ktl_backup_private">
+      <div class="header">
+        <div class="logo"></div>
+      </div>
+      <div class="main">
+        <div class="main_txt">
+          <div>HyperLedgerFebric Network Backup</div>
+          <div>
+            본인의 데이터와 대칭키로 암호화 하여 프라이빗 네트워크에 저장합니다.<br />
+            주의: 탈중앙화가 퍼블릭네트워크보다 약하지만 수수료가 무료입니다.
+          </div>
+        </div>
+        <button class="bot_bt">
+          완료
+        </button>
       </div>
     </div>
     <div class="ktl ktl_seed_detail">

@@ -159,6 +159,23 @@ $(function () {
 
     });
 
+    //백업
+    //계정 public 백업
+    $('#kt_backup_public').on('click', function () {
+        chrome.storage.local.get(null, function (items) {
+
+            var backupData = new Object();
+            var backup = new Object();
+            backup.ethereum = items.ethereum[0];
+            backupData.backup = backup;
+            console.log(backupData);
+
+
+
+        });
+
+    });
+
     //계정 복원
     $('#kt_restore_chk').on('click', function () {
         console.log('복원');

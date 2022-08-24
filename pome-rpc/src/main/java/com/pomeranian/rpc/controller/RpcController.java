@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.bouncycastle.jcajce.provider.digest.Keccak;
@@ -29,10 +30,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.pomeranian.common.ipfs.IpfsUtil;
 import com.pomeranian.config.WebConfig;
 import com.pomeranian.rpc.dto.RpcDTO;
 import com.pomeranian.rpc.dto.TokenDTO;
@@ -46,6 +50,9 @@ public class RpcController {
 	/** WebConfig **/
 	@Autowired
 	private WebConfig webConfig;
+	
+	@Autowired
+	private IpfsUtil ipfsUtil;
 	
 	//######################## 테스트용 ########################
 	@GetMapping("/kthuluWallet")
@@ -110,6 +117,23 @@ public class RpcController {
 //		return tokenSelect.toJson(bridgeTokenSearchList);
 //	}
 	
+	@PostMapping(value="/kthulu-rpc/data-backup")
+	@ResponseBody
+	public String setDataBackup(
+			@RequestParam(value="backup_file", required=false) MultipartFile multipartFile
+    		, HttpServletResponse response) {
+		String strResult = "{ \"result\":\"FAIL\" }";
+		try {
+			String hashValue = ipfsUtil.saveFile(multipartFile);
+			strResult = "{ \"result\":\"OK\", \"value\":"+hashValue+"}";
+			
+    	}catch(Exception e){
+    	    e.printStackTrace();
+    	    
+    	}
+		return strResult;
+	}
+	
 	@PostMapping(value="/kthulu-rpc/token-balance/{token_type}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getTokenBalance(
 			Locale locale
@@ -153,7 +177,7 @@ public class RpcController {
             	JSONObject joResponse = postJsonRpc(url, new RpcDTO(callData,contract_address));
             	System.out.println(joResponse);
             	if (!joResponse.isNull("result") && !joResponse.get("result").equals("0x")) {
-            		strResult = "{ \"result\":\"OK\",  \"balance\":\""+ decimalCalculator((String)joResponse.get("result"),18,"ether") +"\"}";
+            		strResult = "{ \"result\":\"OK\",  \"balance\":\""+ decimalCalculator((String)joResponse.get("result"),token_decimal,"ether") +"\"}";
             		
             	}
 	        //솔라나

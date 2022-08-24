@@ -171,20 +171,10 @@ $(function () {
             backupData.backup = backup;
             console.log(backupData);
             let aesKey = varbackup.private;
-            console.log(aesKey);
-
-            var encrypt = CryptoJS.AES.encrypt(JSON.stringify(backupData), aesKey);
-            console.log(encrypt);
-            var etext = encrypt.toString();
-            console.log(etext);
-            var decrypted = CryptoJS.AES.decrypt(etext, aesKey );
-            console.log(decrypted);
+            var encrypt = CryptoJS.AES.encrypt(JSON.stringify(backupData), aesKey).toString();
+            var decrypted = CryptoJS.AES.decrypt(encrypt, aesKey);
             var text = decrypted.toString(CryptoJS.enc.Utf8);
             console.log(text);
-            window.localStorage.setItem("test", text)
-
-
-
 
         });
 

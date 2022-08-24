@@ -80,7 +80,7 @@ $(function () {
 
                             }
                         }
-                        if (token_decimals) {
+                        if (token_decimals || token_decimals == 0) {
                             if (CheckNum(token_decimals) && token_decimals <= 36 && token_decimals >= 0) {
                                 $('#kt_token_detail_decimal').val(token_decimals);
                                 $('#kt_token_detail_decimal').prop('readonly', true);
@@ -130,7 +130,7 @@ $(function () {
         else
             kt_token_valicount++
 
-        if (!kt_token_decimal || !CheckNum(kt_token_decimal) || kt_token_decimal > 36 || kt_token_decimal < 0)
+        if (!CheckNum(kt_token_decimal) || kt_token_decimal > 36 || kt_token_decimal < 0)
             $('#err_txt_token_decimal').css('display', 'block');
         else
             kt_token_valicount++

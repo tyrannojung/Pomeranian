@@ -163,12 +163,26 @@ $(function () {
     //계정 public 백업
     $('#kt_backup_public').on('click', function () {
         chrome.storage.local.get(null, function (items) {
-
+            loading(1000);
             var backupData = new Object();
             var backup = new Object();
+            var varbackup = items.ethereum[0];
             backup.ethereum = items.ethereum[0];
             backupData.backup = backup;
             console.log(backupData);
+            let aesKey = varbackup.private;
+            console.log(aesKey);
+
+            var encrypt = CryptoJS.AES.encrypt(JSON.stringify(backupData), aesKey);
+            console.log(encrypt);
+            var etext = encrypt.toString();
+            console.log(etext);
+            var decrypted = CryptoJS.AES.decrypt(etext, aesKey );
+            console.log(decrypted);
+            var text = decrypted.toString(CryptoJS.enc.Utf8);
+            console.log(text);
+            window.localStorage.setItem("test", text)
+
 
 
 

@@ -128,6 +128,13 @@
 		    <artifactId>gson</artifactId>
 		</dependency>
 		
+		<!-- IPFS -->
+        <dependency>
+            <groupId>com.github.ipfs</groupId>
+            <artifactId>java-ipfs-http-client</artifactId>
+            <version>1.3.3</version>
+        </dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -143,5 +150,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<!-- PG(iamport repository) -->
+	<repositories> 
+		<repository> 
+			<id>jitpack.io</id> 
+			<url>https://jitpack.io</url> 
+		</repository> 
+	</repositories> 
 
 </project>

@@ -136,7 +136,7 @@ public class RpcController {
 				switch(tokenDTO.getToken_type()) {
 					case "ethereum" :
 						System.out.println(tokenDTO.getToken_type());
-						url = "https://mainnet.infura.io/v3/" + webConfig.bridgeEthKey();
+						url = "https://rinkeby.infura.io/v3/" + webConfig.bridgeEthKey();
 						break;
 					case "klaytn" :
 						System.out.println(tokenDTO.getToken_type());
@@ -199,7 +199,7 @@ public class RpcController {
 				switch(tokenDTO.getToken_type()) {
 					case "ethereum" :
 						System.out.println(tokenDTO.getToken_type());
-						url = "https://mainnet.infura.io/v3/" + webConfig.bridgeEthKey();
+						url = "https://rinkeby.infura.io/v3/" + webConfig.bridgeEthKey();
 						break;
 					case "klaytn" :
 						System.out.println(tokenDTO.getToken_type());
@@ -246,11 +246,7 @@ public class RpcController {
             		tokenDTO.setToken_img(getTokenImgUrl(tokenDTO.getToken_symbol()));
             		
             		System.out.println("HIHIHI" + gson.toJson(tokenDTO));
-            		strResult = "{ \"result\":\"OK\", \"token_detail\":"+ gson.toJson(tokenDTO) +"}";
-
-
-	            		
-	            	
+            		strResult = "{ \"result\":\"OK\", \"token_detail\":"+ gson.toJson(tokenDTO) +"}";           		
 	            	
 	            }
 	        //솔라나
@@ -304,7 +300,7 @@ public class RpcController {
 				JSONObject jsonObject = new JSONObject();
 				
 				if(TokenType.ETHEREUM.toString().equals(token)) {
-					String url = "https://mainnet.infura.io/v3/" + webConfig.bridgeEthKey();
+					String url = "https://rinkeby.infura.io/v3/" + webConfig.bridgeEthKey();
 					headers.add("Content-Type", "application/json; charset=utf-8");
 
 					jsonObject.put("method", "eth_getBalance");

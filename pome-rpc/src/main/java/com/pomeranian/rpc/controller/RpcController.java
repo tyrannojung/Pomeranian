@@ -54,69 +54,6 @@ public class RpcController {
 	@Autowired
 	private IpfsUtil ipfsUtil;
 	
-	//######################## 테스트용 ########################
-	@GetMapping("/kthuluWallet")
-	public ModelAndView testlogin(
-			Locale locale
-			, HttpSession session
-			, @RequestParam(name = "kthulu", required = false) String kthulu){
-		
-		ModelAndView mav = new ModelAndView("index");
-		System.out.println(kthulu);
-		
-		JSONObject joResponse = new JSONObject(kthulu);
-		
-		JSONObject joResponse2 = (JSONObject)joResponse.get("kthulu");
-		if (joResponse2.getString("result").equals("OK")) {
-			if(joResponse2.getString("cmd").equals("LOGIN")) {
-				mav.addObject("TEST", "LOGIN");
-				
-			}else {
-				mav.addObject("TEST", "LOGOUT");
-				
-			}
-		}
-		
-		return mav;
-		
-    }
-	
-	@PostMapping("/kthuluWallet")
-	public String testPostLogin(
-			Locale locale
-			, HttpSession session
-			, @RequestParam(name = "kthulu", required = false) String kthulu
-			, Model model){
-		
-		JSONObject joResponse = new JSONObject(kthulu);
-		JSONObject joResponse2 = (JSONObject)joResponse.get("kthulu");
-		
-		System.out.println(joResponse);
-		if (joResponse2.getString("result").equals("OK")) {
-			if(joResponse2.getString("cmd").equals("LOGIN")) {
-				model.addAttribute("TEST", "LOGIN");
-				
-			}else {
-				model.addAttribute("TEST", "LOGOUT");
-				
-			}
-		}
-		return "/index";
-		
-	}
-	//######################## 테스트용 END ########################
-	
-//	@GetMapping(value="/kthulu-rpc/token-search")
-//	@ResponseBody
-//	public String bridgeTokenSearchList(
-//			Locale locale
-//			, TokenDTO tokenDTO) {
-//		Gson tokenSelect = new Gson();
-//		//System.out.println(tokenDTO.toString());
-//		List<TokenDTO> bridgeTokenSearchList = bridgeService.bridgeTokenSearchList(tokenDTO);
-//		return tokenSelect.toJson(bridgeTokenSearchList);
-//	}
-	
 	@PostMapping(value="/kthulu-rpc/data-backup")
 	@ResponseBody
 	public String setDataBackup(
@@ -125,6 +62,9 @@ public class RpcController {
 		String strResult = "{ \"result\":\"FAIL\" }";
 		try {
 			String hashValue = ipfsUtil.saveFile(multipartFile);
+			System.out.println(hashValue);
+			// 해당 해시 value를 스마트컨트렉트에 public_key와 함께 저장한다.
+			
 			strResult = "{ \"result\":\"OK\", \"value\":"+hashValue+"}";
 			
     	}catch(Exception e){

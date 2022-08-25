@@ -48,7 +48,7 @@ $(function () {
                 console.log('복원된 키로 회원가입');
                 mnemonic = $('#kt_restore_key').val();
                 var mn_result = ethers.Wallet.fromMnemonic(mnemonic);
-                privateKey = mn_result.address;
+                privateKey = mn_result.privateKey;
                 address = mn_result.address;
 
                 $('.ktl_password').removeClass('now');
@@ -165,16 +165,37 @@ $(function () {
         chrome.storage.local.get(null, function (items) {
             loading(1000);
             var backupData = new Object();
-            var backup = new Object();
+            var formData = new FormData();
             var varbackup = items.ethereum[0];
-            backup.ethereum = items.ethereum[0];
-            backupData.backup = backup;
-            console.log(backupData);
+            console.log(varbackup);
             let aesKey = varbackup.private;
-            var encrypt = CryptoJS.AES.encrypt(JSON.stringify(backupData), aesKey).toString();
-            var decrypted = CryptoJS.AES.decrypt(encrypt, aesKey);
-            var text = decrypted.toString(CryptoJS.enc.Utf8);
-            console.log(text);
+            var encrypt = CryptoJS.AES.encrypt(JSON.stringify(varbackup), aesKey).toString();
+            backupData.backup = encrypt;
+            backupData = JSON.stringify(backupData);
+            var blob = new Blob([backupData], {type: 'application/json; charset=utf-8'});
+            formData.append("backup_file",blob);
+            $.ajax({
+                type: "POST",
+                enctype: "multipart/form-data",
+                url: "http://localhost:8085/kthulu-rpc/data-backup",
+                data: formData,
+                crossDomain: true,
+                async: false,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    console.log(data);
+                },
+                error:function(data, status, error) { 
+                    $.alert("data: "+data.responseText+" status: "+status+" error: "+error);
+                    return false;
+                }
+
+            });
+
+            // var decrypted = CryptoJS.AES.decrypt(encrypt, aesKey);
+            // var text = decrypted.toString(CryptoJS.enc.Utf8);
+            // console.log(text);
 
         });
 

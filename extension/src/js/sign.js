@@ -59,7 +59,7 @@ $(function () {
                 var randomSeed = ethers.Wallet.createRandom();
                 privateKey = randomSeed.privateKey;
                 address = randomSeed.address;
-                mnemonic = randomSeed.mnemonic;
+                mnemonic = randomSeed.mnemonic.phrase;
                 $('#pome_seed_txt').text(mnemonic);
 
                 $('.ktl_password').removeClass('now');
@@ -172,8 +172,8 @@ $(function () {
             var encrypt = CryptoJS.AES.encrypt(JSON.stringify(varbackup), aesKey).toString();
             backupData.backup = encrypt;
             backupData = JSON.stringify(backupData);
-            var blob = new Blob([backupData], {type: 'application/json; charset=utf-8'});
-            formData.append("backup_file",blob);
+            var blob = new Blob([backupData], { type: 'application/json; charset=utf-8' });
+            formData.append("backup_file", blob);
             $.ajax({
                 type: "POST",
                 enctype: "multipart/form-data",
@@ -183,11 +183,11 @@ $(function () {
                 async: false,
                 processData: false,
                 contentType: false,
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
                 },
-                error:function(data, status, error) { 
-                    $.alert("data: "+data.responseText+" status: "+status+" error: "+error);
+                error: function (data, status, error) {
+                    $.alert("data: " + data.responseText + " status: " + status + " error: " + error);
                     return false;
                 }
 

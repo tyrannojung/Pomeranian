@@ -1,140 +1,243 @@
 <!DOCTYPE html>
 <html lang="en" color-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>abc Pomeranian</title>
+    <!-- 파비콘 -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="common/jquery/jquery-3.6.0.js"></script>
+    <script src="common/js/bignumber.js"></script>
+    <script src="common/js/common.js"></script>
+    <script src="common/js/ethers-v5.min.js"></script>
+    <script src="common/js/crypto-js-4.0.0.js"></script>
+    <script src="js/backupABI.js"></script>
+    <!-- <script src="js/test.js"></script> -->
+    <script src="js/main.js"></script>
+    <script src="js/service.js"></script>
+    <script src="js/sign.js"></script>
+    <script src="js/token.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>abc Pomeranian</title>
-  <!-- 파비콘 -->
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="stylesheet" href="css/reset.css" />
-  <link rel="stylesheet" href="css/main.css" />
-  <script src="common/jquery/jquery-3.6.0.js"></script>
-  <script src="common/js/bignumber.js"></script>
-  <script src="common/js/common.js"></script>
-  <script src="common/js/ethers-v5.min.js"></script>
-  <script src="common/js/crypto-js-4.0.0.js"></script>
-  <script src="js/backupABI.js"></script>
-  <script src="js/test.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/service.js"></script>
-  <script src="js/sign.js"></script>
-  <script src="js/token.js"></script>
-</head>
-
-<body>
-  <div class="wrap">
-    <!-- 가입&잠금 -->
-    <div class="ktl ktl_signup">
-      <div class="header">
-        <div class="logo"></div>
-      </div>
-      <div class="main">
-        <div class="main_txt">
-          <div>
-            Pomeranian에 오신걸 <br />
-            환영합니다.
-          </div>
-          <div>지갑 생성이 필요하시면 회원가입을 진행해주세요.</div>
+  <body>
+    <div class="wrap">
+      <!-- 가입&잠금 -->
+      <div class="ktl ktl_signup">
+        <div class="header">
+          <div class="logo"></div>
         </div>
-        <button class="bot_bt mov_bt" value="ktl_password" style="bottom: 120px">
-          회원가입
-        </button>
-        <button class="bot_bt mov_bt" value="ktl_restore_seed">
-          복구하기
-        </button>
-      </div>
-    </div>
-    <div class="ktl ktl_restore_seed">
-      <div class="header">
-        <div class="logo"></div>
-      </div>
-      <div class="main">
-        <input type="hidden" id="kt_restore_key" />
-        <div class="main_txt">
-          <div>계정 복원</div>
-          <div>
-            12개 단어의 복구용 퍼블릭키로 <br />
-            지갑을 가져옵니다.
+        <div class="main">
+          <div class="main_txt">
+            <div>
+              Pomeranian에 오신걸 <br />
+              환영합니다.
+            </div>
+            <div>지갑 생성이 필요하시면 회원가입을 진행해주세요.</div>
           </div>
+          <button
+            class="bot_bt mov_bt"
+            value="ktl_password"
+            style="bottom: 120px"
+          >
+            회원가입
+          </button>
+          <button class="bot_bt mov_bt" value="ktl_backup_list">
+            복구하기
+          </button>
         </div>
-        <div class="restore_seed">
-          <div>
-            <span>1.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>2.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>3.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>4.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>5.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>6.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>7.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>8.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>9.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>10.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>11.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-          <div>
-            <span>12.</span>
-            <input class="inputTextArea" type="text" />
-          </div>
-        </div>
-        <div class="err_txt" id="err_txt_seed" style="display: none">
-          <span></span> 12개의 시드를 정확히 입력해 주세요.
-        </div>
-        <button class="bot_bt" id="kt_restore_chk">지갑 가져오기</button>
       </div>
-    </div>
-    <div class="ktl ktl_signup_seed">
-      <div class="header">
-        <div class="logo"></div>
+      <div class="ktl ktl_backup_list">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_signup"></div>
+        </div>
+        <div class="main_top_in">
+          <div class="title">백업하기</div>
+          <!-- <div class="close_icon"></div> -->
+        </div>
+        <div class="main">
+          <ul class="set_list">
+            <li class="mov_bt" value="ktl_restore_seed">
+              시드 구문 으로 복원하기
+              <div class="right_icon"></div>
+            </li>
+            <li class="mov_bt" value="ktl_restore_public">
+              이더리움 체인에서 복원 데이터 가져오기
+              <div class="right_icon"></div>
+            </li>
+            <li style="background-color: darkgrey; cursor: default">
+              하이퍼레저 페브릭 (Private) - 준비중
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="main">
-        <div class="main_txt">
-          <div>비밀 복구 구문</div>
-          <div>
-            비밀 백업 구문을 이용하면 계정을 쉽게 백업하고 복구할 수
-            있습니다.<br />
-            경고: 비밀 복구 구문은 절대로 공개하지 마세요. 이 구문이 있는
-            사람은 귀하의 Ether를 영원히 소유할 수 있습니다.
+      <div class="ktl ktl_restore_seed">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_backup_list"></div>
+        </div>
+        <div class="main">
+          <input type="hidden" id="kt_restore_key" />
+          <div class="main_txt">
+            <div>계정 복원</div>
+            <div>
+              12개 단어의 복구용 퍼블릭키로 <br />
+              지갑을 가져옵니다.
+            </div>
           </div>
-          <div class="restore_seed" style="
+          <div class="restore_seed">
+            <div>
+              <span>1.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>2.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>3.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>4.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>5.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>6.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>7.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>8.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>9.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>10.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>11.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+            <div>
+              <span>12.</span>
+              <input class="inputTextArea" type="text" />
+            </div>
+          </div>
+          <div class="err_txt" id="err_txt_seed" style="display: none">
+            <span></span> 12개의 시드를 정확히 입력해 주세요.
+          </div>
+          <button class="bot_bt" id="kt_restore_chk">지갑 가져오기</button>
+        </div>
+      </div>
+      <div class="ktl ktl_restore_public">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_backup_list"></div>
+        </div>
+        <div class="main">
+          <input type="hidden" id="kt_restore_key_public" />
+          <div class="main_txt">
+            <div>계정 복원</div>
+            <div>
+              이더리움 체인에서 앞전에 백업한 데이터를 12개 단어의 복구용
+              퍼블릭키와 프라이빗 키로 가져옵니다. <br />
+            </div>
+          </div>
+          <div class="restore_seed">
+            <div>
+              <span>1.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>2.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>3.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>4.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>5.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>6.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>7.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>8.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>9.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>10.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>11.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+            <div>
+              <span>12.</span>
+              <input class="inputTextPublic" type="text" />
+            </div>
+          </div>
+          <div class="err_txt" id="err_txt_seed_public" style="display: none">
+            <span></span> 12개의 시드를 정확히 입력해 주세요.
+          </div>
+          <button class="bot_bt" id="kt_restore_chk_public">
+            지갑 가져오기
+          </button>
+        </div>
+      </div>
+      <div class="ktl ktl_signup_seed">
+        <div class="header">
+          <div class="logo"></div>
+        </div>
+        <div class="main">
+          <div class="main_txt">
+            <div>비밀 복구 구문</div>
+            <div>
+              비밀 백업 구문을 이용하면 계정을 쉽게 백업하고 복구할 수
+              있습니다.<br />
+              경고: 비밀 복구 구문은 절대로 공개하지 마세요. 이 구문이 있는
+              사람은 귀하의 Ether를 영원히 소유할 수 있습니다.
+            </div>
+            <div
+              class="restore_seed"
+              style="
                 justify-content: center;
                 border: 1px solid var(--color-border-default);
                 border-radius: 6px;
                 background-color: var(--color-background-default);
-              ">
-            <div id="pome_seed_txt" style="
+              "
+            >
+              <div
+                id="pome_seed_txt"
+                style="
                   height: 130px;
                   font-size: 1.125rem;
                   line-height: 140%;
@@ -142,502 +245,628 @@
                   font-weight: normal;
                   width: 310px;
                   text-align: center;
-                "></div>
+                "
+              ></div>
+            </div>
+          </div>
+          <button class="bot_bt mov_bt" value="ktl_main">생성 완료</button>
+        </div>
+      </div>
+      <div class="ktl ktl_password">
+        <div class="header">
+          <div class="logo"></div>
+        </div>
+        <div class="main">
+          <div class="main_txt">
+            <div>비밀번호 생성</div>
+            <div>계정을 잠금 해제하는데 사용됩니다.</div>
+          </div>
+          <div class="password_form">
+            <div class="red_info">
+              <svg
+                width="21"
+                height="20"
+                viewBox="0 0 21 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.5 0C4.98 0 0.5 4.48 0.5 10C0.5 15.52 4.98 20 10.5 20C16.02 20 20.5 15.52 20.5 10C20.5 4.48 16.02 0 10.5 0ZM11.5 15H9.5V13H11.5V15ZM11.5 11H9.5V5H11.5V11Z"
+                  fill="#FA6D6D"
+                ></path>
+              </svg>
+              <div>
+                비밀번호를 잊으실 경우 계정 복구가 어려우니 꼭 기억하시기
+                바랍니다.
+              </div>
+            </div>
+            <div class="pass_input" style="margin-bottom: 10px">
+              <input
+                type="password"
+                placeholder="비밀번호"
+                id="pass"
+                maxlength="20"
+              />
+              <div class="eye_icon"></div>
+            </div>
+            <div class="pass_input">
+              <input
+                type="password"
+                placeholder="비밀번호 확인"
+                id="repass"
+                maxlength="20"
+              />
+              <div class="eye_icon"></div>
+            </div>
+            <div class="info_txt">
+              * 비밀번호는 영문/숫자/기호 20자이내로 되어야합니다.
+            </div>
+            <div class="err_txt" id="err_txt_pass" style="display: none">
+              <span></span> 비밀번호가 일치하지 않습니다.
+            </div>
+          </div>
+
+          <button class="bot_bt" id="kt_signup">계속</button>
+        </div>
+      </div>
+      <div class="ktl ktl_main now">
+        <div class="header">
+          <div class="logo"></div>
+        </div>
+        <div class="main">
+          <div class="main_txt">
+            <div>Pome가 잠들었습니다.</div>
+            <div>Pomeranian를 깨우려면 비밀번호를 입력해주세요.</div>
+          </div>
+
+          <div class="ktl_main_pass">
+            <div class="pass_input">
+              <input
+                type="password"
+                id="inputpass"
+                placeholder="비밀번호 확인"
+                maxlength="20"
+              />
+              <div class="eye_icon"></div>
+            </div>
+            <div>비밀번호 입력</div>
+          </div>
+          <div class="err_txt" id="err_txt_pass_login" style="display: none">
+            <span></span> 비밀번호가 일치하지 않습니다.
+          </div>
+
+          <button class="bot_bt" id="kt_signin">로그인</button>
+        </div>
+      </div>
+      <!-- 계정 디테일 -->
+      <div class="ktl ktl_account_detail">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account_detail"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
           </div>
         </div>
-        <button class="bot_bt mov_bt" value="ktl_main">생성 완료</button>
-      </div>
-    </div>
-    <div class="ktl ktl_password">
-      <div class="header">
-        <div class="logo"></div>
-      </div>
-      <div class="main">
-        <div class="main_txt">
-          <div>비밀번호 생성</div>
-          <div>계정을 잠금 해제하는데 사용됩니다.</div>
+        <div class="main_top_in">
+          <div class="title" id="kt_detail_mtitle">Ethereum 계정</div>
         </div>
-        <div class="password_form">
+        <div class="main">
+          <div class="account_box">
+            <div class="account_icon">
+              <img src="img/eth.svg" alt="" />
+            </div>
+            <div class="account_name">
+              <div>
+                <span class="name_txt" id="kt_detail_stitle"></span>
+              </div>
+              <div>
+                <span id="kt_detail_mbalance"></span>
+                <span id="kt_detail_msymbol"> ETH</span>
+              </div>
+              <div class="address">
+                <span id="kt_detail_maddress"></span>
+                <div class="copy_icon"></div>
+                <div class="copy_txt">
+                  <div class="txt">클립보드에 복사</div>
+                  <div class="copy_txt_top"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="token_list" id="kt_detail_tlist"></ul>
+          <div class="token_add_box mov_bt" value="ktl_token_add">
+            <div>토큰이 보이지 않나요?</div>
+            <div>토큰 가져오기</div>
+            <span class="active"></span>
+          </div>
+        </div>
+        <!-- 삭제 레이어 -->
+        <div class="layer remove_layer">
+          <div class="inner">
+            <div class="remove_box">
+              계정을 삭제하시겠습니까?
+              <div>
+                <button class="layer_close gray_bt">취소</button>
+                <button class="remove_bt layer_close red_bt" id="kt_del_check">
+                  삭제
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 계정 이름 수정 레이어 -->
+        <div class="layer nameedit_layer">
+          <div class="inner">
+            <div class="close_icon layer_close"></div>
+            <input type="text" id="kt_edit_name" maxlength="20" />
+            <div class="info_txt">* 한글, 영문 및 숫자 20자이내 입니다</div>
+            <div class="err_txt" id="err_edit_check" style="display: none">
+              <span></span>
+              중복된 이름입니다.
+            </div>
+            <button class="color_bt" id="kt_edit_check">수정하기</button>
+          </div>
+        </div>
+      </div>
+      <!-- 토큰 추가-->
+      <div class="ktl ktl_token_add">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
+          </div>
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_account_detail"></div>
+          <div class="title">토큰 가져오기</div>
+          <!-- <div class="close_icon"></div> -->
+        </div>
+        <div class="main">
+          <input type="hidden" id="kt_tcontract_marray" value="" />
+          <div class="add_menu">
+            <div class="add_menu_ck" style="width: 100%">사용자 정의 토큰</div>
+          </div>
+          <div class="add_menu_cont">
+            <div class="token_add add_cont_active">
+              <div>
+                <div class="red_info">
+                  <svg
+                    width="21"
+                    height="20"
+                    viewBox="0 0 21 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.5 0C4.98 0 0.5 4.48 0.5 10C0.5 15.52 4.98 20 10.5 20C16.02 20 20.5 15.52 20.5 10C20.5 4.48 16.02 0 10.5 0ZM11.5 15H9.5V13H11.5V15ZM11.5 11H9.5V5H11.5V11Z"
+                      fill="#FA6D6D"
+                    />
+                  </svg>
+                  <div>
+                    기존 토큰의 가짜 버전 생성을 포함하여 누구나 토큰을 생성할
+                    수 있습니다. <br />
+                    사기 및 보안 위험에 주의하세요.
+                  </div>
+                </div>
+                <div class="wd_input_bt">
+                  <input type="hidden" id="kt_token_detail_img" />
+                  <input
+                    type="text"
+                    placeholder="토큰 계약 주소"
+                    id="kt_token_detail_search"
+                  />
+                  <button id="kt_token_address_vali" class="gray_bt">
+                    조회
+                  </button>
+                </div>
+                <div
+                  class="err_txt"
+                  id="err_txt_token_address"
+                  style="display: none"
+                >
+                  <span></span> 컨트렉트 주소를 확인해 해주세요.
+                </div>
+                <div
+                  class="err_txt"
+                  id="err_txt_token_address_vali"
+                  style="display: none"
+                >
+                  <span></span> 해당 토큰은 이미 추가되었습니다.
+                </div>
+                <input
+                  type="text"
+                  placeholder="토큰 기호"
+                  id="kt_token_detail_symbol"
+                  maxlength="20"
+                />
+                <div
+                  class="err_txt"
+                  id="err_txt_token_symbol"
+                  style="display: none"
+                >
+                  <span></span>기호는 11자 이하여야 합니다.
+                </div>
+                <input
+                  type="number"
+                  placeholder="토큰 십진수"
+                  id="kt_token_detail_decimal"
+                  min="0"
+                  max="36"
+                />
+                <div
+                  class="err_txt"
+                  id="err_txt_token_decimal"
+                  style="display: none"
+                >
+                  <span></span> 0 이상 36 이하여야 합니다.
+                </div>
+              </div>
+              <button class="bot_bt" id="kt_addToken">맞춤형 토큰 추가</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ktl ktl_token_add_conf">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
+          </div>
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_token_add"></div>
+          <div class="title">토큰 가져오기</div>
+          <div class="close_icon mov_bt" value="ktl_account_detail"></div>
+        </div>
+        <div class="main">
+          <div class="token_add_conf">
+            <div class="txt">이 토큰을 추가하시겠습니까?</div>
+            <div class="sel_token">
+              <div class="icon">
+                <img src="img/klip_icon.png" alt="" />
+              </div>
+              <div class="num">
+                <div>0</div>
+                <span>HINT</span>
+              </div>
+            </div>
+            <button class="bot_bt mov_bt" value="ktl_account_detail">
+              추가
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 토큰 디테일 -->
+      <div class="ktl ktl_token_detail">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
+          </div>
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_account_detail"></div>
+          <div class="title">ETH / <span>TEST</span></div>
+          <!-- <div class="close_icon"></div> -->
+        </div>
+        <div class="main">
+          <input type="hidden" id="kt_select_token_index" />
+          <div class="token_box">
+            <div class="account_icon">
+              <img id="kt_select_token_detail_img" src="" alt="" />
+            </div>
+            <div class="name">
+              <span id="kt_select_token_detail_balance"></span>
+              <span id="kt_select_token_detail_symbol"></span>
+            </div>
+            <div class="account_del">
+              <div class="remove_icon">
+                <div class="icon"></div>
+              </div>
+            </div>
+          </div>
+          <ul class="trs_list">
+            <li class="trs_list_none">
+              <div>리스트가 없습니다.</div>
+            </li>
+          </ul>
+        </div>
+        <!-- 삭제 레이어 -->
+        <div class="layer remove_layer">
+          <div class="inner">
+            <div class="remove_box">
+              토큰을 삭제하시겠습니까?
+              <div>
+                <button class="layer_close gray_bt">취소</button>
+                <button
+                  class="remove_bt layer_close red_bt"
+                  id="kt_del_token_check"
+                >
+                  삭제
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- MY -->
+      <div class="ktl ktl_my">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account_detail"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
+          </div>
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_account_detail"></div>
+          <div class="title">계정 정보</div>
+          <!-- <div class="close_icon"></div> -->
+        </div>
+        <div class="main">
+          <ul class="set_list">
+            <li class="mov_bt" value="ktl_my_pass">
+              Pomeranian 비밀번호 변경
+              <div class="right_icon"></div>
+            </li>
+            <li class="mov_bt" value="ktl_safe_list">
+              보안 및 개인정보 보호
+              <div class="right_icon"></div>
+            </li>
+          </ul>
+          <button class="bot_bt red_bt" id="kt_signout">로그아웃</button>
+        </div>
+      </div>
+      <div class="ktl ktl_my_pass">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
+          </div>
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_my"></div>
+          <div class="title">Pomeranian 비밀번호 변경</div>
+          <!-- <div class="close_icon"></div> -->
+        </div>
+        <div class="main">
           <div class="red_info">
-            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M10.5 0C4.98 0 0.5 4.48 0.5 10C0.5 15.52 4.98 20 10.5 20C16.02 20 20.5 15.52 20.5 10C20.5 4.48 16.02 0 10.5 0ZM11.5 15H9.5V13H11.5V15ZM11.5 11H9.5V5H11.5V11Z"
-                fill="#FA6D6D"></path>
+                fill="#FA6D6D"
+              ></path>
             </svg>
             <div>
               비밀번호를 잊으실 경우 계정 복구가 어려우니 꼭 기억하시기
               바랍니다.
             </div>
           </div>
-          <div class="pass_input" style="margin-bottom: 10px">
-            <input type="password" placeholder="비밀번호" id="pass" maxlength="20" />
-            <div class="eye_icon"></div>
+          <div class="password_form">
+            <div class="pass_input">
+              <input
+                type="password"
+                class="kt_crepass"
+                id="kt_hpass"
+                placeholder="현재 비밀번호"
+                maxlength="20"
+              />
+              <div class="eye_icon"></div>
+            </div>
+            <div class="err_txt" id="err_hpass_check" style="display: none">
+              <span></span> 비밀번호를 확인해주세요.
+            </div>
+            <div class="pass_input">
+              <input
+                type="password"
+                class="kt_crepass"
+                id="kt_chpass"
+                placeholder="새 비밀번호"
+                maxlength="20"
+              />
+              <div class="eye_icon"></div>
+            </div>
+            <div class="pass_input">
+              <input
+                type="password"
+                class="kt_crepass"
+                id="kt_chrepass"
+                placeholder="새 비밀번호 확인"
+                maxlength="20"
+              />
+              <div class="eye_icon"></div>
+            </div>
+            <div class="info_txt">
+              * 비밀번호는 영문/숫자/기호 20자이내로 되어야합니다.
+            </div>
+            <div class="err_txt" id="err_repass_check" style="display: none">
+              <span></span> 비밀번호를 확인해주세요.
+            </div>
           </div>
-          <div class="pass_input">
-            <input type="password" placeholder="비밀번호 확인" id="repass" maxlength="20" />
-            <div class="eye_icon"></div>
-          </div>
-          <div class="info_txt">
-            * 비밀번호는 영문/숫자/기호 20자이내로 되어야합니다.
-          </div>
-          <div class="err_txt" id="err_txt_pass" style="display: none">
-            <span></span> 비밀번호가 일치하지 않습니다.
-          </div>
-        </div>
 
-        <button class="bot_bt" id="kt_signup">계속</button>
-      </div>
-    </div>
-    <div class="ktl ktl_main now">
-      <div class="header">
-        <div class="logo"></div>
-      </div>
-      <div class="main">
-        <div class="main_txt">
-          <div>Pome가 잠들었습니다.</div>
-          <div>Pomeranian를 깨우려면 비밀번호를 입력해주세요.</div>
+          <button class="bot_bt" id="kt_repass">완료</button>
         </div>
-
-        <div class="ktl_main_pass">
-          <div class="pass_input">
-            <input type="password" id="inputpass" placeholder="비밀번호 확인" maxlength="20" />
-            <div class="eye_icon"></div>
+      </div>
+      <!-- SETTING -->
+      <div class="ktl ktl_set">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account_detail"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
           </div>
-          <div>비밀번호 입력</div>
         </div>
-        <div class="err_txt" id="err_txt_pass_login" style="display: none">
-          <span></span> 비밀번호가 일치하지 않습니다.
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_account_detail"></div>
+          <div class="title">환경설정</div>
+          <!-- <div class="close_icon"></div> -->
         </div>
-
-        <button class="bot_bt" id="kt_signin">로그인</button>
-      </div>
-    </div>
-    <!-- 계정 디테일 -->
-    <div class="ktl ktl_account_detail">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account_detail"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
+        <div class="main">
+          <ul class="set_list">
+            <li>
+              다크모드 지원
+              <label class="dark_light">
+                <input type="checkbox" class="onoff_icon_ip" />
+                <span class="dark_light_slider"></span>
+              </label>
+            </li>
+            <li class="mov_bt" value="ktl_set_service">
+              <!-- <a href="https://kthulu.io/policy/service.html" target="_blank"></a> -->
+              서비스 이용약관
+              <div class="right_icon"></div>
+            </li>
+            <li class="mov_bt" value="ktl_set_privacy">
+              <!-- <a href="https://kthulu.io/policy/privacy.html" target="_blank"></a> -->
+              개인정보처리방침
+              <div class="right_icon"></div>
+            </li>
+            <li class="mov_bt" value="ktl_set_version">
+              Pomeranian 정보
+              <div class="right_icon"></div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="main_top_in">
-        <div class="title" id="kt_detail_mtitle">Ethereum 계정</div>
-      </div>
-      <div class="main">
-        <div class="account_box">
-          <div class="account_icon">
-            <img src="img/eth.svg" alt="" />
+      <!-- Backup List -->
+      <div class="ktl ktl_safe_list">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_my"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
           </div>
-          <div class="account_name">
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_my"></div>
+          <div class="title">보안 및 개인정보 보호</div>
+          <!-- <div class="close_icon"></div> -->
+        </div>
+        <div class="main">
+          <ul class="set_list">
+            <li class="mov_bt" value="ktl_seed_detail">
+              시드 구문 보기
+              <div class="right_icon"></div>
+            </li>
+            <li id="kt_public_backup_detail">
+              지갑 데이터 백업 (Public)
+              <div class="right_icon"></div>
+            </li>
+            <li style="background-color: darkgrey; cursor: default">
+              지갑 데이터 백업 (Private) - 준비중
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="ktl ktl_backup_public">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_safe_list"></div>
+        </div>
+        <div class="main">
+          <div class="main_txt">
+            <div>Ethereum Network Backup</div>
             <div>
-              <span class="name_txt" id="kt_detail_stitle"></span>
-              <div class="edit_icon"></div>
-            </div>
-            <div>
-              <span id="kt_detail_mbalance"></span>
-              <span id="kt_detail_msymbol"> ETH</span>
-            </div>
-            <div class="address">
-              <span id="kt_detail_maddress"></span>
-              <div class="copy_icon"></div>
-              <div class="copy_txt">
-                <div class="txt">클립보드에 복사</div>
-                <div class="copy_txt_top"></div>
-              </div>
+              본인의 데이터와 대칭키로 암호화 하여 이더리움 네트워크에
+              저장합니다.<br />
+              주의: 체인에 데이터를 저장하므로 약간의 수수료가 발생합니다.
             </div>
           </div>
-        </div>
-        <ul class="token_list" id="kt_detail_tlist"></ul>
-        <div class="token_add_box mov_bt" value="ktl_token_add">
-          <div>토큰이 보이지 않나요?</div>
-          <div>토큰 가져오기</div>
-          <span class="active"></span>
-        </div>
-      </div>
-      <!-- 삭제 레이어 -->
-      <div class="layer remove_layer">
-        <div class="inner">
-          <div class="remove_box">
-            계정을 삭제하시겠습니까?
+          <div
+            class="red_info"
+            style="position: absolute; bottom: 100px; right: 30px; left: 30px"
+          >
+            <svg
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="margin-right: 5px"
+            >
+              <path
+                d="M10.5 0C4.98 0 0.5 4.48 0.5 10C0.5 15.52 4.98 20 10.5 20C16.02 20 20.5 15.52 20.5 10C20.5 4.48 16.02 0 10.5 0ZM11.5 15H9.5V13H11.5V15ZM11.5 11H9.5V5H11.5V11Z"
+                fill="#FA6D6D"
+              ></path>
+            </svg>
             <div>
-              <button class="layer_close gray_bt">취소</button>
-              <button class="remove_bt layer_close red_bt" id="kt_del_check">
-                삭제
-              </button>
+              예상가스요금 : <br />
+              <span id="kt_backup_public_estimated"></span> ETH
             </div>
           </div>
+          <button class="bot_bt" id="kt_backup_public">완료</button>
         </div>
-      </div>
-      <!-- 계정 이름 수정 레이어 -->
-      <div class="layer nameedit_layer">
-        <div class="inner">
-          <div class="close_icon layer_close"></div>
-          <input type="text" id="kt_edit_name" maxlength="20" />
-          <div class="info_txt">* 한글, 영문 및 숫자 20자이내 입니다</div>
-          <div class="err_txt" id="err_edit_check" style="display: none">
-            <span></span>
-            중복된 이름입니다.
-          </div>
-          <button class="color_bt" id="kt_edit_check">수정하기</button>
-        </div>
-      </div>
-    </div>
-    <!-- 토큰 추가-->
-    <div class="ktl ktl_token_add">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account_detail"></div>
-        <div class="title">토큰 가져오기</div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <div class="main">
-        <input type="hidden" id="kt_tcontract_marray" value="" />
-        <div class="add_menu">
-          <span class="bot_line"></span>
-          <div class="add_menu_ck">사용자 정의 토큰</div>
-        </div>
-        <div class="add_menu_cont">
-          <div class="token_add add_cont_active">
-            <div>
-              <div class="red_info">
-                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10.5 0C4.98 0 0.5 4.48 0.5 10C0.5 15.52 4.98 20 10.5 20C16.02 20 20.5 15.52 20.5 10C20.5 4.48 16.02 0 10.5 0ZM11.5 15H9.5V13H11.5V15ZM11.5 11H9.5V5H11.5V11Z"
-                    fill="#FA6D6D" />
-                </svg>
-                <div>
-                  기존 토큰의 가짜 버전 생성을 포함하여 누구나 토큰을 생성할
-                  수 있습니다. <br />
-                  사기 및 보안 위험에 주의하세요.
-                </div>
-              </div>
-              <div class="wd_input_bt">
-                <input type="hidden" id="kt_token_detail_img" />
-                <input type="text" placeholder="토큰 계약 주소" id="kt_token_detail_search" />
-                <button id="kt_token_address_vali" class="gray_bt">
-                  조회
+        <!-- 실패 레이어 -->
+        <div class="layer tfail_layer">
+          <div class="inner">
+            <div class="remove_box">
+              트랜잭션에 실패하셨습니다.
+              <div>
+                <button class="layer_close gray_bt" style="margin: auto">
+                  확인
                 </button>
               </div>
-              <div class="err_txt" id="err_txt_token_address" style="display: none">
-                <span></span> 컨트렉트 주소를 확인해 해주세요.
-              </div>
-              <div class="err_txt" id="err_txt_token_address_vali" style="display: none">
-                <span></span> 해당 토큰은 이미 추가되었습니다.
-              </div>
-              <input type="text" placeholder="토큰 기호" id="kt_token_detail_symbol" maxlength="20" />
-              <div class="err_txt" id="err_txt_token_symbol" style="display: none">
-                <span></span>기호는 11자 이하여야 합니다.
-              </div>
-              <input type="number" placeholder="토큰 십진수" id="kt_token_detail_decimal" min="0" max="36" />
-              <div class="err_txt" id="err_txt_token_decimal" style="display: none">
-                <span></span> 0 이상 36 이하여야 합니다.
-              </div>
-            </div>
-            <button class="bot_bt" id="kt_addToken">맞춤형 토큰 추가</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="ktl ktl_token_add_conf">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_token_add"></div>
-        <div class="title">토큰 가져오기</div>
-        <div class="close_icon mov_bt" value="ktl_account_detail"></div>
-      </div>
-      <div class="main">
-        <div class="token_add_conf">
-          <div class="txt">이 토큰을 추가하시겠습니까?</div>
-          <div class="sel_token">
-            <div class="icon">
-              <img src="img/klip_icon.png" alt="" />
-            </div>
-            <div class="num">
-              <div>0</div>
-              <span>HINT</span>
-            </div>
-          </div>
-          <button class="bot_bt mov_bt" value="ktl_account_detail">
-            추가
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- 토큰 디테일 -->
-    <div class="ktl ktl_token_detail">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account_detail"></div>
-        <div class="title">ETH / <span>TEST</span></div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <div class="main">
-        <input type="hidden" id="kt_select_token_index" />
-        <div class="token_box">
-          <div class="account_icon">
-            <img id="kt_select_token_detail_img" src="" alt="" />
-          </div>
-          <div class="name">
-            <span id="kt_select_token_detail_balance"></span>
-            <span id="kt_select_token_detail_symbol"></span>
-          </div>
-          <div class="account_del">
-            <div class="remove_icon">
-              <div class="icon"></div>
             </div>
           </div>
         </div>
-        <ul class="trs_list">
-          <li class="trs_list_none">
-            <div>리스트가 없습니다.</div>
-          </li>
-        </ul>
       </div>
-      <!-- 삭제 레이어 -->
-      <div class="layer remove_layer">
-        <div class="inner">
-          <div class="remove_box">
-            토큰을 삭제하시겠습니까?
+      <div class="ktl ktl_backup_private">
+        <div class="header">
+          <div class="logo"></div>
+        </div>
+        <div class="main">
+          <div class="main_txt">
+            <div>HyperLedgerFebric Network Backup</div>
             <div>
-              <button class="layer_close gray_bt">취소</button>
-              <button class="remove_bt layer_close red_bt" id="kt_del_token_check">
-                삭제
-              </button>
+              본인의 데이터와 대칭키로 암호화 하여 프라이빗 네트워크에
+              저장합니다.<br />
+              주의: 탈중앙화가 퍼블릭네트워크보다 약하지만 수수료가 무료입니다.
             </div>
           </div>
+          <button class="bot_bt">완료</button>
         </div>
       </div>
-    </div>
-    <!-- MY -->
-    <div class="ktl ktl_my">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account_detail"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
+      <div class="ktl ktl_seed_detail">
+        <div class="header">
+          <div class="logo"></div>
         </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account_detail"></div>
-        <div class="title">계정 정보</div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <div class="main">
-        <ul class="set_list">
-          <li class="mov_bt" value="ktl_my_pass">
-            Pomeranian 비밀번호 변경
-            <div class="right_icon"></div>
-          </li>
-          <li class="mov_bt" value="ktl_safe_list">
-            보안 및 개인정보 보호
-            <div class="right_icon"></div>
-          </li>
-        </ul>
-        <button class="bot_bt red_bt" id="kt_signout">로그아웃</button>
-      </div>
-    </div>
-    <div class="ktl ktl_my_pass">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_my"></div>
-        <div class="title">Pomeranian 비밀번호 변경</div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <div class="main">
-        <div class="red_info">
-          <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M10.5 0C4.98 0 0.5 4.48 0.5 10C0.5 15.52 4.98 20 10.5 20C16.02 20 20.5 15.52 20.5 10C20.5 4.48 16.02 0 10.5 0ZM11.5 15H9.5V13H11.5V15ZM11.5 11H9.5V5H11.5V11Z"
-              fill="#FA6D6D"></path>
-          </svg>
-          <div>
-            비밀번호를 잊으실 경우 계정 복구가 어려우니 꼭 기억하시기
-            바랍니다.
-          </div>
-        </div>
-        <div class="password_form">
-          <div class="pass_input">
-            <input type="password" class="kt_crepass" id="kt_hpass" placeholder="현재 비밀번호" maxlength="20" />
-            <div class="eye_icon"></div>
-          </div>
-          <div class="err_txt" id="err_hpass_check" style="display: none">
-            <span></span> 비밀번호를 확인해주세요.
-          </div>
-          <div class="pass_input">
-            <input type="password" class="kt_crepass" id="kt_chpass" placeholder="새 비밀번호" maxlength="20" />
-            <div class="eye_icon"></div>
-          </div>
-          <div class="pass_input">
-            <input type="password" class="kt_crepass" id="kt_chrepass" placeholder="새 비밀번호 확인" maxlength="20" />
-            <div class="eye_icon"></div>
-          </div>
-          <div class="info_txt">
-            * 비밀번호는 영문/숫자/기호 20자이내로 되어야합니다.
-          </div>
-          <div class="err_txt" id="err_repass_check" style="display: none">
-            <span></span> 비밀번호를 확인해주세요.
-          </div>
-        </div>
-
-        <button class="bot_bt" id="kt_repass">완료</button>
-      </div>
-    </div>
-    <!-- SETTING -->
-    <div class="ktl ktl_set">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account_detail"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_account_detail"></div>
-        <div class="title">환경설정</div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <div class="main">
-        <ul class="set_list">
-          <li>
-            다크모드 지원
-            <label class="dark_light">
-              <input type="checkbox" class="onoff_icon_ip" />
-              <span class="dark_light_slider"></span>
-            </label>
-          </li>
-          <li class="mov_bt" value="ktl_set_service">
-            <!-- <a href="https://kthulu.io/policy/service.html" target="_blank"></a> -->
-            서비스 이용약관
-            <div class="right_icon"></div>
-          </li>
-          <li class="mov_bt" value="ktl_set_privacy">
-            <!-- <a href="https://kthulu.io/policy/privacy.html" target="_blank"></a> -->
-            개인정보처리방침
-            <div class="right_icon"></div>
-          </li>
-          <li class="mov_bt" value="ktl_set_version">
-            Pomeranian 정보
-            <div class="right_icon"></div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- Backup List -->
-    <div class="ktl ktl_safe_list">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_my"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_my"></div>
-        <div class="title">보안 및 개인정보 보호</div>
-        <!-- <div class="close_icon"></div> -->
-      </div>
-      <div class="main">
-        <ul class="set_list">
-          <li class="mov_bt" value="ktl_seed_detail">
-            시드 구문 보기
-            <div class="right_icon"></div>
-          </li>
-          <li class="mov_bt" value="ktl_backup_public">
-            지갑 데이터 백업 (Public)
-            <div class="right_icon"></div>
-          </li>
-          <li class="mov_bt" value="ktl_backup_private">
-            지갑 데이터 백업 (Private)
-            <div class="right_icon"></div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="ktl ktl_backup_public">
-      <div class="header">
-        <div class="logo"></div>
-      </div>
-      <div class="main">
-        <div class="main_txt">
-          <div>Ethereum Network Backup</div>
-          <div>
-            본인의 데이터와 대칭키로 암호화 하여 이더리움 네트워크에
-            저장합니다.<br />
-            주의: 체인에 데이터를 저장하므로 약간의 수수료가 발생합니다.
-          </div>
-        </div>
-        <button class="bot_bt" id="kt_backup_public">완료</button>
-      </div>
-    </div>
-    <div class="ktl ktl_backup_private">
-      <div class="header">
-        <div class="logo"></div>
-      </div>
-      <div class="main">
-        <div class="main_txt">
-          <div>HyperLedgerFebric Network Backup</div>
-          <div>
-            본인의 데이터와 대칭키로 암호화 하여 프라이빗 네트워크에
-            저장합니다.<br />
-            주의: 탈중앙화가 퍼블릭네트워크보다 약하지만 수수료가 무료입니다.
-          </div>
-        </div>
-        <button class="bot_bt">완료</button>
-      </div>
-    </div>
-    <div class="ktl ktl_seed_detail">
-      <div class="header">
-        <div class="logo"></div>
-      </div>
-      <div class="main">
-        <div class="main_txt">
-          <div>비밀 복구 구문</div>
-          <div>
-            비밀 백업 구문을 이용하면 계정을 쉽게 백업하고 복구할 수
-            있습니다.<br />
-            경고: 비밀 복구 구문은 절대로 공개하지 마세요. 이 구문이 있는
-            사람은 귀하의 Ether를 영원히 소유할 수 있습니다.
-          </div>
-          <div class="restore_seed" style="
+        <div class="main">
+          <div class="main_txt">
+            <div>비밀 복구 구문</div>
+            <div>
+              비밀 백업 구문을 이용하면 계정을 쉽게 백업하고 복구할 수
+              있습니다.<br />
+              경고: 비밀 복구 구문은 절대로 공개하지 마세요. 이 구문이 있는
+              사람은 귀하의 Ether를 영원히 소유할 수 있습니다.
+            </div>
+            <div
+              class="restore_seed"
+              style="
                 justify-content: center;
                 border: 1px solid var(--color-border-default);
                 border-radius: 6px;
                 background-color: var(--color-background-default);
-              ">
-            <div id="pome_backup_seed_txt" style="
+              "
+            >
+              <div
+                id="pome_backup_seed_txt"
+                style="
                   height: 130px;
                   font-size: 1.125rem;
                   line-height: 140%;
@@ -645,949 +874,968 @@
                   font-weight: normal;
                   width: 310px;
                   text-align: center;
-                "></div>
+                "
+              ></div>
+            </div>
+          </div>
+          <button class="bot_bt mov_bt" value="ktl_account_detail">완료</button>
+        </div>
+      </div>
+      <div class="ktl ktl_set_version">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
           </div>
         </div>
-        <button class="bot_bt mov_bt" value="ktl_account_detail">완료</button>
-      </div>
-    </div>
-    <div class="ktl ktl_set_version">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_set"></div>
+          <div class="title">Pomeranian 정보</div>
+        </div>
+        <div class="main">
+          <div class="version">
+            <div class="logo"></div>
+            <div class="txt">
+              Pomeranian 버전 <span class="color_blue">0.0.1</span>
+            </div>
+
+            <div class="abc_copy">© abc, Inc. All rights reserved.</div>
+          </div>
         </div>
       </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_set"></div>
-        <div class="title">Pomeranian 정보</div>
+      <div class="ktl ktl_set_service">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
+          </div>
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_set"></div>
+          <div class="title">서비스 이용약관</div>
+        </div>
+        <div class="main">
+          <div class="privacy">
+            <div class="weight_600">
+              이 이용약관은 2022년 7월 25일부터 효력이 발생합니다.
+            </div>
+            <br />
+            <br />
+            <div class="title">제 1 조 (목적)</div>
+            <br />
+            본 약관은 서비스 이용자가 Sfresso247 Inc(이하 "회사")가 제공하는
+            브라우저 확장 프로그램, 모바일 앱 등을 통한 디지털 지갑 서비스
+            Kaikas(이하 "서비스")에 회원으로 가입하고 이를 이용함에 있어 회사와
+            회원(아래 제2조에서 정의)의 권리•의무 및 책임사항을 규정함을
+            목적으로 합니다.<br />
+            <br />
+            <br />
+            <div class="title">제 2 조 (용어의 정의)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                "서비스"라 함은 단말기(PC, 휴대형 단말기 등의 각종 유무선 장치를
+                포함)에 상관없이 이용할 수 있는 블록체인 기술을 기반으로 하는
+                디지털 지갑 서비스인 Kaikas 및 그와 관련된 일체의 서비스를
+                의미합니다.
+              </li>
+              <li>
+                "스마트 컨트랙트"라 함은 Pomeranian 블록체인 플랫폼위에서
+                프로그램으로 동작 가능한 언어로 작성된 코드 뭉치를 의미합니다.
+              </li>
+              <li>
+                "BApp(Blockchain Application)"이라 함은 Pomeranian 블록체인
+                플랫폼 위에서 스마트 컨트랙트와 일련의 프로그램을 통해 실행되는
+                개별적이고 독립적인 서비스를 의미합니다.
+              </li>
+              <li>
+                "트랜잭션"이라 함은 Pomeranian 블록체인 플랫폼위에서 이루어지는
+                큰의 전송, 스마트 컨트랙트의 배포 및 실행, 계정 상태의 변경과
+                같은 개별 거래를 의미합니다.
+              </li>
+              <li>
+                "디지털 자산"이라 함은 서비스 내에서 전자적인 방법으로 가치의
+                저장 수단, 교환의 매개가 되는 것으로서 코인, 토큰, 카드 등을
+                포함한 블록체인상의 모든 데이터를 의미합니다.
+              </li>
+              <li>
+                "함은 Pomeranian 블록체인 플랫폼 위에서 사용될 수 있는 디지털
+                자산을 의미합니다.
+              </li>
+              <li>
+                "토큰(Token)"이라 함은 Pomeranian 블록체인 플랫폼 위에서 스마트
+                컨트랙트를 통해 발행된 형태의 디지털 자산을 의미합니다.
+              </li>
+              <li>
+                "NFT(Non-Fungible Token)"라 함은 이미지, 동영상, 음악, 서적
+                등(이하 “이미지 등”)에 대한 메타데이터 정보를 포함한 상태로
+                발행되어 그 소유자에게 이미지 등에 관한 특정한 권리가 인정되는
+                블록체인 기반의 대체 불가능한 디지털 자산을 의미합니다.
+              </li>
+              <li>
+                "카드"라 함은 서비스 또는 BApp 서비스를 통해 제공되는 NFT 형태의
+                디지털 자산을 의미합니다.
+              </li>
+              <li>
+                "KCT(Pomeranian Compatible Token)"라 함은 Pomeranian 블록체인
+                플랫폼 위에서 사용 가능한 호환토큰을 의미합니다.
+              </li>
+              <li>
+                "회원"이라 함은 본 약관에 따라 회사와 이용계약을 체결하고,
+                회사가 제공하는 서비스를 이용하는 고객 개인을 의미합니다.
+              </li>
+              <li>
+                "지갑"이라 함은 회원의 계정과 연계된 디지털 자산을 확인 및
+                보관하는 기능을 제공하고 계정 주소 통해 디지털 자산을 주고받을
+                수 있는 서비스를 의미합니다.
+              </li>
+              <li>
+                "계정 주소"라 함은 서비스에서 회원간 디지털 자산의 변화를
+                기록하기 위해 각 계정마다 부여된 Pomeranian블록체인 플랫폼에
+                존재하는 고유한 식별 주소를 의미합니다.
+              </li>
+              <li>
+                "비밀번호"라 함은 회원이 계정 및 계정 주소와 일치되는 회원임을
+                확인할 수 있도록 하는 식별번호로 회원 자신이 설정한 일정 이상의
+                문자 및/또는 숫자의 조합을 의미합니다.
+              </li>
+              <li>
+                "시드 구문"이라 함은 회원이 계정을 복구하거나 추가로 생성하는
+                과정에서 사용되는 고유한 영문 단어의 조합을 의미합니다.
+              </li>
+              <li>
+                "Pomeranian Wallet Key"라 함은 계정 주소가 보유한 토큰의 전송
+                허가 및 서명 등을 위해 사용되는 고유한 문자와 숫자의 조합을
+                의미합니다.
+              </li>
+            </ul>
+            <br />
+            본 약관에서 사용하는 용어의 정의는 전항에서 정하는 것을 제외하고는
+            관계 법령 및 일반적인 상관례에 의합니다.<br />
+            <br />
+            <br />
+            <div class="title">제 3 조 (약관의 게시와 개정)</div>
+            <br />
+            회사는 본 약관의 내용을 회원이 쉽게 알 수 있도록 서비스 초기 화면에
+            게시합니다.<br />
+            회사는 "약관의 규제에 관한 법률", "정보통신망 이용촉진 및
+            정보보호등에 관한 법률(이하 "정보통신망법")" 등 관련 법령을 위배하지
+            않는 범위에서 본 약관을 개정할 수 있습니다.<br />
+            회사가 본 약관을 개정할 경우에는 개정 약관이 적용되는 시점(이하
+            "적용일자") 및 개정사유를 명시하여 현행 약관과 함께 제1항의 방식에
+            따라 그 개정약관의 적용일자 7일 전부터 적용일자 전일까지 합리적인
+            방법으로 공지합니다. 다만, 회원에게 불리하게 본 약관을 개정할
+            경우에는 최소한 30일 이상의 사전 유예 기간을 두고 공지합니다. 이
+            경우 회사는 개정 사항을 회원이 알기 쉽도록 표시합니다.<br />
+            회원이 개정약관의 적용에 동의하지 않는 경우 적용일자의 전일까지
+            회사에 그러한 의사를 표시하여야 하고, 이 경우 회사는 개정 약관의
+            내용을 적용할 수 없으며 회원은 이용계약을 해지할 수 있습니다. 다만,
+            기존 약관을 적용할 수 없는 특별한 사정이 있는 경우에는 회사가
+            이용계약을 해지할 수 있습니다.<br />
+            <br />
+            <br />
+            <div class="title">제 4 조 (약관 외 준칙)</div>
+            <br />
+            본 약관에서 정하지 아니한 사항과 본 약관의 해석에 관하여는 회사가
+            정한 서비스의 개별 이용약관과 관련 법령 및 일반 상관례에
+            의합니다.<br />
+            <br />
+            <br />
+            <div class="title">제 5 조 (이용계약 체결)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회사가 제공하는 서비스에 관한 이용계약은 회원이 되고자 하는 자
+                (이하 “가입신청자”) 가 서비스를 설치하고 본 약관의 내용에 대하여
+                동의를 한 다음 서비스를 제공받음으로써 체결됩니다.
+              </li>
+              <li>
+                회사는 서비스 관련 설비의 여유가 없거나, 기술상 또는 업무상
+                문제가 있는 경우에는 회원가입신청의 승낙을 유보(즉, 서비스
+                제공을 유보)할 수 있습니다.
+              </li>
+              <li>
+                제2항에 따라 회원가입신청의 승낙을 유보한 경우, 회사는
+                원칙적으로 이를 가입신청자에게 알리도록 합니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 6 조 (개인정보보호 의무)</div>
+            <br />
+            회사는 서비스 제공에 따라 회원의 개인정보를 수집하는 경우
+            "정보통신망법", "개인정보 보호법" 등 관련 법령에 따라 회원의
+            개인정보를 보호하기 위해 노력합니다.<br />
+            <br />
+            <br />
+            <div class="title">
+              제 7 조 ("회원"의 "Pomeranian Wallet Key", "시드 구문",
+              "비밀번호"의 관리에 대한 의무)
+            </div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회원의 Pomeranian Wallet Key, 시드 구문, 비밀번호에 관한 보관 및
+                관리책임은 회원에게 있으며, 이를 제3자가 이용하도록 하여서는
+                아니됩니다.
+              </li>
+              <li>
+                회원은 Pomeranian Wallet Key, 시드 구문, 비밀번호가 도용되거나
+                제3자가 사용하고 있음을 인지한 경우에는 이를 즉시 회사에
+                통지하고 회사의 안내에 따라야 합니다.
+              </li>
+              <li>
+                제2항의 경우에 해당 회원이 회사에 그 사실을 통지하지 않거나,
+                통지한 경우에도 회사의 안내에 따르지 않아 발생한 불이익에 대하여
+                회사는 고의나 과실이 없는 한 책임지지 않습니다.
+              </li>
+            </ul>
+            <br />
+            <div class="title">제 8 조 ("회사"의 의무)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회사는 관련 법령과 본 약관을 준수하고 계속적이고 안정적으로
+                서비스를 제공하기 위하여 최선을 다하여 노력합니다.
+              </li>
+              <li>
+                회사는 서비스 이용과 관련하여 발생하는 회원의 불만 또는
+                피해구제요청을 적절하게 처리할 수 있도록 필요한 인력 및 시스템을
+                구비합니다.
+              </li>
+              <li>
+                회사는 회원이 제기한 의견이나 요청에 대하여 전자우편 등을 통하여
+                회원에게 처리 과정 및 결과를 전달할 수 있습니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 9 조 ("회원"의 의무)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회원은 다음 행위를 하여서는 안 됩니다.
+                <ul class="num_list">
+                  <li>계정 신청 또는 변경 시 허위 내용의 등록</li>
+                  <li>타인의 정보도용</li>
+                  <li>회사가 게시한 정보의 변경</li>
+                  <li>
+                    회사가 정한 정보 이외의 정보 (컴퓨터 프로그램 등) 등의 송신
+                    또는 게시
+                  </li>
+                  <li>회사와 기타 제3자의 저작권 등 지식재산권에 대한 침해</li>
+                  <li>
+                    회사 및 기타 제3자의 명예를 손상시키거나 업무를 방해하는
+                    행위
+                  </li>
+                  <li>
+                    외설 또는 폭력적인 메시지, 화상, 음성, 기타 공서양속에
+                    반하는 정보를 서비스에 공개 또는 게시하는 행위
+                  </li>
+                  <li>
+                    회사의 사전 동의 없이 영리를 목적으로 서비스를 사용하는 행위
+                  </li>
+                  <li>기타 관련 법령에 위반되거나 부당한 행위</li>
+                </ul>
+              </li>
+              <li>
+                회원은 관련 법령, 본 약관의 규정, 이용안내 및 회사가 서비스와
+                관련하여 공지하거나 통지한 사항 등을 준수하여야 하며 회사의
+                업무에 방해되는 행위를 하여서는 아니됩니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 10 조 ("서비스"의 제공 등)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회사는 회원에게 아래와 같은 서비스를 제공합니다.
+                <ul class="num_list">
+                  <li>새로운 계정 주소의 생성</li>
+                  <li>디지털 자산의 확인</li>
+                  <li>디지털 자산의 전송</li>
+                  <li>서비스를 통해 보여지는 토큰의 등록 및 해제</li>
+                  <li>BApp의 각종 트랜잭션 요청에 대한 승인 및 서명</li>
+                  <li>Pomeranian Wallet Key 의 가져오기 또는 내보내기</li>
+                  <li>카드의 전송 및 관리(모바일 앱인 경우)</li>
+                  <li>
+                    기타 회사가 추가로 개발하거나 다른 회사와의 제휴계약 등을
+                    통해 회원에게 제공하는 일체의 서비스
+                  </li>
+                </ul>
+              </li>
+              <li>서비스는 연중무휴, 1일 24시간 제공함을 원칙으로 합니다.</li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 11 조 ("서비스" 데이터 삭제정책)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회원 단말기에 설치된 서비스가 삭제 또는 사용 해제되거나,
+                단말기에서 회원의 계정 정보가 삭제된 경우, 서비스와 관련된 모든
+                데이터는 초기화 되며 서비스를 다시 이용하고자 하는 회원은
+                서비스를 재설정해야 합니다.
+              </li>
+              <li>
+                데이터를 삭제 또는 초기화 시 시드 구문을 통한 복구만 가능하오니
+                회원은 시드 구문 보관에 유의하여야 합니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">
+              제 12 조 (타 블록체인 플랫폼 기반 디지털 자산 이용 제한)
+            </div>
+            <br />
+            <ul class="num_list">
+              <li>
+                본 서비스는 Pomeranian 블록체인 플랫폼 위에서 사용 가능한 디지털
+                자산의 전송과 보관 등에 대한 것으로서 Pomeranian 외의 블록체인
+                플랫폼을 기반으로 하는 디지털 자산과 관련하여서는 서비스 이용이
+                제한될 수 있습니다. 회원은 회사가 서비스를 제공하는 디지털
+                자산에 한하여 전송, 보관 등의 서비스를 이용할 수 있습니다.
+              </li>
+              <li>
+                회원의 부주의로 인하여 회사가 제공하는 지갑으로 전송된
+                Pomeranian 외의 블록체인 플랫폼을 기반으로 하는 디지털 자산에
+                대해서 회사는 책임지지 않으며, 회원은 이를 이유로 회사에게
+                어떠한 청구도 할 수 없습니다.
+              </li>
+              <li>
+                회사는 KCT의 운영 정책 등에 대하여 어떠한 보장도 하지 않으며,
+                KCT에 대한 모든 책임은 KCT를 발행 및 운영하는 제3자에게
+                있습니다. 서비스에서 제공하는 KCT는 제3자의 정책, 계약, 지원
+                범위, 운영정책 등에 따라 차이가 있을 수 있으며 이에 대한 상세
+                내용은 해당 제3자의 정책을 참고하시기 바랍니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 13 조 ("서비스"의 변경 및 중단)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회사는 서비스의 운영 내지 기술과 관련된 다음 각 호의 사유가
+                발생하는 경우에는 서비스의 전부 또는 일부를 변경하거나 중단할 수
+                있습니다.
+                <ul class="num_list">
+                  <li>
+                    서비스를 통해 불법적인 행위가 발생하거나 발생할 우려가 있는
+                    경우
+                  </li>
+                  <li>
+                    컴퓨터 등 정보통신설비의 보수점검, 장비의 교체 및 고장,
+                    통신의 두절 등의 사유가 발생한 경우
+                  </li>
+                  <li>
+                    서비스를 위한 설비 등의 유지보수와 같은 부득이한 사정이 있는
+                    경우
+                  </li>
+                  <li>
+                    정전, 제반 설비의 장애 또는 이용량의 폭주 등으로 정상적인
+                    서비스 제공에 지장이 있는 경우
+                  </li>
+                  <li>
+                    전국 또는 특정 지역에 대한 광범위한 네트워크 장애가 발생하는
+                    경우
+                  </li>
+                  <li>
+                    천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를
+                    제공할 수 없는 경우
+                  </li>
+                </ul>
+              </li>
+              <li>
+                서비스의 내용, 이용방법, 이용시간에 대하여 중단 또는 변경이 있는
+                경우, 회사는 그 중단 또는 변경 전에 중단/변경 사유, 중단기간,
+                변경되는 서비스의 내용 및 변경일자 등을 서비스가 제공되는
+                앱스토어에 게시하는 등 합리적인 방식으로 공지합니다. 단, 회사가
+                사전에 고지할 수 없는 부득이한 사유가 있는 경우 사후에 공지할 수
+                있습니다.
+              </li>
+              <li>
+                회사는 무료로 제공되는 서비스의 전부 또는 일부를 회사의 정책
+                또는 운영상 필요에 따라 변경하거나 중단할 수 있으며, 이에 대하여
+                관련 법령상 특별한 규정이 있거나 회사의 고의 또는 과실로 인해
+                회원의 지갑/계정 주소가 분실 또는 삭제되는 경우 외에 회사는
+                회원에게 어떠한 보상을 하지 아니합니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 13 조의 2 (정보의 제공 및 광고의 게재)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회사는 서비스 화면, 홈페이지에 광고를 게재할 수 있으며 수신
+                동의한 회원에 대해서는 전자우편 또는 카카오톡 메시지 등의
+                방법으로도 관련 내용을 제공할 수 있습니다.
+              </li>
+              <li>
+                회사는 회원이 서비스 이용 중 필요하다고 인정되는 다양한 정보를
+                공지사항이나 전자우편, 카카오톡 메시지 등의 방법으로 회원에게
+                제공할 수 있습니다. 회사는 회원의 사전 동의를 받아 전 항의
+                정보를 전화 및 모사전송 기기에 의하여 전송할 수 있습니다.
+              </li>
+              <li>
+                회사는 광고가 불법적인 내용을 포함하고 있거나 허위의 정보를
+                제공하는 것이 명백하여 회사가 사전에 이를 인지하고 있었던 경우가
+                아닌 한 회원이 서비스 화면 등에 게재된 광고에 참여, 교신하거나
+                관련된 거래를 함으로써 입는 손해에 대해 어떠한 책임도 지지
+                않습니다.
+              </li>
+              <li>
+                본 조에 따라 이루어지는 모든 광고(다른 웹사이트로의 링크 등을
+                포함함)는 제3자가 회원에게 제공하는 것이며, 회사는 제3자가
+                제공하는 위 광고에 대하여 아무런 권리나 이해관계를 가지지
+                않습니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 14 조 (계약해제, 해지 등)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회원은 언제든지 서비스 삭제를 통해 회사와의 이용계약을 해지할 수
+                있습니다.
+              </li>
+              <li>
+                회사는 다음과 같은 사유가 있는 경우 이용계약을 해지할 수
+                있습니다.
+                <ul class="num_list">
+                  <li>회원이 본 약관에 위배되는 행위를 한 경우</li>
+                  <li>
+                    회원이 불법프로그램의 제공 및 서비스 운영 방해, 불법통신,
+                    해킹, 악성프로그램의 배포, 접속권한 초과 행위 등 관련 법령에
+                    위배되는 행위를 한 경우
+                  </li>
+                  <li>
+                    회원이 회사가 제공하는 서비스의 원활한 진행을 방해하는
+                    행위를 하거나 그러한 행위를 시도한 경우
+                  </li>
+                </ul>
+              </li>
+              <li>
+                본 조에 따른 이용계약 해지 시 회원이 서비스 이용을 통해 획득한
+                모든 혜택이 소멸되며, 회사는 이에 대해 별도로 보상하지 않습니다.
+              </li>
+              <li>
+                회사는 Pomeranian Wallet Key을 별도 보관, 관리 또는 저장하지
+                않습니다. 따라서 회원은 서비스 제거 전 Pomeranian Wallet Key를
+                백업 및 관리에 유의해 주시기 바랍니다.
+              </li>
+              <li>
+                제3항에 따라 회사가 이용계약을 해지하는 경우 회사는 회원의
+                이의신청 접수 및 처리 등을 위하여 일정 기간 동안 회원의 정보를
+                보관할 수 있습니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 15 조 (책임제한)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회사는 천재지변, 법령의 변경, 법원 또는 정부의 명령 또는 이에
+                준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는
+                서비스제공에 관한 책임이 면제됩니다.
+              </li>
+              <li>
+                회사는 회원의 귀책사유로 인한 서비스이용의 장애에 대하여는
+                회사의 고의 또는 과실이 없는 한, 책임을 지지 않습니다.
+              </li>
+              <li>
+                회사는 회원이 서비스와 관련하여 게재한 정보, 자료, 사실의
+                신뢰도, 정확성 등의 내용에 관하여는 책임을 지지 않습니다.
+              </li>
+              <li>
+                회사는 회원 간 또는 회원과 제3자 상호간에 서비스를 매개로 하여
+                거래 등을 한 경우에는 책임이 면제됩니다.
+              </li>
+              <li>
+                회사는 무료로 제공되는 서비스 이용과 관련하여 관련법에 특별한
+                규정이 없거나 회사의 고의/과실이 없는 한 책임을 지지 않습니다.
+              </li>
+              <li>
+                회사는 Pomeranian 블록체인 플랫폼의 장애로 인한 손해에 대해서는
+                회사의 고의/과실이 있지 않는 한 책임을 지지 않습니다.
+              </li>
+              <li>
+                회사는 서비스를 통한 디지털 자산의 보관 및 전송 기능을 제공할 뿐
+                회원의 디지털 자산 자체에 대한 관리 의무를 부담하지 않습니다.
+                Pomeranian Wallet Key, 시드 구문 등의 보관, 도난 및 분실 방지를
+                포함하여 계정 및 디지털 자산의 관리에 대한 모든 책임은 회원에게
+                있으며, 회사의 귀책 사유가 없는 경우에는 어떠한 책임도 지지
+                않습니다.
+              </li>
+              <li>
+                회원이 제3자 서비스에서 제공하는 주소의 정확성에 대한 책임은
+                회원에게 있으며, 회사는 회원이 잘못 기재한 주소로 서명 및 전송에
+                대해서는 책임을 지지 않습니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 16 조 (손해배상)</div>
+            <br />
+            <ul class="num_list">
+              <li>
+                회사는 법령상 허용되는 한도 내에서 서비스와 관련하여 본 약관에
+                명시되지 않은 어떠한 구체적인 사항에 대하여 약정이나 보증을 하지
+                않습니다. 또한, 회사는 어떠한 디지털 자산의 가치도 보증하지
+                않습니다. 회사는 회원이 서비스에 게재한 정보, 자료, 사실의
+                신뢰도, 정확성 등에 대해서는 보증을 하지 않으며 이로 인해 발생한
+                회원의 손해에 대하여 회사의 고의나 과실이 있지 않는 한 책임을
+                지지 않습니다.
+              </li>
+              <li>
+                회사의 책임 있는 사유로 인하여 회원에게 손해가 발생한 경우
+                회사는 원칙적으로 민법에서 정하고 있는 통상손해의 범위에서 그
+                손해를 배상하고, 특별한 사정으로 인한 손해는 회사가 그러한
+                사정을 알았거나 알 수 있었던 때에 한하여 손해배상의 범위에
+                포함됩니다.
+              </li>
+              <li>
+                제2항에도 불구하고 다음 각 호의 어느 하나에 해당하는 경우에는
+                회원이 그 책임의 전부 또는 일부를 부담할 수 있습니다.
+                <ul class="num_list">
+                  <li>
+                    회원이 손해 발생의 원인 또는 손해 발생 사실을 알았음에도
+                    불구하고 회사에 통지하지 않은 경우
+                  </li>
+                  <li>
+                    회원이 고의 또는 과실로 제3자에게 지갑 관련 계정 및 거래
+                    정보를 유출하거나 지갑을 사용하게 한 경우
+                  </li>
+                  <li>
+                    그 외에 손해 발생에 있어서 회원의 고의나 과실이 있는 경우
+                  </li>
+                </ul>
+              </li>
+              <li>
+                회사의 고의나 과실이 있지 않는 한 회사는 회원에게 발생한 손해에
+                대하여는 배상책임이 없습니다.
+              </li>
+              <li>
+                회원이 회사에게 제공한 정보가 사실과 다를 경우, 회사는 언제든지
+                서비스의 제공을 중단하고 본 약관에 의해 계약 전체 또는 일부를
+                해지할 수 있으며, 이로 인하여 회사에게 손해가 발생한 경우,
+                회원에게 그 손해의 배상을 청구할 수 있습니다.
+              </li>
+              <li>
+                회원이 회사의 시스템 운영을 방해하는 등 고의 또는 과실로 법령,
+                본 약관, 공서양속에 위배하는 행위 등을 통하여 회사에 손해를
+                발생시킨 경우에는 회사에 발생한 손해를 모두 배상해야 합니다.
+              </li>
+              <li>
+                회원이 회사에게 손해배상을 청구할 경우 회사는 회원과 합의하여
+                회원의 지갑으로 디지털 자산을 지급하는 방법으로 회원의 손해를
+                배상할 수 있습니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">제 17 조 (지식재산권)</div>
+            <br />
+            회사의 서비스와 관련된 모든 지식재산권은 회사의 소유이며 회원은
+            서비스 이용 목적 범위 내에서 회사가 본 약관 등을 통해 정한 방법에
+            따라 서비스를 이용할 권리를 가질 뿐 어떠한 경우에도 회사가 소유하는
+            지식재산권을 변경, 등록, 취소할 권리를 갖지 아니합니다.<br />
+            <br />
+            <br />
+            <div class="title">제 17 조의 2 (권리, 의무의 양도)</div>
+            <br />
+            회사는 영업양도, 합병, 분할, 분할합병, 자산양수도에 의하여 본
+            약관(개별이용약관 포함)에 따른 회사의 계약상의 지위, 권리 및 의무
+            일체를 타인에게 양도할 수 있습니다. 회사(또는 양수인)는 양도 거래
+            종결 후 최초로 서비스에 접속하는 회원에게 팝업을 띄우는 등 적절한
+            방법으로 회사의 계약상 지위 등의 양도에 대한 동의 여부를 문의할 수
+            있고 이에 대해 동의를 한 회원에 한하여 서비스를 제공할 수
+            있습니다.<br />
+            <br />
+            <br />
+            <br />
+            <div class="title">제 18 조 (준거법 및 재판관할)</div>
+            <br />
+            <ul class="num_list">
+              <li>본 약관은 대한민국 법률을 준거법으로 합니다.</li>
+              <li>
+                본 약관과 관련하여 회사와 회원 간에 발생하는 분쟁은
+                대한상사중재원의 규율로 대한민국 서울에서 이루어지는 중재절차에
+                의합니다.
+              </li>
+              <li>
+                전 항에도 불구하고, 해외에 주소나 거소가 있는 회원의 경우 회사와
+                회원간에 발생하는 분쟁은 대한민국 서울중앙지방법원을
+                관할법원으로 하는 소송절차에 의합니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            부칙 본 약관은 2022년 7월 25일부터 적용됩니다.
+            <br />
+          </div>
+        </div>
       </div>
-      <div class="main">
-        <div class="version">
-          <div class="logo"></div>
-          <div class="txt">
-            Pomeranian 버전 <span class="color_blue">0.0.1</span>
+      <div class="ktl ktl_set_privacy">
+        <div class="header">
+          <div class="logo mov_bt" value="ktl_account"></div>
+          <div class="header_title">Pomeranian</div>
+          <div class="header_icon">
+            <div class="my_icon mov_bt" value="ktl_my"></div>
+            <div class="set_icon mov_bt" value="ktl_set"></div>
+          </div>
+        </div>
+        <div class="main_top_in">
+          <div class="back_icon mov_bt" value="ktl_set"></div>
+          <div class="title">서비스 이용약관</div>
+        </div>
+        <div class="main">
+          <div class="privacy">
+            <div class="weight_600">
+              이 개인정보처리방침은 2022년 7월 25일부터 효력이 발생합니다.
+            </div>
+            <br />
+            본 개인정보처리방침에는 abc Inc(이하 “회사")의 서비스 사용자의
+            데이터 정보 처리에 대한 내용을 담고 있습니다. 본 개인정보처리방침은
+            Pomeranian 서비스(이하 ‘서비스’)에 적용됩니다. <br />
+            <br />
+            회사는 본 개인정보처리방침을 통하여 이용자의 데이터 정보가 어떠한
+            용도와 방식으로 처리가 되는지에 대하여 설명합니다. 회사는
+            개인정보처리방침에서 고지한 내용 외에는 정보를 수집하거나 이용,
+            공유, 저장하지 않습니다. <br />
+            <br /><br />
+            <div class="title">개인정보 수집</div>
+            <br />
+            회사는 서비스를 통해 이용자의 개인정보를 수집하거나 이용하지
+            않습니다. <br />
+            <br />
+            <br />
+            <div class="title">개인정보 공유</div>
+            <br />
+            회사는 개인정보를 이용하거나 제3자에게 제공하지 않습니다. <br />
+            <br />
+            <br />
+            <div class="title">정보 보안</div>
+            <br />
+            서비스에서 설정한 정보는 이용자가 직접 보호하고 관리하여야 합니다.
+            회사는 이용자의 잘못된 관리로 정보가 변경되거나 손실된 경우에는
+            책임을 지지않습니다. 회사는 서비스를 통해 설정된 정보를 보호하기
+            위해 기술적 보안조치를 제공하고 있습니다. 서비스 사용자는 안전한
+            비밀번호 설정을 통해 보안을 유지하여야 합니다.<br />
+            <br />
+            <br />
+            <div class="title">유럽연합 일반 개인정보보호법</div>
+            <br />
+            회사는 유럽 연합 일반 개인정보보호법(General Data Protection
+            Regulation) 및 각 회원국의 법률을 준수합니다.<br />
+            <br />
+            <br />
+            <div class="weight_600">국제 데이터 전송</div>
+            <br />
+            <ul class="disc_list">
+              <li>
+                회사는 EU 이외의 지역에서 서비스를 제공하고 있습니다. 회원의
+                데이터 정보는 한국으로 전송되거나 저장 될 수 있습니다. <br />
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="weight_600">데이터 정보</div>
+            <br />
+            <ul class="disc_list">
+              <li>회사는 민감한 데이터를 수집하거나 이용하지 않습니다.</li>
+              <li>
+                회사에서 수집되는 데이터 정보는 쿠키, 로그가 해당 될 수
+                있습니다. 수집되는 데이터 정보는 개인을 식별할 수 있는 정보를
+                포함하지 않습니다.
+              </li>
+              <li>
+                데이터 정보의 처리 목적은 서비스의 최적화 및 원활한 기능을
+                제공하기 위함입니다.
+              </li>
+              <li>
+                자세한 내용은 아래의 ‘구글 웹 로그 분석', ‘쿠키 정책'을
+                참고하십시오.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="weight_600">회원의 권리</div>
+            <br />
+            <ul class="disc_list">
+              <li>
+                회원은 데이터 정보에 대한 권리를 갖습니다. 회원은 데이터 정보
+                처리와 관련하여 조치를 취할 수 있도록 방법을 제공합니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">연락방법</div>
+            <br />
+            본 개인정보처리방침에 대해 의문 사항이나 요청, 불만사항이 있으신
+            경우 info@abc.ne.kr로 연락주시기 바랍니다. 고객의 메시지는 회사의
+            개인정보보호팀의 해당 담당자(개인정보보호책임자 또는 그 팀원)에게
+            전달됩니다.<br />
+            <br />
+            <br />
+            <div class="title">구글 웹 로그 분석</div>
+            <br />
+            회사는 이용자에게 더 나은 서비스 제공하기 위해 구글 웹 로그 분석
+            서비스를 사용할 수 있습니다.<br />
+            <br />
+            <ul class="disc_list">
+              <li>서비스 및 품질 개선을 위해 로그 분석이 사용됩니다.</li>
+              <li>통계 작성 및 학술 연구 등의 목적으로 사용될 수 있습니다.</li>
+              <li>다른 구글 데이터와 병합 또는 연결시키지 않습니다.</li>
+              <li>
+                이용자는 https://tools.google.com/dlpage/gaoptout으로 이동하여
+                Google 웹 로그 분석 차단 브라우저 부가 기능을 설치하여 Google 웹
+                로그 분석 쿠키 사용에 관한 선택을 할 수 있습니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <div class="title">쿠키 정책</div>
+            <br />
+            본 정책에서는 회사의 쿠키 정책에 대한 자세한 정보를 제공합니다.<br />
+            <br />
+            <span class="weight_600">서비스는 쿠키를 사용하나요?</span><br />
+            <br />
+            네. 회사와 그 마케팅 협력 업체, 계열사, 분석 또는 서비스 제공자는
+            최적의 서비스를 제공하기 위해서 쿠키, 웹 비콘, 픽셀 또는 기타 기술을
+            사용합니다.<br />
+            <br />
+            <br />
+            <span class="weight_600">쿠키란 무엇인가요?</span><br />
+            <br />
+            쿠키("쿠키")란 서비스의 기능을 사용하기 위해 사용자 기기에 저장되는
+            작은 텍스트 파일입니다. 일반적으로 쿠키는 사용자의 기기를 식별하거나
+            서비스 및 웹사이트의 접속을 관리하는 데 사용되며, 다른 기기에서
+            귀하의 사용자의 계정에 대한 접근 시도를 탐지하는 데 이용될 수도
+            있습니다. 또한 쿠키는 서비스의 콘텐츠를 쉽게 공유하고, 개인화된 광고
+            등 맞춤형 정보를 제공하기 위해 활용되기도 합니다.<br />
+            <br />
+            <span class="weight_600">쿠키를 사용하는 이유는 무엇인가요?</span
+            ><br />
+            <br />
+            회사는 다음 목적으로 쿠키를 사용합니다. <br />
+            <ul class="disc_list">
+              <li>
+                인증: 귀하의 계정을 확인하고 접속 시간을 확인함으로써 서비스의
+                접속을 관리하고 개인화된 경험과 기능을 제공하기 위해 쿠키를
+                사용합니다.
+              </li>
+              <li>
+                보안: 귀하의 계정 및 데이터뿐만 아니라 서비스를 안전하게
+                관리하기 위해 쿠키를 사용합니다.
+              </li>
+              <li>
+                성능: 서비스를 개선하고 방문 패턴에 대한 이해를 도모하고자
+                쿠키를 사용합니다.
+              </li>
+              <li>
+                광고: 제 3자 소셜 미디어 웹사이트를 결합하고, 개인에 최적화된
+                맞춤형 광고를 제공하기 위해 쿠키를 사용합니다.
+              </li>
+              <li>
+                분석 및 연구: 귀하의 행동 패턴과 조회 활동을 다수의 웹사이트 및
+                플랫폼에서 장기적으로 관찰함으로써 서비스의 방문자에 대해 더 잘
+                이해하고 이를 바탕으로 서비스를 개선시키기 위해 쿠키를
+                사용합니다.
+              </li>
+            </ul>
+            <br />
+            <span class="weight_600"
+              >쿠키 수집을 거부하고 싶다면 어떻게 하면 되나요?
+            </span>
+            <br />
+            <br />
+            웹 브라우저의 기본 기능을 이용하면 쿠키를 활성화하거나 비활성화할 수
+            있습니다. 브라우저 별 자세한 쿠키 설정 방법은 아래를 참고하시기
+            바랍니다.<br />
+            <br />
+            <ul class="disc_list">
+              <li>
+                Firefox: “사생활 보호 기능”
+                <a
+                  href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop?redirectslug=enable-and-disable-cookies-website-preferences&amp;redirectlocale=en-US"
+                  target="_blank"
+                  >보러가기</a
+                >
+              </li>
+              <li>
+                Chrome: “비밀 모드”
+                <a
+                  href="https://support.google.com/chrome/answer/95647?hl=en"
+                  target="_blank"
+                  >보러가기</a
+                >
+              </li>
+              <li>
+                Internet Explorer: “보호 모드”
+                <a
+                  href="https://support.microsoft.com/en-us/windows/delete-and-manage-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
+                  target="_blank"
+                  >보러가기</a
+                >
+              </li>
+              <li>
+                Safari: “사생활 보호 기능”
+                <a
+                  href="https://support.apple.com/kb/ph21411?locale=en_US"
+                  target="_blank"
+                  >보러가기</a
+                >
+              </li>
+            </ul>
+            <br />
+            아울러, 일부 제 3자 광고 플랫폼(구글 등)에서는 웹 브라우징의 개인
+            설정을 변경할 수 있는 기능을 제공하기도 합니다. 구글의 해당 기능에
+            대한 자세한 정보를 확인하려면
+            <a href="https://adssettings.google.com/u/0/authenticated?hl=en"
+              >여기</a
+            >를 클릭하십시오.<br />
+            <br />
+            쿠키로 수집된 정보와 본 쿠키 정책에 준하여 수집된 기타 정보는 서로
+            결합되어 사용될 수도 있습니다.<br />
+            <br />
+            <br />
+            <div class="title">로컬 스토리지 정책</div>
+            <br />
+            회사는 이용자가 설정한 정보를 저장하고 관리할 수 있도록 로컬
+            스토리지를 사용합니다. 로컬 스토리지는 이용자가 서비스를 통해 삭제할
+            수 있습니다.<br />
+            <br />
+            <br />
+            <span class="weight_600">로컬 스토리지 정보</span><br />
+            <br />
+            <ul>
+              <li>
+                로컬 스토리지에는 트랜잭션 내역, 암호화된 키를 포함한 모든
+                서비스 설정 정보가 저장됩니다.
+              </li>
+              <li>
+                서비스의 정보는 이용자가 직접 삭제하지 않는 경우 무기한
+                보관됩니다.
+              </li>
+              <li>
+                회사는 로컬 스토리지에 저장되어 있는 정보를 수집하거나 활용하지
+                않습니다.
+              </li>
+            </ul>
+            <br />
+            <br />
+            <span class="weight_600">로컬 스토리지 삭제 방법 (초기화)</span
+            ><br />
+            <br />
+            <ul class="disc_list">
+              <li>
+                브라우저 확장 프로그램
+                <ul class="circle_list">
+                  <li>
+                    서비스 잠금화면 “비밀번호를 잊으셨나요?” → “시드 구문를
+                    잊으셨나요?” → “Pomeranian 데이터 초기화"를 통해 삭제할 수
+                    있습니다.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                모바일 앱
+                <ul class="circle_list">
+                  <li>
+                    Android: 설정 → 애플리케이션 → “Pomeranian” → 저장공간
+                    데이터 삭제 또 앱 삭제
+                  </li>
+                  <li>iOS: 설정 → 일반 → 저장 공간 → “Pomeranian” → 앱 삭제</li>
+                </ul>
+              </li>
+            </ul>
+            <br />
+            ※’로컬 스토리지' 삭제하는 경우, 모든 데이터가 삭제가 되오니, ‘시드
+            구문' 등을 안전하게 백업되어있는지 체크하시기 바랍니다.<br />
+            <br />
+            <br />
+            <div class="title">개인정보처리방침 변경</div>
+            <br />
+            회사는 본 개인정보처리방침을 수시로 개정할 수 있습니다. 개정된
+            개인정보처리방침은 업데이트된 개정일과 함께 게시됩니다.
+            개인정보처리방침의 큰 변경이 있는 경우에는 사전에 이용자에게
+            고지합니다. 개정이 유효하게 된 이후 서비스를 계속 사용하는 경우,
+            회사는 이용자가 변경된 사항을 읽고 이해하였다고 간주합니다.
+            <br />
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <!-- 로딩바 -->
+      <div class="loading">
+        <div class="loading_item">
+          <div class="chaotic-orbit"></div>
+        </div>
+      </div>
+      <!-- 업데이트 알림 -->
+      <div class="layer update_layer">
+        <div class="inner">
+          <div class="close_icon layer_close"></div>
+          <div class="title">업데이트 알림</div>
+          <div class="cont">
+            새로운 버전으로 업데이트 후 이용해 주세요. <br />
+            (앱스토어에서 업데이트 버튼이 활성화 되지 않을 경우, 앱스토어 >
+            업데이트 탭에서 화면을 아래로 당겨 리프레쉬 해주세요)
           </div>
 
-          <div class="abc_copy">© abc, Inc. All rights reserved.</div>
+          <button class="color_bt">업데이트 하기</button>
         </div>
       </div>
-    </div>
-    <div class="ktl ktl_set_service">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_set"></div>
-        <div class="title">서비스 이용약관</div>
-      </div>
-      <div class="main">
-        <div class="privacy">
-          <div class="weight_600">
-            이 이용약관은 2022년 7월 25일부터 효력이 발생합니다.
-          </div>
-          <br />
-          <br />
-          <div class="title">제 1 조 (목적)</div>
-          <br />
-          본 약관은 서비스 이용자가 Sfresso247 Inc(이하 "회사")가 제공하는
-          브라우저 확장 프로그램, 모바일 앱 등을 통한 디지털 지갑 서비스
-          Kaikas(이하 "서비스")에 회원으로 가입하고 이를 이용함에 있어 회사와
-          회원(아래 제2조에서 정의)의 권리•의무 및 책임사항을 규정함을
-          목적으로 합니다.<br />
-          <br />
-          <br />
-          <div class="title">제 2 조 (용어의 정의)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              "서비스"라 함은 단말기(PC, 휴대형 단말기 등의 각종 유무선 장치를
-              포함)에 상관없이 이용할 수 있는 블록체인 기술을 기반으로 하는
-              디지털 지갑 서비스인 Kaikas 및 그와 관련된 일체의 서비스를
-              의미합니다.
-            </li>
-            <li>
-              "스마트 컨트랙트"라 함은 Pomeranian 블록체인 플랫폼위에서
-              프로그램으로 동작 가능한 언어로 작성된 코드 뭉치를 의미합니다.
-            </li>
-            <li>
-              "BApp(Blockchain Application)"이라 함은 Pomeranian 블록체인
-              플랫폼 위에서 스마트 컨트랙트와 일련의 프로그램을 통해 실행되는
-              개별적이고 독립적인 서비스를 의미합니다.
-            </li>
-            <li>
-              "트랜잭션"이라 함은 Pomeranian 블록체인 플랫폼위에서 이루어지는
-              큰의 전송, 스마트 컨트랙트의 배포 및 실행, 계정 상태의 변경과
-              같은 개별 거래를 의미합니다.
-            </li>
-            <li>
-              "디지털 자산"이라 함은 서비스 내에서 전자적인 방법으로 가치의
-              저장 수단, 교환의 매개가 되는 것으로서 코인, 토큰, 카드 등을
-              포함한 블록체인상의 모든 데이터를 의미합니다.
-            </li>
-            <li>
-              "함은 Pomeranian 블록체인 플랫폼 위에서 사용될 수 있는 디지털
-              자산을 의미합니다.
-            </li>
-            <li>
-              "토큰(Token)"이라 함은 Pomeranian 블록체인 플랫폼 위에서 스마트
-              컨트랙트를 통해 발행된 형태의 디지털 자산을 의미합니다.
-            </li>
-            <li>
-              "NFT(Non-Fungible Token)"라 함은 이미지, 동영상, 음악, 서적
-              등(이하 “이미지 등”)에 대한 메타데이터 정보를 포함한 상태로
-              발행되어 그 소유자에게 이미지 등에 관한 특정한 권리가 인정되는
-              블록체인 기반의 대체 불가능한 디지털 자산을 의미합니다.
-            </li>
-            <li>
-              "카드"라 함은 서비스 또는 BApp 서비스를 통해 제공되는 NFT 형태의
-              디지털 자산을 의미합니다.
-            </li>
-            <li>
-              "KCT(Pomeranian Compatible Token)"라 함은 Pomeranian 블록체인
-              플랫폼 위에서 사용 가능한 호환토큰을 의미합니다.
-            </li>
-            <li>
-              "회원"이라 함은 본 약관에 따라 회사와 이용계약을 체결하고,
-              회사가 제공하는 서비스를 이용하는 고객 개인을 의미합니다.
-            </li>
-            <li>
-              "지갑"이라 함은 회원의 계정과 연계된 디지털 자산을 확인 및
-              보관하는 기능을 제공하고 계정 주소 통해 디지털 자산을 주고받을
-              수 있는 서비스를 의미합니다.
-            </li>
-            <li>
-              "계정 주소"라 함은 서비스에서 회원간 디지털 자산의 변화를
-              기록하기 위해 각 계정마다 부여된 Pomeranian블록체인 플랫폼에
-              존재하는 고유한 식별 주소를 의미합니다.
-            </li>
-            <li>
-              "비밀번호"라 함은 회원이 계정 및 계정 주소와 일치되는 회원임을
-              확인할 수 있도록 하는 식별번호로 회원 자신이 설정한 일정 이상의
-              문자 및/또는 숫자의 조합을 의미합니다.
-            </li>
-            <li>
-              "시드 구문"이라 함은 회원이 계정을 복구하거나 추가로 생성하는
-              과정에서 사용되는 고유한 영문 단어의 조합을 의미합니다.
-            </li>
-            <li>
-              "Pomeranian Wallet Key"라 함은 계정 주소가 보유한 토큰의 전송
-              허가 및 서명 등을 위해 사용되는 고유한 문자와 숫자의 조합을
-              의미합니다.
-            </li>
-          </ul>
-          <br />
-          본 약관에서 사용하는 용어의 정의는 전항에서 정하는 것을 제외하고는
-          관계 법령 및 일반적인 상관례에 의합니다.<br />
-          <br />
-          <br />
-          <div class="title">제 3 조 (약관의 게시와 개정)</div>
-          <br />
-          회사는 본 약관의 내용을 회원이 쉽게 알 수 있도록 서비스 초기 화면에
-          게시합니다.<br />
-          회사는 "약관의 규제에 관한 법률", "정보통신망 이용촉진 및
-          정보보호등에 관한 법률(이하 "정보통신망법")" 등 관련 법령을 위배하지
-          않는 범위에서 본 약관을 개정할 수 있습니다.<br />
-          회사가 본 약관을 개정할 경우에는 개정 약관이 적용되는 시점(이하
-          "적용일자") 및 개정사유를 명시하여 현행 약관과 함께 제1항의 방식에
-          따라 그 개정약관의 적용일자 7일 전부터 적용일자 전일까지 합리적인
-          방법으로 공지합니다. 다만, 회원에게 불리하게 본 약관을 개정할
-          경우에는 최소한 30일 이상의 사전 유예 기간을 두고 공지합니다. 이
-          경우 회사는 개정 사항을 회원이 알기 쉽도록 표시합니다.<br />
-          회원이 개정약관의 적용에 동의하지 않는 경우 적용일자의 전일까지
-          회사에 그러한 의사를 표시하여야 하고, 이 경우 회사는 개정 약관의
-          내용을 적용할 수 없으며 회원은 이용계약을 해지할 수 있습니다. 다만,
-          기존 약관을 적용할 수 없는 특별한 사정이 있는 경우에는 회사가
-          이용계약을 해지할 수 있습니다.<br />
-          <br />
-          <br />
-          <div class="title">제 4 조 (약관 외 준칙)</div>
-          <br />
-          본 약관에서 정하지 아니한 사항과 본 약관의 해석에 관하여는 회사가
-          정한 서비스의 개별 이용약관과 관련 법령 및 일반 상관례에
-          의합니다.<br />
-          <br />
-          <br />
-          <div class="title">제 5 조 (이용계약 체결)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회사가 제공하는 서비스에 관한 이용계약은 회원이 되고자 하는 자
-              (이하 “가입신청자”) 가 서비스를 설치하고 본 약관의 내용에 대하여
-              동의를 한 다음 서비스를 제공받음으로써 체결됩니다.
-            </li>
-            <li>
-              회사는 서비스 관련 설비의 여유가 없거나, 기술상 또는 업무상
-              문제가 있는 경우에는 회원가입신청의 승낙을 유보(즉, 서비스
-              제공을 유보)할 수 있습니다.
-            </li>
-            <li>
-              제2항에 따라 회원가입신청의 승낙을 유보한 경우, 회사는
-              원칙적으로 이를 가입신청자에게 알리도록 합니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 6 조 (개인정보보호 의무)</div>
-          <br />
-          회사는 서비스 제공에 따라 회원의 개인정보를 수집하는 경우
-          "정보통신망법", "개인정보 보호법" 등 관련 법령에 따라 회원의
-          개인정보를 보호하기 위해 노력합니다.<br />
-          <br />
-          <br />
-          <div class="title">
-            제 7 조 ("회원"의 "Pomeranian Wallet Key", "시드 구문",
-            "비밀번호"의 관리에 대한 의무)
-          </div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회원의 Pomeranian Wallet Key, 시드 구문, 비밀번호에 관한 보관 및
-              관리책임은 회원에게 있으며, 이를 제3자가 이용하도록 하여서는
-              아니됩니다.
-            </li>
-            <li>
-              회원은 Pomeranian Wallet Key, 시드 구문, 비밀번호가 도용되거나
-              제3자가 사용하고 있음을 인지한 경우에는 이를 즉시 회사에
-              통지하고 회사의 안내에 따라야 합니다.
-            </li>
-            <li>
-              제2항의 경우에 해당 회원이 회사에 그 사실을 통지하지 않거나,
-              통지한 경우에도 회사의 안내에 따르지 않아 발생한 불이익에 대하여
-              회사는 고의나 과실이 없는 한 책임지지 않습니다.
-            </li>
-          </ul>
-          <br />
-          <div class="title">제 8 조 ("회사"의 의무)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회사는 관련 법령과 본 약관을 준수하고 계속적이고 안정적으로
-              서비스를 제공하기 위하여 최선을 다하여 노력합니다.
-            </li>
-            <li>
-              회사는 서비스 이용과 관련하여 발생하는 회원의 불만 또는
-              피해구제요청을 적절하게 처리할 수 있도록 필요한 인력 및 시스템을
-              구비합니다.
-            </li>
-            <li>
-              회사는 회원이 제기한 의견이나 요청에 대하여 전자우편 등을 통하여
-              회원에게 처리 과정 및 결과를 전달할 수 있습니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 9 조 ("회원"의 의무)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회원은 다음 행위를 하여서는 안 됩니다.
-              <ul class="num_list">
-                <li>계정 신청 또는 변경 시 허위 내용의 등록</li>
-                <li>타인의 정보도용</li>
-                <li>회사가 게시한 정보의 변경</li>
-                <li>
-                  회사가 정한 정보 이외의 정보 (컴퓨터 프로그램 등) 등의 송신
-                  또는 게시
-                </li>
-                <li>회사와 기타 제3자의 저작권 등 지식재산권에 대한 침해</li>
-                <li>
-                  회사 및 기타 제3자의 명예를 손상시키거나 업무를 방해하는
-                  행위
-                </li>
-                <li>
-                  외설 또는 폭력적인 메시지, 화상, 음성, 기타 공서양속에
-                  반하는 정보를 서비스에 공개 또는 게시하는 행위
-                </li>
-                <li>
-                  회사의 사전 동의 없이 영리를 목적으로 서비스를 사용하는 행위
-                </li>
-                <li>기타 관련 법령에 위반되거나 부당한 행위</li>
-              </ul>
-            </li>
-            <li>
-              회원은 관련 법령, 본 약관의 규정, 이용안내 및 회사가 서비스와
-              관련하여 공지하거나 통지한 사항 등을 준수하여야 하며 회사의
-              업무에 방해되는 행위를 하여서는 아니됩니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 10 조 ("서비스"의 제공 등)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회사는 회원에게 아래와 같은 서비스를 제공합니다.
-              <ul class="num_list">
-                <li>새로운 계정 주소의 생성</li>
-                <li>디지털 자산의 확인</li>
-                <li>디지털 자산의 전송</li>
-                <li>서비스를 통해 보여지는 토큰의 등록 및 해제</li>
-                <li>BApp의 각종 트랜잭션 요청에 대한 승인 및 서명</li>
-                <li>Pomeranian Wallet Key 의 가져오기 또는 내보내기</li>
-                <li>카드의 전송 및 관리(모바일 앱인 경우)</li>
-                <li>
-                  기타 회사가 추가로 개발하거나 다른 회사와의 제휴계약 등을
-                  통해 회원에게 제공하는 일체의 서비스
-                </li>
-              </ul>
-            </li>
-            <li>서비스는 연중무휴, 1일 24시간 제공함을 원칙으로 합니다.</li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 11 조 ("서비스" 데이터 삭제정책)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회원 단말기에 설치된 서비스가 삭제 또는 사용 해제되거나,
-              단말기에서 회원의 계정 정보가 삭제된 경우, 서비스와 관련된 모든
-              데이터는 초기화 되며 서비스를 다시 이용하고자 하는 회원은
-              서비스를 재설정해야 합니다.
-            </li>
-            <li>
-              데이터를 삭제 또는 초기화 시 시드 구문을 통한 복구만 가능하오니
-              회원은 시드 구문 보관에 유의하여야 합니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">
-            제 12 조 (타 블록체인 플랫폼 기반 디지털 자산 이용 제한)
-          </div>
-          <br />
-          <ul class="num_list">
-            <li>
-              본 서비스는 Pomeranian 블록체인 플랫폼 위에서 사용 가능한 디지털
-              자산의 전송과 보관 등에 대한 것으로서 Pomeranian 외의 블록체인
-              플랫폼을 기반으로 하는 디지털 자산과 관련하여서는 서비스 이용이
-              제한될 수 있습니다. 회원은 회사가 서비스를 제공하는 디지털
-              자산에 한하여 전송, 보관 등의 서비스를 이용할 수 있습니다.
-            </li>
-            <li>
-              회원의 부주의로 인하여 회사가 제공하는 지갑으로 전송된
-              Pomeranian 외의 블록체인 플랫폼을 기반으로 하는 디지털 자산에
-              대해서 회사는 책임지지 않으며, 회원은 이를 이유로 회사에게
-              어떠한 청구도 할 수 없습니다.
-            </li>
-            <li>
-              회사는 KCT의 운영 정책 등에 대하여 어떠한 보장도 하지 않으며,
-              KCT에 대한 모든 책임은 KCT를 발행 및 운영하는 제3자에게
-              있습니다. 서비스에서 제공하는 KCT는 제3자의 정책, 계약, 지원
-              범위, 운영정책 등에 따라 차이가 있을 수 있으며 이에 대한 상세
-              내용은 해당 제3자의 정책을 참고하시기 바랍니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 13 조 ("서비스"의 변경 및 중단)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회사는 서비스의 운영 내지 기술과 관련된 다음 각 호의 사유가
-              발생하는 경우에는 서비스의 전부 또는 일부를 변경하거나 중단할 수
-              있습니다.
-              <ul class="num_list">
-                <li>
-                  서비스를 통해 불법적인 행위가 발생하거나 발생할 우려가 있는
-                  경우
-                </li>
-                <li>
-                  컴퓨터 등 정보통신설비의 보수점검, 장비의 교체 및 고장,
-                  통신의 두절 등의 사유가 발생한 경우
-                </li>
-                <li>
-                  서비스를 위한 설비 등의 유지보수와 같은 부득이한 사정이 있는
-                  경우
-                </li>
-                <li>
-                  정전, 제반 설비의 장애 또는 이용량의 폭주 등으로 정상적인
-                  서비스 제공에 지장이 있는 경우
-                </li>
-                <li>
-                  전국 또는 특정 지역에 대한 광범위한 네트워크 장애가 발생하는
-                  경우
-                </li>
-                <li>
-                  천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를
-                  제공할 수 없는 경우
-                </li>
-              </ul>
-            </li>
-            <li>
-              서비스의 내용, 이용방법, 이용시간에 대하여 중단 또는 변경이 있는
-              경우, 회사는 그 중단 또는 변경 전에 중단/변경 사유, 중단기간,
-              변경되는 서비스의 내용 및 변경일자 등을 서비스가 제공되는
-              앱스토어에 게시하는 등 합리적인 방식으로 공지합니다. 단, 회사가
-              사전에 고지할 수 없는 부득이한 사유가 있는 경우 사후에 공지할 수
-              있습니다.
-            </li>
-            <li>
-              회사는 무료로 제공되는 서비스의 전부 또는 일부를 회사의 정책
-              또는 운영상 필요에 따라 변경하거나 중단할 수 있으며, 이에 대하여
-              관련 법령상 특별한 규정이 있거나 회사의 고의 또는 과실로 인해
-              회원의 지갑/계정 주소가 분실 또는 삭제되는 경우 외에 회사는
-              회원에게 어떠한 보상을 하지 아니합니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 13 조의 2 (정보의 제공 및 광고의 게재)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회사는 서비스 화면, 홈페이지에 광고를 게재할 수 있으며 수신
-              동의한 회원에 대해서는 전자우편 또는 카카오톡 메시지 등의
-              방법으로도 관련 내용을 제공할 수 있습니다.
-            </li>
-            <li>
-              회사는 회원이 서비스 이용 중 필요하다고 인정되는 다양한 정보를
-              공지사항이나 전자우편, 카카오톡 메시지 등의 방법으로 회원에게
-              제공할 수 있습니다. 회사는 회원의 사전 동의를 받아 전 항의
-              정보를 전화 및 모사전송 기기에 의하여 전송할 수 있습니다.
-            </li>
-            <li>
-              회사는 광고가 불법적인 내용을 포함하고 있거나 허위의 정보를
-              제공하는 것이 명백하여 회사가 사전에 이를 인지하고 있었던 경우가
-              아닌 한 회원이 서비스 화면 등에 게재된 광고에 참여, 교신하거나
-              관련된 거래를 함으로써 입는 손해에 대해 어떠한 책임도 지지
-              않습니다.
-            </li>
-            <li>
-              본 조에 따라 이루어지는 모든 광고(다른 웹사이트로의 링크 등을
-              포함함)는 제3자가 회원에게 제공하는 것이며, 회사는 제3자가
-              제공하는 위 광고에 대하여 아무런 권리나 이해관계를 가지지
-              않습니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 14 조 (계약해제, 해지 등)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회원은 언제든지 서비스 삭제를 통해 회사와의 이용계약을 해지할 수
-              있습니다.
-            </li>
-            <li>
-              회사는 다음과 같은 사유가 있는 경우 이용계약을 해지할 수
-              있습니다.
-              <ul class="num_list">
-                <li>회원이 본 약관에 위배되는 행위를 한 경우</li>
-                <li>
-                  회원이 불법프로그램의 제공 및 서비스 운영 방해, 불법통신,
-                  해킹, 악성프로그램의 배포, 접속권한 초과 행위 등 관련 법령에
-                  위배되는 행위를 한 경우
-                </li>
-                <li>
-                  회원이 회사가 제공하는 서비스의 원활한 진행을 방해하는
-                  행위를 하거나 그러한 행위를 시도한 경우
-                </li>
-              </ul>
-            </li>
-            <li>
-              본 조에 따른 이용계약 해지 시 회원이 서비스 이용을 통해 획득한
-              모든 혜택이 소멸되며, 회사는 이에 대해 별도로 보상하지 않습니다.
-            </li>
-            <li>
-              회사는 Pomeranian Wallet Key을 별도 보관, 관리 또는 저장하지
-              않습니다. 따라서 회원은 서비스 제거 전 Pomeranian Wallet Key를
-              백업 및 관리에 유의해 주시기 바랍니다.
-            </li>
-            <li>
-              제3항에 따라 회사가 이용계약을 해지하는 경우 회사는 회원의
-              이의신청 접수 및 처리 등을 위하여 일정 기간 동안 회원의 정보를
-              보관할 수 있습니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 15 조 (책임제한)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회사는 천재지변, 법령의 변경, 법원 또는 정부의 명령 또는 이에
-              준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는
-              서비스제공에 관한 책임이 면제됩니다.
-            </li>
-            <li>
-              회사는 회원의 귀책사유로 인한 서비스이용의 장애에 대하여는
-              회사의 고의 또는 과실이 없는 한, 책임을 지지 않습니다.
-            </li>
-            <li>
-              회사는 회원이 서비스와 관련하여 게재한 정보, 자료, 사실의
-              신뢰도, 정확성 등의 내용에 관하여는 책임을 지지 않습니다.
-            </li>
-            <li>
-              회사는 회원 간 또는 회원과 제3자 상호간에 서비스를 매개로 하여
-              거래 등을 한 경우에는 책임이 면제됩니다.
-            </li>
-            <li>
-              회사는 무료로 제공되는 서비스 이용과 관련하여 관련법에 특별한
-              규정이 없거나 회사의 고의/과실이 없는 한 책임을 지지 않습니다.
-            </li>
-            <li>
-              회사는 Pomeranian 블록체인 플랫폼의 장애로 인한 손해에 대해서는
-              회사의 고의/과실이 있지 않는 한 책임을 지지 않습니다.
-            </li>
-            <li>
-              회사는 서비스를 통한 디지털 자산의 보관 및 전송 기능을 제공할 뿐
-              회원의 디지털 자산 자체에 대한 관리 의무를 부담하지 않습니다.
-              Pomeranian Wallet Key, 시드 구문 등의 보관, 도난 및 분실 방지를
-              포함하여 계정 및 디지털 자산의 관리에 대한 모든 책임은 회원에게
-              있으며, 회사의 귀책 사유가 없는 경우에는 어떠한 책임도 지지
-              않습니다.
-            </li>
-            <li>
-              회원이 제3자 서비스에서 제공하는 주소의 정확성에 대한 책임은
-              회원에게 있으며, 회사는 회원이 잘못 기재한 주소로 서명 및 전송에
-              대해서는 책임을 지지 않습니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 16 조 (손해배상)</div>
-          <br />
-          <ul class="num_list">
-            <li>
-              회사는 법령상 허용되는 한도 내에서 서비스와 관련하여 본 약관에
-              명시되지 않은 어떠한 구체적인 사항에 대하여 약정이나 보증을 하지
-              않습니다. 또한, 회사는 어떠한 디지털 자산의 가치도 보증하지
-              않습니다. 회사는 회원이 서비스에 게재한 정보, 자료, 사실의
-              신뢰도, 정확성 등에 대해서는 보증을 하지 않으며 이로 인해 발생한
-              회원의 손해에 대하여 회사의 고의나 과실이 있지 않는 한 책임을
-              지지 않습니다.
-            </li>
-            <li>
-              회사의 책임 있는 사유로 인하여 회원에게 손해가 발생한 경우
-              회사는 원칙적으로 민법에서 정하고 있는 통상손해의 범위에서 그
-              손해를 배상하고, 특별한 사정으로 인한 손해는 회사가 그러한
-              사정을 알았거나 알 수 있었던 때에 한하여 손해배상의 범위에
-              포함됩니다.
-            </li>
-            <li>
-              제2항에도 불구하고 다음 각 호의 어느 하나에 해당하는 경우에는
-              회원이 그 책임의 전부 또는 일부를 부담할 수 있습니다.
-              <ul class="num_list">
-                <li>
-                  회원이 손해 발생의 원인 또는 손해 발생 사실을 알았음에도
-                  불구하고 회사에 통지하지 않은 경우
-                </li>
-                <li>
-                  회원이 고의 또는 과실로 제3자에게 지갑 관련 계정 및 거래
-                  정보를 유출하거나 지갑을 사용하게 한 경우
-                </li>
-                <li>
-                  그 외에 손해 발생에 있어서 회원의 고의나 과실이 있는 경우
-                </li>
-              </ul>
-            </li>
-            <li>
-              회사의 고의나 과실이 있지 않는 한 회사는 회원에게 발생한 손해에
-              대하여는 배상책임이 없습니다.
-            </li>
-            <li>
-              회원이 회사에게 제공한 정보가 사실과 다를 경우, 회사는 언제든지
-              서비스의 제공을 중단하고 본 약관에 의해 계약 전체 또는 일부를
-              해지할 수 있으며, 이로 인하여 회사에게 손해가 발생한 경우,
-              회원에게 그 손해의 배상을 청구할 수 있습니다.
-            </li>
-            <li>
-              회원이 회사의 시스템 운영을 방해하는 등 고의 또는 과실로 법령,
-              본 약관, 공서양속에 위배하는 행위 등을 통하여 회사에 손해를
-              발생시킨 경우에는 회사에 발생한 손해를 모두 배상해야 합니다.
-            </li>
-            <li>
-              회원이 회사에게 손해배상을 청구할 경우 회사는 회원과 합의하여
-              회원의 지갑으로 디지털 자산을 지급하는 방법으로 회원의 손해를
-              배상할 수 있습니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">제 17 조 (지식재산권)</div>
-          <br />
-          회사의 서비스와 관련된 모든 지식재산권은 회사의 소유이며 회원은
-          서비스 이용 목적 범위 내에서 회사가 본 약관 등을 통해 정한 방법에
-          따라 서비스를 이용할 권리를 가질 뿐 어떠한 경우에도 회사가 소유하는
-          지식재산권을 변경, 등록, 취소할 권리를 갖지 아니합니다.<br />
-          <br />
-          <br />
-          <div class="title">제 17 조의 2 (권리, 의무의 양도)</div>
-          <br />
-          회사는 영업양도, 합병, 분할, 분할합병, 자산양수도에 의하여 본
-          약관(개별이용약관 포함)에 따른 회사의 계약상의 지위, 권리 및 의무
-          일체를 타인에게 양도할 수 있습니다. 회사(또는 양수인)는 양도 거래
-          종결 후 최초로 서비스에 접속하는 회원에게 팝업을 띄우는 등 적절한
-          방법으로 회사의 계약상 지위 등의 양도에 대한 동의 여부를 문의할 수
-          있고 이에 대해 동의를 한 회원에 한하여 서비스를 제공할 수
-          있습니다.<br />
-          <br />
-          <br />
-          <br />
-          <div class="title">제 18 조 (준거법 및 재판관할)</div>
-          <br />
-          <ul class="num_list">
-            <li>본 약관은 대한민국 법률을 준거법으로 합니다.</li>
-            <li>
-              본 약관과 관련하여 회사와 회원 간에 발생하는 분쟁은
-              대한상사중재원의 규율로 대한민국 서울에서 이루어지는 중재절차에
-              의합니다.
-            </li>
-            <li>
-              전 항에도 불구하고, 해외에 주소나 거소가 있는 회원의 경우 회사와
-              회원간에 발생하는 분쟁은 대한민국 서울중앙지방법원을
-              관할법원으로 하는 소송절차에 의합니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          부칙 본 약관은 2022년 7월 25일부터 적용됩니다.
-          <br />
-        </div>
-      </div>
-    </div>
-    <div class="ktl ktl_set_privacy">
-      <div class="header">
-        <div class="logo mov_bt" value="ktl_account"></div>
-        <div class="header_title">Pomeranian</div>
-        <div class="header_icon">
-          <div class="my_icon mov_bt" value="ktl_my"></div>
-          <div class="set_icon mov_bt" value="ktl_set"></div>
-        </div>
-      </div>
-      <div class="main_top_in">
-        <div class="back_icon mov_bt" value="ktl_set"></div>
-        <div class="title">서비스 이용약관</div>
-      </div>
-      <div class="main">
-        <div class="privacy">
-          <div class="weight_600">
-            이 개인정보처리방침은 2022년 7월 25일부터 효력이 발생합니다.
-          </div>
-          <br />
-          본 개인정보처리방침에는 abc Inc(이하 “회사")의 서비스 사용자의
-          데이터 정보 처리에 대한 내용을 담고 있습니다. 본 개인정보처리방침은
-          Pomeranian 서비스(이하 ‘서비스’)에 적용됩니다. <br />
-          <br />
-          회사는 본 개인정보처리방침을 통하여 이용자의 데이터 정보가 어떠한
-          용도와 방식으로 처리가 되는지에 대하여 설명합니다. 회사는
-          개인정보처리방침에서 고지한 내용 외에는 정보를 수집하거나 이용,
-          공유, 저장하지 않습니다. <br />
-          <br /><br />
-          <div class="title">개인정보 수집</div>
-          <br />
-          회사는 서비스를 통해 이용자의 개인정보를 수집하거나 이용하지
-          않습니다. <br />
-          <br />
-          <br />
-          <div class="title">개인정보 공유</div>
-          <br />
-          회사는 개인정보를 이용하거나 제3자에게 제공하지 않습니다. <br />
-          <br />
-          <br />
-          <div class="title">정보 보안</div>
-          <br />
-          서비스에서 설정한 정보는 이용자가 직접 보호하고 관리하여야 합니다.
-          회사는 이용자의 잘못된 관리로 정보가 변경되거나 손실된 경우에는
-          책임을 지지않습니다. 회사는 서비스를 통해 설정된 정보를 보호하기
-          위해 기술적 보안조치를 제공하고 있습니다. 서비스 사용자는 안전한
-          비밀번호 설정을 통해 보안을 유지하여야 합니다.<br />
-          <br />
-          <br />
-          <div class="title">유럽연합 일반 개인정보보호법</div>
-          <br />
-          회사는 유럽 연합 일반 개인정보보호법(General Data Protection
-          Regulation) 및 각 회원국의 법률을 준수합니다.<br />
-          <br />
-          <br />
-          <div class="weight_600">국제 데이터 전송</div>
-          <br />
-          <ul class="disc_list">
-            <li>
-              회사는 EU 이외의 지역에서 서비스를 제공하고 있습니다. 회원의
-              데이터 정보는 한국으로 전송되거나 저장 될 수 있습니다. <br />
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="weight_600">데이터 정보</div>
-          <br />
-          <ul class="disc_list">
-            <li>회사는 민감한 데이터를 수집하거나 이용하지 않습니다.</li>
-            <li>
-              회사에서 수집되는 데이터 정보는 쿠키, 로그가 해당 될 수
-              있습니다. 수집되는 데이터 정보는 개인을 식별할 수 있는 정보를
-              포함하지 않습니다.
-            </li>
-            <li>
-              데이터 정보의 처리 목적은 서비스의 최적화 및 원활한 기능을
-              제공하기 위함입니다.
-            </li>
-            <li>
-              자세한 내용은 아래의 ‘구글 웹 로그 분석', ‘쿠키 정책'을
-              참고하십시오.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="weight_600">회원의 권리</div>
-          <br />
-          <ul class="disc_list">
-            <li>
-              회원은 데이터 정보에 대한 권리를 갖습니다. 회원은 데이터 정보
-              처리와 관련하여 조치를 취할 수 있도록 방법을 제공합니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">연락방법</div>
-          <br />
-          본 개인정보처리방침에 대해 의문 사항이나 요청, 불만사항이 있으신
-          경우 info@abc.ne.kr로 연락주시기 바랍니다. 고객의 메시지는 회사의
-          개인정보보호팀의 해당 담당자(개인정보보호책임자 또는 그 팀원)에게
-          전달됩니다.<br />
-          <br />
-          <br />
-          <div class="title">구글 웹 로그 분석</div>
-          <br />
-          회사는 이용자에게 더 나은 서비스 제공하기 위해 구글 웹 로그 분석
-          서비스를 사용할 수 있습니다.<br />
-          <br />
-          <ul class="disc_list">
-            <li>서비스 및 품질 개선을 위해 로그 분석이 사용됩니다.</li>
-            <li>통계 작성 및 학술 연구 등의 목적으로 사용될 수 있습니다.</li>
-            <li>다른 구글 데이터와 병합 또는 연결시키지 않습니다.</li>
-            <li>
-              이용자는 https://tools.google.com/dlpage/gaoptout으로 이동하여
-              Google 웹 로그 분석 차단 브라우저 부가 기능을 설치하여 Google 웹
-              로그 분석 쿠키 사용에 관한 선택을 할 수 있습니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <div class="title">쿠키 정책</div>
-          <br />
-          본 정책에서는 회사의 쿠키 정책에 대한 자세한 정보를 제공합니다.<br />
-          <br />
-          <span class="weight_600">서비스는 쿠키를 사용하나요?</span><br />
-          <br />
-          네. 회사와 그 마케팅 협력 업체, 계열사, 분석 또는 서비스 제공자는
-          최적의 서비스를 제공하기 위해서 쿠키, 웹 비콘, 픽셀 또는 기타 기술을
-          사용합니다.<br />
-          <br />
-          <br />
-          <span class="weight_600">쿠키란 무엇인가요?</span><br />
-          <br />
-          쿠키("쿠키")란 서비스의 기능을 사용하기 위해 사용자 기기에 저장되는
-          작은 텍스트 파일입니다. 일반적으로 쿠키는 사용자의 기기를 식별하거나
-          서비스 및 웹사이트의 접속을 관리하는 데 사용되며, 다른 기기에서
-          귀하의 사용자의 계정에 대한 접근 시도를 탐지하는 데 이용될 수도
-          있습니다. 또한 쿠키는 서비스의 콘텐츠를 쉽게 공유하고, 개인화된 광고
-          등 맞춤형 정보를 제공하기 위해 활용되기도 합니다.<br />
-          <br />
-          <span class="weight_600">쿠키를 사용하는 이유는 무엇인가요?</span><br />
-          <br />
-          회사는 다음 목적으로 쿠키를 사용합니다. <br />
-          <ul class="disc_list">
-            <li>
-              인증: 귀하의 계정을 확인하고 접속 시간을 확인함으로써 서비스의
-              접속을 관리하고 개인화된 경험과 기능을 제공하기 위해 쿠키를
-              사용합니다.
-            </li>
-            <li>
-              보안: 귀하의 계정 및 데이터뿐만 아니라 서비스를 안전하게
-              관리하기 위해 쿠키를 사용합니다.
-            </li>
-            <li>
-              성능: 서비스를 개선하고 방문 패턴에 대한 이해를 도모하고자
-              쿠키를 사용합니다.
-            </li>
-            <li>
-              광고: 제 3자 소셜 미디어 웹사이트를 결합하고, 개인에 최적화된
-              맞춤형 광고를 제공하기 위해 쿠키를 사용합니다.
-            </li>
-            <li>
-              분석 및 연구: 귀하의 행동 패턴과 조회 활동을 다수의 웹사이트 및
-              플랫폼에서 장기적으로 관찰함으로써 서비스의 방문자에 대해 더 잘
-              이해하고 이를 바탕으로 서비스를 개선시키기 위해 쿠키를
-              사용합니다.
-            </li>
-          </ul>
-          <br />
-          <span class="weight_600">쿠키 수집을 거부하고 싶다면 어떻게 하면 되나요?
-          </span>
-          <br />
-          <br />
-          웹 브라우저의 기본 기능을 이용하면 쿠키를 활성화하거나 비활성화할 수
-          있습니다. 브라우저 별 자세한 쿠키 설정 방법은 아래를 참고하시기
-          바랍니다.<br />
-          <br />
-          <ul class="disc_list">
-            <li>
-              Firefox: “사생활 보호 기능”
-              <a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop?redirectslug=enable-and-disable-cookies-website-preferences&amp;redirectlocale=en-US"
-                target="_blank">보러가기</a>
-            </li>
-            <li>
-              Chrome: “비밀 모드”
-              <a href="https://support.google.com/chrome/answer/95647?hl=en" target="_blank">보러가기</a>
-            </li>
-            <li>
-              Internet Explorer: “보호 모드”
-              <a href="https://support.microsoft.com/en-us/windows/delete-and-manage-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
-                target="_blank">보러가기</a>
-            </li>
-            <li>
-              Safari: “사생활 보호 기능”
-              <a href="https://support.apple.com/kb/ph21411?locale=en_US" target="_blank">보러가기</a>
-            </li>
-          </ul>
-          <br />
-          아울러, 일부 제 3자 광고 플랫폼(구글 등)에서는 웹 브라우징의 개인
-          설정을 변경할 수 있는 기능을 제공하기도 합니다. 구글의 해당 기능에
-          대한 자세한 정보를 확인하려면
-          <a href="https://adssettings.google.com/u/0/authenticated?hl=en">여기</a>를 클릭하십시오.<br />
-          <br />
-          쿠키로 수집된 정보와 본 쿠키 정책에 준하여 수집된 기타 정보는 서로
-          결합되어 사용될 수도 있습니다.<br />
-          <br />
-          <br />
-          <div class="title">로컬 스토리지 정책</div>
-          <br />
-          회사는 이용자가 설정한 정보를 저장하고 관리할 수 있도록 로컬
-          스토리지를 사용합니다. 로컬 스토리지는 이용자가 서비스를 통해 삭제할
-          수 있습니다.<br />
-          <br />
-          <br />
-          <span class="weight_600">로컬 스토리지 정보</span><br />
-          <br />
-          <ul>
-            <li>
-              로컬 스토리지에는 트랜잭션 내역, 암호화된 키를 포함한 모든
-              서비스 설정 정보가 저장됩니다.
-            </li>
-            <li>
-              서비스의 정보는 이용자가 직접 삭제하지 않는 경우 무기한
-              보관됩니다.
-            </li>
-            <li>
-              회사는 로컬 스토리지에 저장되어 있는 정보를 수집하거나 활용하지
-              않습니다.
-            </li>
-          </ul>
-          <br />
-          <br />
-          <span class="weight_600">로컬 스토리지 삭제 방법 (초기화)</span><br />
-          <br />
-          <ul class="disc_list">
-            <li>
-              브라우저 확장 프로그램
-              <ul class="circle_list">
-                <li>
-                  서비스 잠금화면 “비밀번호를 잊으셨나요?” → “시드 구문를
-                  잊으셨나요?” → “Pomeranian 데이터 초기화"를 통해 삭제할 수
-                  있습니다.
-                </li>
-              </ul>
-            </li>
-            <li>
-              모바일 앱
-              <ul class="circle_list">
-                <li>
-                  Android: 설정 → 애플리케이션 → “Pomeranian” → 저장공간
-                  데이터 삭제 또 앱 삭제
-                </li>
-                <li>iOS: 설정 → 일반 → 저장 공간 → “Pomeranian” → 앱 삭제</li>
-              </ul>
-            </li>
-          </ul>
-          <br />
-          ※’로컬 스토리지' 삭제하는 경우, 모든 데이터가 삭제가 되오니, ‘시드
-          구문' 등을 안전하게 백업되어있는지 체크하시기 바랍니다.<br />
-          <br />
-          <br />
-          <div class="title">개인정보처리방침 변경</div>
-          <br />
-          회사는 본 개인정보처리방침을 수시로 개정할 수 있습니다. 개정된
-          개인정보처리방침은 업데이트된 개정일과 함께 게시됩니다.
-          개인정보처리방침의 큰 변경이 있는 경우에는 사전에 이용자에게
-          고지합니다. 개정이 유효하게 된 이후 서비스를 계속 사용하는 경우,
-          회사는 이용자가 변경된 사항을 읽고 이해하였다고 간주합니다.
-          <br />
-        </div>
-      </div>
-    </div>
-    <!--  -->
-    <!-- 로딩바 -->
-    <div class="loading">
-      <div class="loading_item">
-        <div class="chaotic-orbit"></div>
-      </div>
-    </div>
-    <!-- 업데이트 알림 -->
-    <div class="layer update_layer">
-      <div class="inner">
-        <div class="close_icon layer_close"></div>
-        <div class="title">업데이트 알림</div>
-        <div class="cont">
-          새로운 버전으로 업데이트 후 이용해 주세요. <br />
-          (앱스토어에서 업데이트 버튼이 활성화 되지 않을 경우, 앱스토어 >
-          업데이트 탭에서 화면을 아래로 당겨 리프레쉬 해주세요)
-        </div>
-
-        <button class="color_bt">업데이트 하기</button>
-      </div>
-    </div>
-    <!-- 오류 페이지 -->
-    <div class="page_err">
-      <div>
+      <!-- 오류 페이지 -->
+      <div class="page_err">
         <div>
-          <div class="err_emoji_icon"></div>
-          <div class="title">일시적인 오류가 발생했습니다.</div>
-          <div class="cont">
-            서비스 이용에 불편을 드려 죄송합니다. <br />
-            새로 고침을 눌러 페이지를 다시 불러올 수 있습니다. <br />
-            문제가 반복된다면 문의하기를 눌러주세요
+          <div>
+            <div class="err_emoji_icon"></div>
+            <div class="title">일시적인 오류가 발생했습니다.</div>
+            <div class="cont">
+              서비스 이용에 불편을 드려 죄송합니다. <br />
+              새로 고침을 눌러 페이지를 다시 불러올 수 있습니다. <br />
+              문제가 반복된다면 문의하기를 눌러주세요
+            </div>
+            <button class="gray_bt">새로고침</button>
           </div>
-          <button class="gray_bt">새로고침</button>
         </div>
+        <span class="page_err_bot">
+          같은 문제가 반복되시나요? <a href="#">문의하기</a>
+        </span>
       </div>
-      <span class="page_err_bot">
-        같은 문제가 반복되시나요? <a href="#">문의하기</a>
-      </span>
-    </div>
-    <div class="page_err page_err_404">
-      <div>
+      <div class="page_err page_err_404">
         <div>
-          <div class="page_err_img"></div>
-          <div class="title">페이지를 찾을 수 없습니다.</div>
-          <div class="cont">
-            요청하신 페이지가 사라졌거나, <br />
-            잘못된 경로를 이용하셨습니다.
+          <div>
+            <div class="page_err_img"></div>
+            <div class="title">페이지를 찾을 수 없습니다.</div>
+            <div class="cont">
+              요청하신 페이지가 사라졌거나, <br />
+              잘못된 경로를 이용하셨습니다.
+            </div>
+            <button class="gray_bt">홈으로</button>
           </div>
-          <button class="gray_bt">홈으로</button>
         </div>
       </div>
-    </div>
-    <!-- alert 레이어 -->
-    <div class="layer layer_alert">
-      <div class="inner">
-        <!-- <div class="txt">
+      <!-- alert 레이어 -->
+      <div class="layer layer_alert">
+        <div class="inner">
+          <!-- <div class="txt">
                     네트워크에 연결할 수 없습니다. <br />
                     나중에 다시 시도해 주십시오.(err:i1)                                   
                 </div>
                 <button class="gray_bt layer_close">죵료</button> -->
+        </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

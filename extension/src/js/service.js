@@ -1,4 +1,5 @@
 function getBalance() {
+    loading(1000);
     chrome.storage.local.get(['ethereum'], function (result) {
         var ethereum = result.ethereum;
         console.log(ethereum[0]);
@@ -126,3 +127,16 @@ async function getApiTokenBalance(type, contract_address, address, decimal) {
     });
     return value
 }
+
+
+chrome.notifications.onClicked.addListener(function(notifId){
+    
+
+    if (notifId == "notic") {
+        chrome.storage.sync.get(['notic'], function (result2) {
+            chrome.tabs.create({url: "https://rinkeby.etherscan.io/tx/" + result2.notic});
+    
+        });
+    }
+  
+  });

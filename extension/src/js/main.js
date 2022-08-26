@@ -147,7 +147,6 @@ $(function () {
         $('.nameedit_layer').addClass('layer_view');
         $('.nameedit_layer .inner').addClass('inner_active');
     });
-
     // 레이어 닫기 ** 공통
     $('.layer_close').on('click', function () {
         $('.layer').removeClass('layer_view');
@@ -172,6 +171,26 @@ $(function () {
 
 
     });
+
+    //붙여넣기 감지
+    $(".inputTextPublic").bind('paste', function (e) {
+        var el = $(this);
+        setTimeout(function () {
+            var text = $(el).val();
+            const words = text.split(' ');
+            if (words.length == 12) {
+                var testimonials = $('.inputTextPublic');
+                for (var i = 0; i < testimonials.length; i++) {
+                    // Using $() to re-wrap the element.
+                    $(testimonials[i]).val(words[i]);
+                }
+            }
+
+        }, 100);
+
+
+    });
+
 
     // 계정 이름 바꾸기
     $('.nameedit_layer button').on('click', function () {

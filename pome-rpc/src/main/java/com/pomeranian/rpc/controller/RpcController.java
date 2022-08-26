@@ -65,7 +65,7 @@ public class RpcController {
 			System.out.println(hashValue);
 			// 해당 해시 value를 스마트컨트렉트에 public_key와 함께 저장한다.
 			
-			strResult = "{ \"result\":\"OK\", \"value\":"+hashValue+"}";
+			strResult = "{ \"result\":\"OK\", \"value\":\""+hashValue+"\"}";
 			
     	}catch(Exception e){
     	    e.printStackTrace();

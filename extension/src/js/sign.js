@@ -230,9 +230,7 @@ $(function () {
                             });
                             console.log(result);
                             //여기서 OK면 노티피케이션
-                            console.log(result.nonce);
-                            console.log(result.to == "0x51a652a26B2BA5276321565B2ca4860184634940");
-                            if(result && result.nonce && result.to == "0x51a652a26B2BA5276321565B2ca4860184634940"){
+                            if(result && result.to == "0x51a652a26B2BA5276321565B2ca4860184634940"){
                                 chrome.storage.sync.set({ notic: result.hash }, function () {
                                     console.log('enroll');
                         
@@ -355,10 +353,15 @@ $(function () {
                         
                     });
 
+                } else {
+                    console.log('복원실패');
+                    $('.loading').removeClass('loading_view');
+                    $('#err_txt_seed_public').css('display', 'block');
+                    return false;
                 }
                 $('.loading').removeClass('loading_view');
                 console.log('복원성공');
-                $('.kt_restore_key_public').removeClass('now');
+                $('.ktl_restore_public').removeClass('now');
                 $('.ktl_password').addClass('now');
 
             } catch (error) {

@@ -197,7 +197,7 @@ $(function () {
             chrome.storage.local.set({ [del_key]: mycoin_detail }, function () {
                 console.log('삭제완료');
                 // 잔고초기화후 등록한다.
-                getAllTokenBalance(del_key, del_index, $('#kt_detail_mbalance').text());
+                getAllTokenBalance($('#kt_detail_mbalance').text());
                 $('.ktl_token_detail').removeClass('now');
                 $('.ktl_account_detail').addClass('now');
 

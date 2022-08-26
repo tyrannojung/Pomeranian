@@ -93,7 +93,6 @@ async function getAllTokenBalance(main_balance) {
         + '</div>'
         + main_balance + " ETH"
         + '</div>'
-        + '<div class="right_icon"></div>'
         + '</li>'
     );
 

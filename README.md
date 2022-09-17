@@ -4,6 +4,7 @@
 
 ## 💡 Introduction
 - 이더리움지갑을 생성,조회,복원할 수 있는 지갑
+- 소개자료 PPT[링크](https://github.com/tyrannojung/Pomeranian/blob/main/ppt.pdf)
 
 ## 과제 목표
 

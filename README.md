@@ -30,6 +30,8 @@ curl -X 'GET' \
 'http://localhost:8085/pome-rpc/{{type}}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
 --data '{"address":""}'
+
+{"result": "string","balance": "string"}
 ```
 
 
@@ -39,6 +41,8 @@ curl -X 'GET' \
 'http://localhost:8085/pome-rpc/token-balance/{{type}}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
 --data '{ "contract_address":"" , "address":"" , "decimal": }'
+
+{"result": "string","balance": "string"}
 ```
 
 
@@ -48,28 +52,28 @@ curl -X 'GET' \
 'http://localhost:8085/pome-rpc/validate{{type}}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
 --data '{"contract_address":""}'
+
+{ "result": "string", "token_detail": { "token_type": "string", "token_contract": "string", "token_img": "string", "token_symbol": "string", "token_decimals": int, "token_volume": int } }
 ```
 
 
-토큰 잔고 가져오기
+백업데이터 가져오기
 ```bash
 curl -X 'GET' \
-'https://kthulu-rpc.nodehome.io/kthulu-rpc/{type}' \ //type [ethereum, klaytn, polygon, solana]
--H 'Content-Type: application/json' \
+'http://localhost:8085/ipfs/{{hash}}' \ // ipfs return hash value
 --data '{"address":""}'
 
 Response body
-{"result": "string","balance": "string"}
+{ "backup": "string" }
 ```
 
 
 
-토큰 잔고 가져오기
+백업데이터 저장하기
 ```bash
-curl -X 'GET' \
-'https://kthulu-rpc.nodehome.io/kthulu-rpc/{type}' \ //type [ethereum, klaytn, polygon, solana]
--H 'Content-Type: application/json' \
---data '{"address":""}'
+curl -X 'POST' \
+'http://localhost:8085/pome-rpc/data-backup' \
+--data json-file
 ```
 
 <img width="488" alt="스크린샷 2022-09-17 오후 1 44 17" src="https://user-images.githubusercontent.com/58019931/190840851-0aa38f1c-956d-421f-8938-e69271f26ae2.png">

@@ -17,7 +17,8 @@
 - ipfs & solidity 활용
 - 잔고, 토큰조회 모듈 api 제작
 - private key를 활용한 대칭키 방식 암호화 알고리즘 사용
-- Business Process
+ 
+**Business Process**
 <img width="1016" alt="스크린샷 2022-09-17 오후 2 18 34" src="https://user-images.githubusercontent.com/58019931/190841750-0c226cdd-7aa3-4abb-b6f2-f914d3c5c382.png">
 <br>
 

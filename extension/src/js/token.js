@@ -48,7 +48,7 @@ $(function () {
         $('#kt_token_detail_decimal').prop('readonly', false);
 
         var type = "ethereum";
-        var hostUrl = "http://localhost:8085/kthulu-rpc/validate/" + type;
+        var hostUrl = "http://localhost:8085/pome-rpc/validate/" + type;
         var params = { contract_address: address }
         $('.loading').addClass('loading_view');
 

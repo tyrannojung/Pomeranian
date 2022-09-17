@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "cd6dc0b0-3aa9-4bb6-896e-82ea17c03b51",
+		"name": "Pomeranian-rpc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "13562169"
+	},
+	"item": [
+		{
+			"name": "Coin",
+			"item": [
+				{
+					"name": "get-balance",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\":\"0xb862F69C4ed0cdBa4a89eB37a15F33A9faE93fE7\"\n}"
+						},
+						"url": "http://localhost:8085/pome-rpc/{{type}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "get-token-balance",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contract_address\":\"0x022E292b44B5a146F2e8ee36Ff44D3dd863C915c\"\n    , \"address\":\"0xFCED72598d28d6e1AE8f4fA1CCB8b10669205823\"\n    , \"decimal\":18\n}"
+						},
+						"url": "http://localhost:8085/pome-rpc/token-balance/ethereum"
+					},
+					"response": []
+				},
+				{
+					"name": "get-contract-validate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contract_address\":\"0x022E292b44B5a146F2e8ee36Ff44D3dd863C915c\"\n}"
+						},
+						"url": "http://localhost:8085/pome-rpc/validate/ethereum"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ipfs",
+			"item": [
+				{
+					"name": "get-data-backup",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:8085/ipfs/{{hash}}"
+					},
+					"response": []
+				},
+				{
+					"name": "set-data-backup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "backup_file",
+									"type": "file",
+									"src": "/Users/jungdawoon/Documents/backupdate.json"
+								}
+							]
+						},
+						"url": "http://localhost:8085/pome-rpc/data-backup"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

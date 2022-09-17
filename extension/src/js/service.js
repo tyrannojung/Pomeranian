@@ -22,7 +22,7 @@ function getBalance() {
 async function getApiBalance(type, address) {
     var value = { result: "FAIL" };
     var address = address;
-    var hostUrl = "http://localhost:8085/kthulu-rpc/" + type;
+    var hostUrl = "http://localhost:8085/pome-rpc/" + type;
     var params = { address: address }
 
     await $.ajax({
@@ -101,7 +101,7 @@ async function getAllTokenBalance(main_balance) {
 async function getApiTokenBalance(type, contract_address, address, decimal) {
     //console.log(type + "," + contract_address + "," + address + "," + decimal);
     var value = { result: "FAIL" };
-    var hostUrl = "http://localhost:8085/kthulu-rpc/token-balance/" + type;
+    var hostUrl = "http://localhost:8085/pome-rpc/token-balance/" + type;
     var contract_address = contract_address;
     var address = address;
     var decimal = decimal;

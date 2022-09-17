@@ -43,14 +43,14 @@ $(function () {
             var mnemonic = "";
 
             // public key로 복원
-            if($('#kt_restore_key_public').val() == 'success'){
+            if ($('#kt_restore_key_public').val() == 'success') {
                 console.log('이더리움으로의 복원');
 
                 $('.ktl_password').removeClass('now');
                 $('.ktl_main').addClass('now');
                 return false;
             }
-            
+
             if ($('#kt_restore_key').val()) {
                 console.log('복원된 키로 회원가입');
                 mnemonic = $('#kt_restore_key').val();
@@ -183,7 +183,7 @@ $(function () {
             $('#kt_backup_public_estimated').text(ethers.utils.formatUnits(finalGasPrice));
 
         });
-       
+
     });
 
     //백업
@@ -206,7 +206,7 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     enctype: "multipart/form-data",
-                    url: "http://localhost:8085/kthulu-rpc/data-backup",
+                    url: "http://localhost:8085/pome-rpc/data-backup",
                     data: formData,
                     crossDomain: true,
                     processData: false,
@@ -230,18 +230,18 @@ $(function () {
                             });
                             console.log(result);
                             //여기서 OK면 노티피케이션
-                            if(result && result.to == "0x51a652a26B2BA5276321565B2ca4860184634940"){
+                            if (result && result.to == "0x51a652a26B2BA5276321565B2ca4860184634940") {
                                 chrome.storage.sync.set({ notic: result.hash }, function () {
                                     console.log('enroll');
-                        
+
                                 });
-                                
+
                                 // 초기화 해줘야 앞전게 남아있지 않다.
                                 chrome.notifications.clear(
-                                    notificationId= "notic",
-                                    callback= () =>{}
+                                    notificationId = "notic",
+                                    callback = () => { }
                                 );
-    
+
                                 chrome.notifications.create("notic", {
                                     type: 'basic',
                                     title: 'Confirmed transaction',
@@ -264,9 +264,9 @@ $(function () {
 
                             }
                         }
-    
+
                     }
-                });    
+                });
             });
         } catch (error) {
             $('.loading').removeClass('loading_view');
@@ -307,70 +307,70 @@ $(function () {
 
     });
 
-        //계정 이더리움 복원
-        $('#kt_restore_chk_public').on('click', async function () {
-            console.log('복원');
-            $('.loading').addClass('loading_view');
+    //계정 이더리움 복원
+    $('#kt_restore_chk_public').on('click', async function () {
+        console.log('복원');
+        $('.loading').addClass('loading_view');
 
-            $('.err_txt').css('display', 'none');
-            var testimonials = $('.inputTextPublic');
-            var mnemonic = new Array();
-            for (var i = 0; i < testimonials.length; i++) {
-                if (!$(testimonials[i]).val() || $(testimonials[i]).val().length > 11) {
-                    $('#err_txt_seed_public').css('display', 'block');
-                    return false;
-                }
-                else
-                    mnemonic.push($(testimonials[i]).val());
+        $('.err_txt').css('display', 'none');
+        var testimonials = $('.inputTextPublic');
+        var mnemonic = new Array();
+        for (var i = 0; i < testimonials.length; i++) {
+            if (!$(testimonials[i]).val() || $(testimonials[i]).val().length > 11) {
+                $('#err_txt_seed_public').css('display', 'block');
+                return false;
             }
-            var result = mnemonic.join(' ');
-            try {
-                let publicwallet = ethers.Wallet.fromMnemonic(result);
-                console.log(publicwallet.address + "," + publicwallet.mnemonic.phrase + "," + publicwallet.privateKey);
-                let provider = new ethers.providers.JsonRpcProvider('https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161');
-                var contractAddress = "0x51a652a26B2BA5276321565B2ca4860184634940";
-                const backupContract = new ethers.Contract(contractAddress, backupABI, provider);
-                let currentValue = await backupContract.getBackupData(publicwallet.address).catch(() => {
-                    console.log('실패');
-                    $('#err_txt_seed_public').css('display', 'block');
-                    return false;
+            else
+                mnemonic.push($(testimonials[i]).val());
+        }
+        var result = mnemonic.join(' ');
+        try {
+            let publicwallet = ethers.Wallet.fromMnemonic(result);
+            console.log(publicwallet.address + "," + publicwallet.mnemonic.phrase + "," + publicwallet.privateKey);
+            let provider = new ethers.providers.JsonRpcProvider('https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161');
+            var contractAddress = "0x51a652a26B2BA5276321565B2ca4860184634940";
+            const backupContract = new ethers.Contract(contractAddress, backupABI, provider);
+            let currentValue = await backupContract.getBackupData(publicwallet.address).catch(() => {
+                console.log('실패');
+                $('#err_txt_seed_public').css('display', 'block');
+                return false;
+
+            });
+            console.log(currentValue);
+            if (currentValue) {
+                $.ajax({
+                    url: 'http://localhost:8085/ipfs/' + currentValue,
+                    type: 'get',
+                }).done(function (res) {
+                    console.log(res.backup);
+                    var decrypted = CryptoJS.AES.decrypt(res.backup, publicwallet.privateKey);
+                    var text = decrypted.toString(CryptoJS.enc.Utf8);
+                    console.log(JSON.parse(text));
+                    var ethereum_list = new Array();
+                    ethereum_list.push(JSON.parse(text));
+                    chrome.storage.local.set({ ethereum: ethereum_list });
+                    $('#kt_restore_key_public').val('success');
 
                 });
-                console.log(currentValue);
-                if(currentValue) {
-                    $.ajax({
-                        url: 'http://localhost:8085/ipfs/' + currentValue,
-                        type: 'get',
-                    }).done(function (res) {
-                        console.log(res.backup);
-                        var decrypted = CryptoJS.AES.decrypt(res.backup, publicwallet.privateKey);
-                        var text = decrypted.toString(CryptoJS.enc.Utf8);
-                        console.log(JSON.parse(text));
-                        var ethereum_list = new Array();            
-                        ethereum_list.push(JSON.parse(text));
-                        chrome.storage.local.set({ ethereum: ethereum_list });
-                        $('#kt_restore_key_public').val('success');
-                        
-                    });
 
-                } else {
-                    console.log('복원실패');
-                    $('.loading').removeClass('loading_view');
-                    $('#err_txt_seed_public').css('display', 'block');
-                    return false;
-                }
-                $('.loading').removeClass('loading_view');
-                console.log('복원성공');
-                $('.ktl_restore_public').removeClass('now');
-                $('.ktl_password').addClass('now');
-
-            } catch (error) {
+            } else {
                 console.log('복원실패');
+                $('.loading').removeClass('loading_view');
                 $('#err_txt_seed_public').css('display', 'block');
-    
+                return false;
             }
-    
-    
-        });
+            $('.loading').removeClass('loading_view');
+            console.log('복원성공');
+            $('.ktl_restore_public').removeClass('now');
+            $('.ktl_password').addClass('now');
+
+        } catch (error) {
+            console.log('복원실패');
+            $('#err_txt_seed_public').css('display', 'block');
+
+        }
+
+
+    });
 
 });

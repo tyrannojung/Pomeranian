@@ -32,6 +32,12 @@ public class IpfsController {
 	private final IpfsUtil ipfsUtil;
 	private final Gson gson;
 	
+	/**
+	 * uploadFile
+	 * @param multipartFile
+	 * @param response
+	 * @return
+	 */
     @PostMapping("/ipfs")
     public String uploadFile(
     		@RequestParam(value="ipfs_file", required=false) List<MultipartFile> multipartFile
@@ -43,7 +49,8 @@ public class IpfsController {
     	try {
     		String hashValue = "";
     		if(multipartFile != null && !multipartFile.get(0).getOriginalFilename().equals("")) {
-    	        for(MultipartFile file:multipartFile) {
+    	        // 다중 처리
+    			for(MultipartFile file:multipartFile) {
     	        		hashValue = ipfsUtil.saveFile(file);
     	        		testArrayList.add(hashValue);
     	            }
@@ -55,26 +62,31 @@ public class IpfsController {
     	    e.printStackTrace();
     	    
     	}
-    	
     	response.setHeader("Access-Control-Allow-Origin", "*");
-    	
-    	logger.info(strResult);
-    	
     	return strResult;
+    	
     }
 
+    /**
+     * getFile
+     * @param hash
+     * @return
+     */
     @GetMapping("/ipfs/{hash}")
     public ResponseEntity<byte[]> getFile(@PathVariable("hash") String hash) {
     	HttpHeaders headers = new HttpHeaders();
         byte[] bytes = ipfsUtil.loadFile(hash);
         String stringFrmJsonByteArray = new String(bytes);
         try {
+        	// JSONType
         	ObjectMapper mapper = new ObjectMapper();
             mapper.readTree(stringFrmJsonByteArray);
             headers.add("Content-Type", "application/json; charset=utf-8");
+            
         } catch (Exception e) {
-        	// json Type이 아닐때, 이미지
+        	// JSONType이 아닐때, 이미지
         	headers.set("Content-type", MediaType.ALL_VALUE);
+        	
 		}
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(bytes);
 

@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.bouncycastle.jcajce.provider.digest.Keccak;
 import org.bouncycastle.util.encoders.Hex;
@@ -24,16 +23,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.pomeranian.common.ipfs.IpfsUtil;
@@ -54,7 +52,13 @@ public class RpcController {
 	@Autowired
 	private IpfsUtil ipfsUtil;
 	
-	@PostMapping(value="/kthulu-rpc/data-backup")
+	/**
+	 * setDataBackup
+	 * @param multipartFile
+	 * @param response
+	 * @return
+	 */
+	@PostMapping(value="/pome-rpc/data-backup")
 	@ResponseBody
 	public String setDataBackup(
 			@RequestParam(value="backup_file", required=false) MultipartFile multipartFile
@@ -62,9 +66,6 @@ public class RpcController {
 		String strResult = "{ \"result\":\"FAIL\" }";
 		try {
 			String hashValue = ipfsUtil.saveFile(multipartFile);
-			System.out.println(hashValue);
-			// 해당 해시 value를 스마트컨트렉트에 public_key와 함께 저장한다.
-			
 			strResult = "{ \"result\":\"OK\", \"value\":\""+hashValue+"\"}";
 			
     	}catch(Exception e){
@@ -74,7 +75,14 @@ public class RpcController {
 		return strResult;
 	}
 	
-	@PostMapping(value="/kthulu-rpc/token-balance/{token_type}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	/**
+	 * getTokenBalance
+	 * @param locale
+	 * @param tokenDTO
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/pome-rpc/token-balance/{token_type}", method = {RequestMethod.GET, RequestMethod.POST}, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getTokenBalance(
 			Locale locale
 			, TokenDTO tokenDTO
@@ -139,7 +147,14 @@ public class RpcController {
 	}
 	
 	
-	@PostMapping(value="/kthulu-rpc/validate/{token_type}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	/**
+	 * valiContract
+	 * @param locale
+	 * @param tokenDTO
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/pome-rpc/validate/{token_type}", method = {RequestMethod.GET, RequestMethod.POST}, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> valiContract(
 			Locale locale
 			, TokenDTO tokenDTO
@@ -226,19 +241,19 @@ public class RpcController {
 			System.out.println(e.getMessage().toString());
 			
 		}
-		System.out.println(strResult);
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(strResult); 
 		
 	}
 	
 	/**
-	 * home
+	 * balanceBridge
 	 * @param locale
-	 * @param session
+	 * @param type
+	 * @param map
 	 * @return
 	 */
 	// consumes  : 들어오는 데이터 타입 정의 Content-Type: application/json
-	@PostMapping(value="/kthulu-rpc/{type}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/pome-rpc/{type}", method = {RequestMethod.GET, RequestMethod.POST}, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> balanceBridge(
 			Locale locale
 			, @PathVariable("type") String type

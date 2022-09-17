@@ -22,9 +22,15 @@
 
 ## 🔖 API 목록
 
+토큰 잔고 가져오기
 ```bash
-/src/main/resources/application-private.properties
+curl -X 'GET' \
+'https://kthulu-rpc.nodehome.io/kthulu-rpc/{type}' \
+-H 'Content-Type: application/json' \
+--data '{"address":""}'
 ```
+type : either of the supported chains [ethereum, klaytn, polygon, solana]
+
 
 <br>
 

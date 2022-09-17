@@ -25,11 +25,11 @@
 토큰 잔고 가져오기
 ```bash
 curl -X 'GET' \
-'https://kthulu-rpc.nodehome.io/kthulu-rpc/{type}' \ type [ethereum, klaytn, polygon, solana]
+'https://kthulu-rpc.nodehome.io/kthulu-rpc/{type}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
 --data '{"address":""}'
 ```
-<img width="492" alt="스크린샷 2022-09-17 오후 1 42 20" src="https://user-images.githubusercontent.com/58019931/190840821-815a1ac6-8e88-450d-9df8-c51ced0f1ed3.png">
+<img width="488" alt="스크린샷 2022-09-17 오후 1 44 17" src="https://user-images.githubusercontent.com/58019931/190840851-0aa38f1c-956d-421f-8938-e69271f26ae2.png">
 
 
 

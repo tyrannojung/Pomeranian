@@ -22,6 +22,35 @@
 
 ## 🔖 API 목록
 
+Postman Export ([링크](https://github.com/tyrannojung/Pomeranian/blob/main/postman.json)) 
+
+메인넷 잔고 가져오기
+```bash
+curl -X 'GET' \
+'http://localhost:8085/pome-rpc/{{type}}' \ //type [ethereum, klaytn, polygon, solana]
+-H 'Content-Type: application/json' \
+--data '{"address":""}'
+```
+
+
+토큰 잔고 가져오기
+```bash
+curl -X 'GET' \
+'http://localhost:8085/pome-rpc/token-balance/{{type}}' \ //type [ethereum, klaytn, polygon, solana]
+-H 'Content-Type: application/json' \
+--data '{ "contract_address":"" , "address":"" , "decimal": }'
+```
+
+
+토큰 컨트랙트 유효성 체크
+```bash
+curl -X 'GET' \
+'http://localhost:8085/pome-rpc/validate{{type}}' \ //type [ethereum, klaytn, polygon, solana]
+-H 'Content-Type: application/json' \
+--data '{"contract_address":""}'
+```
+
+
 토큰 잔고 가져오기
 ```bash
 curl -X 'GET' \
@@ -29,6 +58,16 @@ curl -X 'GET' \
 -H 'Content-Type: application/json' \
 --data '{"address":""}'
 ```
+
+
+토큰 잔고 가져오기
+```bash
+curl -X 'GET' \
+'https://kthulu-rpc.nodehome.io/kthulu-rpc/{type}' \ //type [ethereum, klaytn, polygon, solana]
+-H 'Content-Type: application/json' \
+--data '{"address":""}'
+```
+
 <img width="488" alt="스크린샷 2022-09-17 오후 1 44 17" src="https://user-images.githubusercontent.com/58019931/190840851-0aa38f1c-956d-421f-8938-e69271f26ae2.png">
 
 

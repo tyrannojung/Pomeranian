@@ -57,7 +57,11 @@ curl -X 'GET' \
 'https://kthulu-rpc.nodehome.io/kthulu-rpc/{type}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
 --data '{"address":""}'
+
+Response body
+{"result": "string","balance": "string"}
 ```
+
 
 
 토큰 잔고 가져오기

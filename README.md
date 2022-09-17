@@ -1,7 +1,5 @@
 # 🙋‍♂️ Pomeranian - 블록체인 지갑 프로젝트
 
-![ttt mov](https://user-images.githubusercontent.com/14071105/85921684-d6797a00-b8b8-11ea-8fc4-5dd0f539bb5b.gif)
-
 <br>
 
 ## 💡 Introduction
@@ -24,7 +22,7 @@
 ```bash
 /src/main/resources/application-private.properties
 ```
-- 해당 경로에서 구글,페이스북,애플 로그인에 필요한 값들을 넣어주고 사용한다.
+- 해당 경로에서 이더리움, 클레이튼, 폴리곤, 솔라나의 Web3
 - 추후 application-private.properties는 ignore 처리한다.
 
 

@@ -1,5 +1,7 @@
 # 🙋‍♂️ Pomeranian - 블록체인 지갑 프로젝트
 
+<br>
+
 ## 💡 Introduction
 - 이더리움지갑을 생성,조회,복원할 수 있는 지갑
 
@@ -15,13 +17,17 @@
 - 잔고, 토큰조회 모듈 api 제작
 - private key를 활용한 대칭키 방식 암호화 알고리즘 사용
 
+<br>
+
 ## 🔖 API 목록
 
 ```bash
 /src/main/resources/application-private.properties
 ```
 
-## 사용하기
+<br>
+
+## 🔖 
 
 ```bash
 /src/main/resources/application-private.properties

@@ -95,7 +95,7 @@ Response body
 ## 🔖 사용하기
 
 ```bash
-/src/main/resources/application-private.properties
+Pomeranian/pome-rpc/src/main/resources/application-private.properties
 ```
 - 해당 경로에서 이더리움, 클레이튼, 폴리곤, 솔라나 key값 입력 (infura.io, klaytnapi, polygon-rpc, quiknode)
 - 추후 application-private.properties는 ignore 처리한다.

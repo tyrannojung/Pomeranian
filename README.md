@@ -27,7 +27,7 @@
 
 <br>
 
-## 🔖 
+## 🔖 사용하기
 
 ```bash
 /src/main/resources/application-private.properties

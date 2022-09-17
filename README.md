@@ -29,6 +29,7 @@ curl -X 'GET' \
 -H 'Content-Type: application/json' \
 --data '{"address":""}'
 ```
+<img width="618" alt="스크린샷 2022-09-08 오전 11 31 28" src="https://user-images.githubusercontent.com/58019931/190840805-ed3728e9-7bfe-47e3-85a7-d974d8978d60.png">
 
 
 <br>

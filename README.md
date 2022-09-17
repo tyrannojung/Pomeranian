@@ -31,6 +31,7 @@ curl -X 'GET' \
 -H 'Content-Type: application/json' \
 --data '{"address":""}'
 
+Response body
 {"result": "string","balance": "string"}
 ```
 
@@ -42,6 +43,7 @@ curl -X 'GET' \
 -H 'Content-Type: application/json' \
 --data '{ "contract_address":"" , "address":"" , "decimal": }'
 
+Response body
 {"result": "string","balance": "string"}
 ```
 
@@ -53,6 +55,7 @@ curl -X 'GET' \
 -H 'Content-Type: application/json' \
 --data '{"contract_address":""}'
 
+Response body
 { "result": "string", "token_detail": { "token_type": "string", "token_contract": "string", "token_img": "string", "token_symbol": "string", "token_decimals": int, "token_volume": int } }
 ```
 
@@ -74,6 +77,9 @@ Response body
 curl -X 'POST' \
 'http://localhost:8085/pome-rpc/data-backup' \
 --data json-file
+
+Response body
+{ "result":"string", "value":"string"}
 ```
 
 ## EXAMPLE

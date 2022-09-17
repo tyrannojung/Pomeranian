@@ -1,5 +1,5 @@
 # 🙋‍♂️ Pomeranian - 블록체인 지갑 프로젝트
-<center>![ezgif-3-8eaf8bb5e4](https://user-images.githubusercontent.com/58019931/190843605-c055c1a8-0546-4d8f-b42a-7c81b4a2609a.gif)</center>
+![ezgif-3-8eaf8bb5e4](https://user-images.githubusercontent.com/58019931/190843605-c055c1a8-0546-4d8f-b42a-7c81b4a2609a.gif)
 
 
 <br>

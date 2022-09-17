@@ -26,7 +26,6 @@
 
 - 메인넷 잔고 가져오기
 ```bash
-Curl
 curl -X 'GET' \
 'http://localhost:8085/pome-rpc/{{type}}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
@@ -39,7 +38,6 @@ Response body
 
 - 토큰 잔고 가져오기
 ```bash
-Curl
 curl -X 'GET' \
 'http://localhost:8085/pome-rpc/token-balance/{{type}}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
@@ -52,7 +50,6 @@ Response body
 
 - 토큰 컨트랙트 유효성 체크
 ```bash
-Curl
 curl -X 'GET' \
 'http://localhost:8085/pome-rpc/validate{{type}}' \ //type [ethereum, klaytn, polygon, solana]
 -H 'Content-Type: application/json' \
@@ -65,7 +62,6 @@ Response body
 
 - 백업데이터 가져오기
 ```bash
-Curl
 curl -X 'GET' \
 'http://localhost:8085/ipfs/{{hash}}' \ // ipfs return hash value
 --data '{"address":""}'
@@ -78,7 +74,6 @@ Response body
 
 - 백업데이터 저장하기
 ```bash
-Curl
 curl -X 'POST' \
 'http://localhost:8085/pome-rpc/data-backup' \
 --data json-file

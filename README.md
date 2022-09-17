@@ -97,9 +97,15 @@ Response body
 ```bash
 /src/main/resources/application-private.properties
 ```
-- 해당 경로에서 이더리움, 클레이튼, 폴리곤, 솔라나의 Web3
+- 해당 경로에서 이더리움, 클레이튼, 폴리곤, 솔라나 key값 입력 (infura.io, klaytnapi, polygon-rpc, quiknode)
 - 추후 application-private.properties는 ignore 처리한다.
-
-
-![화면 캡처 2022-09-16 180721](https://user-images.githubusercontent.com/58019931/190601557-3e651a9d-599c-43f6-b128-8d38f53a0f60.png)
+- ipfs서버(5001) 입력
+```bash
+Pomeranian/pome-rpc/
+```
+- spring project 서버 실행
+```bash
+Pomeranian/extension/
+```
+- extension 크롬 등록 시작
 

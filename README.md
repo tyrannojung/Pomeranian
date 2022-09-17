@@ -22,7 +22,7 @@
 
 ## 🔖 API 목록
 
-Postman Export ([링크](https://github.com/tyrannojung/Pomeranian/blob/main/postman.json)) 
+- Postman Export ([링크](https://github.com/tyrannojung/Pomeranian/blob/main/postman.json)) 
 
 - 메인넷 잔고 가져오기
 ```bash
